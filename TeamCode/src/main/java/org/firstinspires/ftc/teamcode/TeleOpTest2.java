@@ -25,7 +25,7 @@ public class TeleOpTest2 extends LinearOpMode{
     private Servo rservo;
 
 
-    HardwareMap hwMap           =  null;
+    HardwareMap hwMap =  null;
 
     public void init(HardwareMap ahwMap) {
         // Save reference to Hardware map

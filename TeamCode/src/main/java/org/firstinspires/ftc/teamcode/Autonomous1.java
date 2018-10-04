@@ -55,7 +55,7 @@ public class Autonomous1 extends LinearOpMode {
         ElapsedTime eTime = new ElapsedTime();
 //        eTime.reset();//not needed, checkout the default constructor//REMOVE
 //        while (eTime.time() < 2.0) {//REMOVE (put in method)
-//             Thread.sleep(10);//poll time. don't make calls in instantly, waiting as little as 10 ms greatly deceases processing needed
+//             Thread.sleep(10);//poll time. don't make calls in instantly, waiting as little as 10 ms greatly deceases processing needed...maybe?TODO CHECK
 //        }
 
         waitForETime(eTime,2 * 1000);//wait two seconds
@@ -67,18 +67,21 @@ public class Autonomous1 extends LinearOpMode {
 
         //turn?
         //left
-        lf_motor.setPower(FORWARD_SPEED /2);
+        lf_motor.setPower(FORWARD_SPEED /2);//half speed..?
         lb_motor.setPower(FORWARD_SPEED /2);
 
         //right
         rf_motor.setPower(-FORWARD_SPEED /2);
         lf_motor.setPower(-FORWARD_SPEED /2);
         eTime.reset();//reuse the same etime inst
-        waitForETime(eTime,1);
+        waitForETime(eTime,1*1000);
+        setAllDriveMoters(FORWARD_SPEED);
 
+        //drive forward till red line?
+        while(sensey.red() < 255/3/*making a rough guess*/){
+            Thread.sleep(10);
+        }
         setAllDriveMoters(0);
-
-
 
     }
 
@@ -124,6 +127,8 @@ public class Autonomous1 extends LinearOpMode {
         rf_motor.setPower(speed);
         rb_motor.setPower(speed);
     }
+
+
 
 
 
