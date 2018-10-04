@@ -8,6 +8,10 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 
+import org.firstinspires.ftc.robotcore.external.Func;
+
+import java.util.concurrent.TimeUnit;
+
 
 @Autonomous(name="auto1", group="Pushbot")
 //@Disabled
@@ -43,20 +47,33 @@ public class Autonomous1 extends LinearOpMode {
         telemetry.update();
         waitForStart();
         knocker.setPosition(1);
-        telemetry.addData("RED", sensey.red());
-        //lf_motor.setPower(forwardSpeed);
-        //lb_motor.setPower(forwardSpeed);
-        //rf_motor.setPower(forwardSpeed);
-        //rb_motor.setPower(forwardSpeed);
-
+//        telemetry.addData("RED", sensey.red());//replace with
+        telemetry.addData("RED",new Func<String>() {//lamba would have been used by java version is capped at 1.7 :(
+            @Override
+            public String value() {
+                return sensey.red() + "";
+            }
+        });//sends red value everytime telemtry.update() is called TODO VERIFY THIS WORKS
+        setAllDriveMoters(forwardSpeed);
         ElapsedTime eTime = new ElapsedTime();
-
         eTime.reset();
-
         while (eTime.time() < 2.0) {
-
+             Thread.sleep(10);//poll time. don't make calls in instantly, waiting as little as 10 ms greatly deceases processing needed
         }
+        setAllDriveMoters(0);//stop moving after 2 seconds, ~+10ms
+
+        //maybe?
+        telemetry.addData("Runtime",runtime.time(TimeUnit.MILLISECONDS));
+        telemetry.update();
     }
+
+    private void setAllDriveMoters(double speed){
+        lf_motor.setPower(speed);
+        lb_motor.setPower(speed);
+        rf_motor.setPower(speed);
+        rb_motor.setPower(speed);
+    }
+
 }
 
 
