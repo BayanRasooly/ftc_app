@@ -145,7 +145,6 @@ public class TeleOpTest2 extends LinearOpMode{
     //  rf_motor.setPower(-power);
     //  rb_motor.setPower(power);
     //  }
-
     public void closeServo(double position) {
         lservo.setPosition(position);
         rservo.setPosition(1-position);
