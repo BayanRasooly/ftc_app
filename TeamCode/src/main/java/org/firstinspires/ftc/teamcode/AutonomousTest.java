@@ -33,7 +33,6 @@ public class AutonomousTest extends LinearOpMode{
     HardwareMap hwMap = null;
 
     public void init(HardwareMap hwMap) {
-
         left_motor = hwMap.dcMotor.get("Left Motor");
         right_motor = hwMap.dcMotor.get("Right Motor");
         climb = hwMap.dcMotor.get("Climbing Motor");
@@ -42,6 +41,7 @@ public class AutonomousTest extends LinearOpMode{
         left_sensey = hwMap.colorSensor.get("Left Color Sensor");
         right_sensey = hwMap.colorSensor.get("Right Color Sensor");
     }
+
     public void runOpMode() throws InterruptedException {
         init(hardwareMap);
         telemetry.addData("Status", "Ready to run");
