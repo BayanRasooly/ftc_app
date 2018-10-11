@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode.carson;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Func;
 
+@Autonomous(name="Carson Auto One", group="Carson")
 public class CarsonAutoOne extends LinearOpMode{
 
     private Robot robot;
