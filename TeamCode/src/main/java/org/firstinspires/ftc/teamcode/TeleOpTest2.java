@@ -10,8 +10,8 @@ import static android.R.attr.left;
 import static android.R.attr.right;
 import static android.R.transition.move;
 
-
-@TeleOp(name="tele2", group="Pushbot")
+//make sure to change!
+@TeleOp(name="tele2", group="test")
 //@Disabled
 public class TeleOpTest2 extends LinearOpMode{
 

@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
-@TeleOp(name="tele2", group="Pushbot")
+@TeleOp(name="tele_actual", group="Pushbot")
 //@Disabled
 public class TeleOp_Actual extends LinearOpMode{
 
@@ -39,7 +39,7 @@ public class TeleOp_Actual extends LinearOpMode{
         waitForStart();
         while(opModeIsActive()) {
 
-            float speed = 0.5
+            float speed = 0.5f;
 
             if(gamepad1.right_trigger != 0)
             {
