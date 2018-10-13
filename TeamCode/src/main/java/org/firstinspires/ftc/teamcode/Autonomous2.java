@@ -14,7 +14,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 import java.util.concurrent.TimeUnit;
 
-@Autonomous(name="auto1", group="Pushbot")
+@Autonomous(name="auto2", group="Pushbot")
 public class Autonomous2 extends LinearOpMode {
 
     private DcMotor lf_motor;
