@@ -9,6 +9,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+
 @Autonomous(name="Auto Test", group="Robot")
 
 public class AutonomousTest extends LinearOpMode{
@@ -87,6 +89,31 @@ public class AutonomousTest extends LinearOpMode{
         return Math.abs(right_sensey.red() - /*red value*/1)<bound;
     }
 
+    private void align() {
+        int bound = 1;
+        if(Math.abs(aligment()) < bound){
+            return;
+        }
+        if(aligment() > 0){
+            left_motor.setPower(1);
+        }else{
+            right_motor.setPower(0);
+        }
+
+        while(Math.abs(aligment()) > bound){
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        left_motor.setPower(0);
+        right_motor.setPower(0);
+    }
+
+    private double aligment(){
+        return left_distance.getDistance(DistanceUnit.INCH) - right_distance.getDistance(DistanceUnit.INCH);
+    }
 
 
     public void encoderDrive(double speed,
