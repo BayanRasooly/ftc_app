@@ -19,10 +19,7 @@ public class TeleOpTest2 extends LinearOpMode{
     private DcMotor rf_motor;
     private DcMotor rb_motor;
     private DcMotor lift;
-    private Servo lservo;
-    private Servo rservo;
-
-
+    
     HardwareMap hwMap =  null;
     //test
     public void init(HardwareMap ahwMap) {
@@ -122,13 +119,5 @@ public class TeleOpTest2 extends LinearOpMode{
             }
             idle();
         }
-    }
-    public void closeServo(double position) {
-        lservo.setPosition(position);
-        rservo.setPosition(1-position);
-    }
-    public void openServo(double position) {
-        lservo.setPosition(position);
-        rservo.setPosition(1-position);
     }
 }
