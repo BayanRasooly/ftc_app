@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.core;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Func;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
@@ -29,42 +31,41 @@ public class Encoder {
     }
 
     public void encoderDrive(double speed, double left, double right, int time, Func<Boolean> func){
-//        if(!op.opModeIsActive()){
-//            return;
-//        }
-//        int newLeftTarget = robot.left_motor.getCurrentPosition() + (int)(left * Robot.counts_per_inch);
-//        int newRightTarget = robot.right_motor.getCurrentPosition() + (int)(right * Robot.counts_per_inch);
-//
-//
-//        robot.left_motor.setTargetPosition(newLeftTarget);
-//        robot.right_motor.setTargetPosition(newRightTarget);
-//
-//        robot.left_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//        robot.right_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//
-//        ElapsedTime timer = new ElapsedTime();
-//
-//        robot.left_motor.setPower(Math.abs(speed));
-//        robot.left_motor.setPower(Math.abs(speed));
-//
-//
-//        while (op.opModeIsActive() &&
-//                (timer.seconds() < time) &&
-//                (robot.left_motor.isBusy() && robot.right_motor.isBusy()) &&
-//                func.value()) {
-//            try {
-//                Thread.sleep(1000);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-//        robot.left_motor.setPower(0);
-//        robot.right_motor.setPower(0);
-//
-//        robot.left_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//        robot.right_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        if(!op.opModeIsActive()){
+            return;
+        }
+        int newLeftTarget = robot.l_motor.getCurrentPosition() + (int)(left * Robot.counts_per_inch);
+        int newRightTarget = robot.r_motor.getCurrentPosition() + (int)(right * Robot.counts_per_inch);
 
+
+        robot.l_motor.setTargetPosition(newLeftTarget);
+        robot.r_motor.setTargetPosition(newRightTarget);
+
+        robot.l_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.r_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        ElapsedTime timer = new ElapsedTime();
+
+        robot.l_motor.setPower(Math.abs(speed));
+        robot.l_motor.setPower(Math.abs(speed));
+
+
+        while (op.opModeIsActive() &&
+                (timer.seconds() < time) &&
+                (robot.l_motor.isBusy() && robot.r_motor.isBusy()) &&
+                func.value()) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        robot.l_motor.setPower(0);
+        robot.r_motor.setPower(0);
+
+        robot.l_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.r_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     public void encoderDrive(double speed, double left,double right, int time){
