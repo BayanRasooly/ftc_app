@@ -14,7 +14,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 @Autonomous(name="Auto Test", group="Robot")
 
-public class AutonomousTest extends LinearOpMode{
+public class ClaimZoneAuto extends LinearOpMode{
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -81,11 +81,34 @@ public class AutonomousTest extends LinearOpMode{
         if (!minerals[1]) {
             encoderDrive(1, minerals[0] ? -5 : 5, minerals[2] ? -5 : 5, 1);
             encoderDrive(1, 5, 5 ,  1);
+            align();
+            //drive forward
+            encoderDrive(1,5,5,1);
+            //turn
+            encoderDrive(1,5,-5,1);//TODO change betweening
+            //drive to claim zone
+            left_motor.setPower(1);
+            right_motor.setPower(1);
+            while(!leftInBounds()){
+                Thread.sleep(10);
+            }
+            left_motor.setPower(0);
+            right_motor.setPower(0);
+            claim();
+            align();
         } else {
             encoderDrive(1, 5, 5 ,  1);
+            claim();
+            encoderDrive(1,1,-1,1);
+            align();
         }
-
+        encoderDrive(10000,-288,-288,9999);
     }
+
+    private void claim() {
+        throw new AssertionError("what are you doing, write this method before calling");
+    }
+
     private static final double bound = 3;
     private boolean leftInBounds(){
         return Math.abs(left_sensey.red() - /*red value*/1) < bound;
