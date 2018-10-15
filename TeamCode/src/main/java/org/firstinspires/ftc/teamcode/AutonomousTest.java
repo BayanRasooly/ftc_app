@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -25,6 +26,8 @@ public class AutonomousTest extends LinearOpMode{
     private Servo rb_servo;// Right Bar Servo
     private ColorSensor left_sensey;
     private ColorSensor right_sensey;
+    private DistanceSensor left_distance;
+    private DistanceSensor right_distance;
 
     static final double     counts_per_motor_rev    = 100/6 ;    // eg: TETRIX Motor Encoder 560 1120
     static final double     drive_gear_reduction    = 1 ;     // This is < 1.0 if geared UP 20
@@ -43,6 +46,8 @@ public class AutonomousTest extends LinearOpMode{
         rb_servo = hwMap.servo.get("Right Bar Motor");
         left_sensey = hwMap.colorSensor.get("Left Color Sensor");
         right_sensey = hwMap.colorSensor.get("Right Color Sensor");
+        left_distance = (DistanceSensor) hwMap.opticalDistanceSensor.get("Left Distance Sensor");
+        right_distance = (DistanceSensor) hwMap.opticalDistanceSensor.get("Right Distance Sensor");
     }
     public void runOpMode() throws InterruptedException {
         init(hardwareMap);
