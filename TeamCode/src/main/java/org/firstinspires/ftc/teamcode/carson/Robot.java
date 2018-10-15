@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.carson;
 
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -16,6 +17,8 @@ public class Robot {
     final Servo rb_servo;// Right Bar Servo
     final ColorSensor left_sensey;
     final ColorSensor right_sensey;
+    final DistanceSensor left_distance;
+    final DistanceSensor right_distance;
     
     public Robot(HardwareMap map) {
         this.map = map;
@@ -26,10 +29,9 @@ public class Robot {
         rb_servo = map.servo.get("Right Bar Motor");
         left_sensey = map.colorSensor.get("Left Color Sensor");
         right_sensey = map.colorSensor.get("Right Color Sensor");
+        left_distance = (DistanceSensor) map.opticalDistanceSensor.get("Left Distance Sensor");
+        right_distance = (DistanceSensor) map.opticalDistanceSensor.get("Right Distance Sensor");
     }
-
-
-
 
 
     static final double     counts_per_inch;
