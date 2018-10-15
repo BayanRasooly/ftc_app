@@ -4,14 +4,17 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+
 @Autonomous(name="Auto Test", group="Robot")
 
-public class AutonomousTest extends LinearOpMode{
+public class ClaimZoneAuto extends LinearOpMode{
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -23,6 +26,8 @@ public class AutonomousTest extends LinearOpMode{
     private Servo rb_servo;// Right Bar Servo
     private ColorSensor left_sensey;
     private ColorSensor right_sensey;
+    private DistanceSensor left_distance;
+    private DistanceSensor right_distance;
 
     static final double     counts_per_motor_rev    = 100/6 ;    // eg: TETRIX Motor Encoder 560 1120
     static final double     drive_gear_reduction    = 1 ;     // This is < 1.0 if geared UP 20
@@ -40,6 +45,8 @@ public class AutonomousTest extends LinearOpMode{
         rb_servo = hwMap.servo.get("Right Bar Motor");
         left_sensey = hwMap.colorSensor.get("Left Color Sensor");
         right_sensey = hwMap.colorSensor.get("Right Color Sensor");
+        left_distance = (DistanceSensor) hwMap.opticalDistanceSensor.get("Left Distance Sensor");
+        right_distance = (DistanceSensor) hwMap.opticalDistanceSensor.get("Right Distance Sensor");
     }
 
     public void runOpMode() throws InterruptedException {
@@ -74,11 +81,34 @@ public class AutonomousTest extends LinearOpMode{
         if (!minerals[1]) {
             encoderDrive(1, minerals[0] ? -5 : 5, minerals[2] ? -5 : 5, 1);
             encoderDrive(1, 5, 5 ,  1);
+            align();
+            //drive forward
+            encoderDrive(1,5,5,1);
+            //turn
+            encoderDrive(1,5,-5,1);//TODO change betweening
+            //drive to claim zone
+            left_motor.setPower(1);
+            right_motor.setPower(1);
+            while(!leftInBounds()){
+                Thread.sleep(10);
+            }
+            left_motor.setPower(0);
+            right_motor.setPower(0);
+            claim();
+            align();
         } else {
             encoderDrive(1, 5, 5 ,  1);
+            claim();
+            encoderDrive(1,1,-1,1);
+            align();
         }
-
+        encoderDrive(10000,-288,-288,9999);
     }
+
+    private void claim() {
+        throw new AssertionError("what are you doing, write this method before calling");
+    }
+
     private static final double bound = 3;
     private boolean leftInBounds(){
         return Math.abs(left_sensey.red() - /*red value*/1) < bound;
@@ -87,6 +117,31 @@ public class AutonomousTest extends LinearOpMode{
         return Math.abs(right_sensey.red() - /*red value*/1)<bound;
     }
 
+    private void align() {
+        int bound = 1;
+        if(Math.abs(aligment()) < bound){
+            return;
+        }
+        if(aligment() > 0){
+            left_motor.setPower(1);
+        }else{
+            right_motor.setPower(0);
+        }
+
+        while(Math.abs(aligment()) > bound){
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        left_motor.setPower(0);
+        right_motor.setPower(0);
+    }
+
+    private double aligment(){
+        return left_distance.getDistance(DistanceUnit.INCH) - right_distance.getDistance(DistanceUnit.INCH);
+    }
 
 
     public void encoderDrive(double speed,
