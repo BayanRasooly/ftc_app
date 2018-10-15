@@ -9,10 +9,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class Robot {
     private final HardwareMap map;
 
-    public final DcMotor rb_motor;
-    public final DcMotor lb_motor;
-    public final DcMotor rf_motor;
-    public final DcMotor lf_motor;
+    public final DcMotor r_motor;
+    public final DcMotor l_motor;
 
 
 
@@ -28,10 +26,8 @@ public class Robot {
     
     public Robot(HardwareMap map) {
         this.map = map;
-        rb_motor = map.dcMotor.get("Right Back Motor");
-        lb_motor = map.dcMotor.get("Left Back Motor");
-        rf_motor = map.dcMotor.get("Right Front Motor");
-        lf_motor = map.dcMotor.get("Left Front Motor");
+        r_motor = map.dcMotor.get("Right Back Motor");
+        l_motor = map.dcMotor.get("Left Motor");
 
         climb = map.dcMotor.get("Climbing Motor");
         lb_servo = map.servo.get("Left Bar Motor");

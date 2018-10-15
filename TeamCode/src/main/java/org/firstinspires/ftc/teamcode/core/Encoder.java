@@ -16,13 +16,11 @@ public class Encoder {
 
 
     public void setLeftMotorPower(double speed){
-        robot.lf_motor.setPower(speed);
-        robot.lb_motor.setPower(speed);
+        robot.l_motor.setPower(speed);
     }
 
     public void setRightMotorPower(double speed){
-        robot.rf_motor.setPower(speed);
-        robot.rb_motor.setPower(speed);
+        robot.r_motor.setPower(speed);
     }
 
     public void setBothMotorPower(double speed){
