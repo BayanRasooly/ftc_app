@@ -4,12 +4,11 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.external.Func;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 import java.util.concurrent.TimeUnit;
 
-import static org.firstinspires.ftc.teamcode.carson.StaticEncoder.*;
+import static org.firstinspires.ftc.teamcode.carson.Encoder.*;
 
 @Autonomous(name="Carson Auto One", group="Carson")
 public class CarsonAutoOne extends LinearOpMode{
