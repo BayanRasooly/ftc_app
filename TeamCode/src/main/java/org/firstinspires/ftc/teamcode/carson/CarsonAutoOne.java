@@ -2,8 +2,12 @@ package org.firstinspires.ftc.teamcode.carson;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Func;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+
+import java.util.concurrent.TimeUnit;
 
 import static org.firstinspires.ftc.teamcode.carson.StaticEncoder.*;
 
@@ -18,24 +22,43 @@ public class CarsonAutoOne extends LinearOpMode{
         setOp(this);
         setRobot(robot);
 
-
-        //uses methods
-        setLeftMotorPower(1);
-        setRightMotorPower(1);
-        setBothMotorPower(0);
-
-        encoderDrive(1, 10, 10, 5, new Func<Boolean>() {
-            @Override
-            public Boolean value() {
-                return robot.left_sensey.red() > 100;
+        robot.climb.setPower(10);
+        ElapsedTime timer = new ElapsedTime();
+        while(timer.time(TimeUnit.SECONDS) < 2){
+            try {
+                wait(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-        });//drive 10 inches forward, or 5 seconds, or until red values are over 100
+        }
+        robot.climb.setPower(0);
+        encoderDrive(1,10);
+        align();
 
-        encoderDrive(1,10,10,5);//drive 10 in forward, or 5 seconds
+    }
 
-        encoderDrive(1,10,10);//drive 10 in forward, no timeout
+    private void align() {
+        int bound = 1;
+        if(Math.abs(aligment()) < bound){
+            return;
+        }
+        if(aligment() > 0){
+           setLeftMotorPower(1);
+        }else if(aligment() < 0){
+            setRightMotorPower(1);
+        }
+        while(Math.abs(aligment()) > bound){
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        setBothMotorPower(0);
+    }
 
-        encoderDrive(1,10);//drive 10in forward, no timeout, both motors are the same
+    private double aligment(){
+        return robot.left_distance.getDistance(DistanceUnit.INCH) - robot.right_distance.getDistance(DistanceUnit.INCH);
     }
 
 }

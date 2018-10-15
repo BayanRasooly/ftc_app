@@ -32,7 +32,7 @@ public class Robot {
         left_distance = (DistanceSensor) map.opticalDistanceSensor.get("Left Distance Sensor");
         right_distance = (DistanceSensor) map.opticalDistanceSensor.get("Right Distance Sensor");
     }
-    
+
     static final double     counts_per_inch;
     static{
         double     counts_per_motor_rev    = 100/6 ;    // eg: TETRIX Motor Encoder 560 1120
