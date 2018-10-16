@@ -24,10 +24,7 @@ public class TeleOpTest2 extends LinearOpMode{
     Encoder en;
     public boolean moveForwards(float speed){
         try{
-            lf_motor.setPower(speed);
-            lb_motor.setPower(speed);
-            rf_motor.setPower(speed);
-            rb_motor.setPower(speed);
+            en.setBothMotorPower(speed);
         }
         catch(Throwable t){
             return false;
@@ -36,10 +33,7 @@ public class TeleOpTest2 extends LinearOpMode{
     }
     public boolean moveBackwards(float speed){
         try{
-            lf_motor.setPower(-speed);
-            lb_motor.setPower(-speed);
-            rf_motor.setPower(-speed);
-            rb_motor.setPower(-speed);
+            en.setBothMotorPower(-speed);
         }
         catch(Throwable t){
             return false;
@@ -48,10 +42,8 @@ public class TeleOpTest2 extends LinearOpMode{
     }
     public boolean turnCounterclockwise(float speed){
         try{
-            lf_motor.setPower(-speed);
-            lb_motor.setPower(speed);
-            rf_motor.setPower(-speed);
-            rb_motor.setPower(speed);
+            en.setRightMotorPower(speed);
+            en.setLeftMotorPower(-speed);
         }
         catch(Throwable t){
             return false;
@@ -59,11 +51,9 @@ public class TeleOpTest2 extends LinearOpMode{
         return true;
     }
     public boolean turnClockwise(float speed){
-        try{
-            lf_motor.setPower(speed);
-            lb_motor.setPower(-speed);
-            rf_motor.setPower(speed);
-            rb_motor.setPower(-speed);
+        try {
+            en.setRightMotorPower(-speed);
+            en.setLeftMotorPower(speed);
         }
         catch(Throwable t){
             return false;
@@ -74,10 +64,7 @@ public class TeleOpTest2 extends LinearOpMode{
         return true;
     }
     public boolean pause(){
-        lf_motor.setPower(0.0);
-        lb_motor.setPower(0.0);
-        rf_motor.setPower(0.0);
-        rb_motor.setPower(0.0);
+        en.setBothMotorPower(0);
         return true;
     }
     public boolean align(){
