@@ -26,7 +26,7 @@ public class TeleOpTest2 extends LinearOpMode{
         try{
             en.setBothMotorPower(speed);
         }
-        catch(Throwable t){
+        catch(RuntimeException t){
             return false;
         }
         return true;
@@ -35,7 +35,7 @@ public class TeleOpTest2 extends LinearOpMode{
         try{
             en.setBothMotorPower(-speed);
         }
-        catch(Throwable t){
+        catch(RuntimeException t){
             return false;
         }
         return true:
@@ -45,7 +45,7 @@ public class TeleOpTest2 extends LinearOpMode{
             en.setRightMotorPower(speed);
             en.setLeftMotorPower(-speed);
         }
-        catch(Throwable t){
+        catch(RuntimeException t){
             return false;
         }
         return true;
@@ -55,7 +55,7 @@ public class TeleOpTest2 extends LinearOpMode{
             en.setRightMotorPower(-speed);
             en.setLeftMotorPower(speed);
         }
-        catch(Throwable t){
+        catch(RuntimeException t){
             return false;
         }
         return true;
