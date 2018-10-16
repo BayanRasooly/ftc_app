@@ -68,8 +68,9 @@ public class TeleOpTest2 extends LinearOpMode{
         return true;
     }
     public boolean align(){
-        double margin = 0.50;
-        while(rDistanceSensor.getDistance(DistanceUnit.INCH))
+//        double margin = 0.50;
+//        while(rDistanceSensor.getDistance(DistanceUnit.INCH))
+        en.align();//margin is set within the method
     }
     @Override
     public void runOpMode() throws InterruptedException{
