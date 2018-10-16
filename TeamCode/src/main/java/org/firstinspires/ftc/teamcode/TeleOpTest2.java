@@ -4,7 +4,11 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
+
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 import static android.R.attr.left;
 import static android.R.attr.right;
@@ -19,7 +23,9 @@ public class TeleOpTest2 extends LinearOpMode{
     private DcMotor rf_motor;
     private DcMotor rb_motor;
     private DcMotor lift;
-    
+    private DistanceSensor rDistanceSensor;
+    private DistanceSensor lDistanceSensor;
+
     HardwareMap hwMap =  null;
     //test
     public void init(HardwareMap ahwMap) {
@@ -30,8 +36,8 @@ public class TeleOpTest2 extends LinearOpMode{
         rf_motor   = hwMap.dcMotor.get("rf_drive");
         rb_motor  = hwMap.dcMotor.get("rb_drive");
         lift = hwMap.dcMotor.get("lift");
-        lservo = hwMap.servo.get("lservo");
-        rservo = hwMap.servo.get("rservo");
+        rDistanceSensor = (DistanceSensor)hwMap.dcMotor.get("right distance sensor");
+        lDistanceSensor = (DistanceSensor)hwMap.dcMotor.get("left distance sensor");
     }
     public boolean moveForwards(float speed){
         try{
@@ -81,12 +87,20 @@ public class TeleOpTest2 extends LinearOpMode{
         }
         return true;
     }
+    public boolean quickTurn(float degree){
+        return true;
+    }
     public boolean pause(){
         lf_motor.setPower(0.0);
         lb_motor.setPower(0.0);
         rf_motor.setPower(0.0);
         rb_motor.setPower(0.0);
         return true;
+    }
+    public boolean align(){
+        DistanceUnit
+        double margin = 0.50;
+        while(rDistanceSensor.getDistance())
     }
     @Override
     public void runOpMode() throws InterruptedException{
@@ -105,6 +119,9 @@ public class TeleOpTest2 extends LinearOpMode{
             else if(gamepad1.left_trigger != 0)
             {
                 moveBackwards(speed);
+            }
+            else if(gamepad1.left_trigger != 0 && gamepad1.right_trigger != 0){
+
             }
             else if(gamepad1.dpad_left)
             {
