@@ -118,8 +118,18 @@ public class Encoder {
         setBothMotorPower(0);
     }
 
-    private double aligment(){
+    public double aligment(){
         return robot.left_distance.getDistance(DistanceUnit.INCH) - robot.right_distance.getDistance(DistanceUnit.INCH);
     }
+
+
+    public void unsafeWait(long ms){
+        try {
+            Thread.sleep(ms);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

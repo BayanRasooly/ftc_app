@@ -24,11 +24,7 @@ public class CarsonAutoOne extends LinearOpMode{
         robot.climb.setPower(10);
         ElapsedTime timer = new ElapsedTime();
         while(timer.time(TimeUnit.SECONDS) < 2){
-            try {
-                wait(10);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            en.unsafeWait(10);
         }
         robot.climb.setPower(0);
         en.encoderDrive(1,10);
