@@ -26,7 +26,8 @@ public class TeleOpTest2 extends LinearOpMode{
         try{
             en.setBothMotorPower(speed);
         }
-        catch(Throwable t){
+        catch(RuntimeException t){
+            t.printStackTrace();
             return false;
         }
         return true;
@@ -35,17 +36,19 @@ public class TeleOpTest2 extends LinearOpMode{
         try{
             en.setBothMotorPower(-speed);
         }
-        catch(Throwable t){
+        catch(RuntimeException t){
+            t.printStackTrace();
             return false;
         }
-        return true:
+        return true;
     }
     public boolean turnCounterclockwise(float speed){
         try{
             en.setRightMotorPower(speed);
             en.setLeftMotorPower(-speed);
         }
-        catch(Throwable t){
+        catch(RuntimeException t){
+            t.printStackTrace();
             return false;
         }
         return true;
@@ -55,32 +58,46 @@ public class TeleOpTest2 extends LinearOpMode{
             en.setRightMotorPower(-speed);
             en.setLeftMotorPower(speed);
         }
-        catch(Throwable t){
+        catch(RuntimeException t){
             return false;
         }
         return true;
     }
     public boolean quickTurn(float degree){
-        return true;
+        throw new AssertionError("Hasn't been written yet - can't be called");
     }
+
     public boolean pause(){
-        en.setBothMotorPower(0);
+        try {
+            en.setBothMotorPower(0);
+        }catch (RuntimeException e){
+            e.printStackTrace();
+            return false;
+        }
         return true;
     }
+
     public boolean align(){
-        double margin = 0.50;
-        while(rDistanceSensor.getDistance(DistanceUnit.INCH))
+//        double margin = 0.50;
+//        while(rDistanceSensor.getDistance(DistanceUnit.INCH))
+        try {
+            en.align();//margin is set within the method
+        }catch(RuntimeException e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
+
     @Override
-    public void runOpMode() throws InterruptedException{
+    public void runOpMode() {
         robot = new Robot(hardwareMap);
         en = new Encoder(robot,this);
         telemetry.addData("Status", "Ready to run");
         telemetry.update();
         waitForStart();
         while(opModeIsActive()) {
-            float speed = (gamepad1.y)? 1f : 0.5f;
-
+            float speed = (gamepad1.y)? 1f : 0.5f;//fast mode?
             if(gamepad1.right_trigger != 0)
             {
                 moveForwards(speed);
