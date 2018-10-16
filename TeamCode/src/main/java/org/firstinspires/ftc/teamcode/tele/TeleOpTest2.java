@@ -38,7 +38,7 @@ public class TeleOpTest2 extends LinearOpMode{
         catch(RuntimeException t){
             return false;
         }
-        return true:
+        return true;
     }
     public boolean turnCounterclockwise(float speed){
         try{
