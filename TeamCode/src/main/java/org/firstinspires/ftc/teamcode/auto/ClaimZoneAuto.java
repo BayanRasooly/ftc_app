@@ -25,14 +25,9 @@ public class ClaimZoneAuto extends LinearOpMode{
         telemetry.addData("Status", "Ready to run");
         telemetry.update();
         waitForStart();
-        ElapsedTime eTime = new ElapsedTime();
-        while (eTime.time() <= 3) {
-            robot.climb.setPower(-SPEED);
-        }
-        robot.climb.setPower(0);
+        en.lower(SPEED);
         robot.left_sensey.enableLed(true);
         robot.right_sensey.enableLed(true);
-
         if(!en.leftInBounds() || !en.rightInBounds()){
             if(!en.leftInBounds()){
                 en.setLeftMotorPower(SPEED);

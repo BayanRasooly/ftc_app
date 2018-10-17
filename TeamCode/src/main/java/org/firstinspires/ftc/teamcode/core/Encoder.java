@@ -114,6 +114,14 @@ public class Encoder {
         return robot.left_distance.getDistance(DistanceUnit.INCH) - robot.right_distance.getDistance(DistanceUnit.INCH);
     }
 
+    public void lower(float speed){
+        ElapsedTime eTime = new ElapsedTime();
+        while (eTime.time() <= 3) {
+            robot.climb.setPower(-speed);
+        }
+        robot.climb.setPower(0);
+    }
+
     /**
      * Will call Thread.sleep(ms), but will catch any exceptions thrown due to thread interruptions
      * @param ms how long to sleep
