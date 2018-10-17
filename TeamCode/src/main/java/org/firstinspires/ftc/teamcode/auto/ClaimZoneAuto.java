@@ -15,6 +15,9 @@ public class ClaimZoneAuto extends LinearOpMode{
 
     Robot robot;
     Encoder en;
+    
+    public static final int SPEED = 1;
+    
 
     public void runOpMode() throws InterruptedException {
         robot = new Robot(hardwareMap);
@@ -24,7 +27,7 @@ public class ClaimZoneAuto extends LinearOpMode{
         waitForStart();
         ElapsedTime eTime = new ElapsedTime();
         while (eTime.time() <= 3) {
-            robot.climb.setPower(-1);
+            robot.climb.setPower(-SPEED);
         }
         robot.climb.setPower(0);
         robot.left_sensey.enableLed(true);
@@ -32,37 +35,37 @@ public class ClaimZoneAuto extends LinearOpMode{
 
         if(!en.leftInBounds() || !en.rightInBounds()){
             if(!en.leftInBounds()){
-                en.setLeftMotorPower(1);
+                en.setLeftMotorPower(SPEED);
                 while(!en.leftInBounds()){
-                    wait(10);
+                    en.wait(10);
                 }
                 en.setLeftMotorPower(0);
             }
-            en.setRightMotorPower(1);
+            en.setRightMotorPower(SPEED);
             while(!en.rightInBounds()){
-                wait(10);
+                en.wait(10);
             }
             en.setRightMotorPower(0);
         }
 
-        boolean[] minerals = new boolean[]{true,false,false};//write a randomizer?
+        boolean[] minerals = MineralReader.read(robot);
 
         robot.lb_servo.setPosition(0);
         robot.rb_servo.setPosition(0);
 
         if (!minerals[1]) {
-            en.encoderDrive(1, minerals[0] ? -5 : 5, minerals[2] ? -5 : 5);
-            en.encoderDrive(1, 5);
+            en.encoderDrive(SPEED, minerals[0] ? -5 : 5, minerals[2] ? -5 : 5);
+            en.encoderDrive(SPEED, 5);
             en.align();
             //drive forward
-            en.encoderDrive(1,5);
+            en.encoderDrive(SPEED,5);
 
             //turn
-            int mult = minerals[0]?-1:1;//HARD
-            en.encoderDrive(1,mult*-5,mult*5);//HARD
+            int mult = minerals[0]?-SPEED:SPEED;//HARD
+            en.encoderDrive(SPEED,mult*-5,mult*5);//HARD
 
             //drive to claim zone
-            en.setBothMotorPower(1);
+            en.setBothMotorPower(SPEED);
             while(!en.leftInBounds()){//test for the left color sensor, shouldn't matter
                 en.unsafeWait(10);
             }
@@ -70,12 +73,12 @@ public class ClaimZoneAuto extends LinearOpMode{
             en.claim();
             en.align();
         } else {
-            en.encoderDrive(1, 5);
+            en.encoderDrive(SPEED, 5);
             en.claim();
-            en.encoderDrive(1,1,-1);
+            en.encoderDrive(SPEED,1,-1);
             en.align();
         }
-        en.encoderDrive(1,-288);
+        en.encoderDrive(SPEED,-288);
     }
 
 
