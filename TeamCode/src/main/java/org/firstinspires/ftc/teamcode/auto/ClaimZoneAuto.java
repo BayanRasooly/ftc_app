@@ -33,11 +33,15 @@ public class ClaimZoneAuto extends LinearOpMode{
         if(!en.leftInBounds() || !en.rightInBounds()){
             if(!en.leftInBounds()){
                 en.setLeftMotorPower(1);
-                while(!en.leftInBounds()){}
+                while(!en.leftInBounds()){
+                    wait(10);
+                }
                 en.setLeftMotorPower(0);
             }
             en.setRightMotorPower(1);
-            while(!en.rightInBounds()){}
+            while(!en.rightInBounds()){
+                wait(10);
+            }
             en.setRightMotorPower(0);
         }
 
@@ -47,15 +51,15 @@ public class ClaimZoneAuto extends LinearOpMode{
         robot.rb_servo.setPosition(0);
 
         if (!minerals[1]) {
-            en.encoderDrive(1, minerals[0] ? -5 : 5, minerals[2] ? -5 : 5, 1);
-            en.encoderDrive(1, 5, 5 ,  1);
+            en.encoderDrive(1, minerals[0] ? -5 : 5, minerals[2] ? -5 : 5);
+            en.encoderDrive(1, 5);
             en.align();
             //drive forward
-            en.encoderDrive(1,5,5,1);
+            en.encoderDrive(1,5);
 
             //turn
-            int mult = minerals[0]?-1:1;
-            en.encoderDrive(1,mult*-5,mult*5,1);
+            int mult = minerals[0]?-1:1;//HARD
+            en.encoderDrive(1,mult*-5,mult*5);//HARD
 
             //drive to claim zone
             en.setBothMotorPower(1);
@@ -66,12 +70,12 @@ public class ClaimZoneAuto extends LinearOpMode{
             en.claim();
             en.align();
         } else {
-            en.encoderDrive(1, 5, 5 ,  1);
+            en.encoderDrive(1, 5);
             en.claim();
-            en.encoderDrive(1,1,-1,1);
+            en.encoderDrive(1,1,-1);
             en.align();
         }
-        en.encoderDrive(10000,-288,-288,9999);
+        en.encoderDrive(1,-288);
     }
 
 
