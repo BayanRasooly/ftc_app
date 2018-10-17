@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.core.Encoder;
 import org.firstinspires.ftc.teamcode.core.Robot;
 
-@Autonomous(name="Auto Test", group="Robot")
+@Autonomous(name="Claim Zone Auto", group="Robot")
 
 public class ClaimZoneAuto extends LinearOpMode{
 
