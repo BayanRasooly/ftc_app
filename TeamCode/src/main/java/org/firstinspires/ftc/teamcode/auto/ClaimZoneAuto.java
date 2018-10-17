@@ -52,8 +52,11 @@ public class ClaimZoneAuto extends LinearOpMode{
             en.align();
             //drive forward
             en.encoderDrive(1,5,5,1);
+
             //turn
-            en.encoderDrive(1,5,-5,1);//TODO change betweening
+            int mult = minerals[0]?-1:1;
+            en.encoderDrive(1,mult*-5,mult*5,1);
+
             //drive to claim zone
             en.setBothMotorPower(1);
             while(!en.leftInBounds()){
