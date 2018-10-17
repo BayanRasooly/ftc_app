@@ -28,7 +28,6 @@ public class Robot {
         this.map = map;
         r_motor = map.dcMotor.get("Right Back Motor");
         l_motor = map.dcMotor.get("Left Motor");
-
         climb = map.dcMotor.get("Climbing Motor");
         lb_servo = map.servo.get("Left Bar Motor");
         rb_servo = map.servo.get("Right Bar Motor");

@@ -45,7 +45,7 @@ public class ClaimZoneAuto extends LinearOpMode{
             en.setRightMotorPower(0);
         }
 
-        boolean[] minerals = new boolean[]{true,false,false};
+        boolean[] minerals = new boolean[]{true,false,false};//write a randomizer?
 
         robot.lb_servo.setPosition(0);
         robot.rb_servo.setPosition(0);
@@ -63,8 +63,8 @@ public class ClaimZoneAuto extends LinearOpMode{
 
             //drive to claim zone
             en.setBothMotorPower(1);
-            while(!en.leftInBounds()){
-                Thread.sleep(10);
+            while(!en.leftInBounds()){//test for the left color sensor, shouldn't matter
+                en.unsafeWait(10);
             }
             en.setBothMotorPower(0);
             en.claim();

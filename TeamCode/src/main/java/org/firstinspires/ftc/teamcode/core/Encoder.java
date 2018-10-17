@@ -54,11 +54,7 @@ public class Encoder {
                 (timer.seconds() < time) &&
                 (robot.l_motor.isBusy() && robot.r_motor.isBusy()) &&
                 func.value()) {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            unsafeWait(100);
         }
 
         robot.l_motor.setPower(0);
@@ -108,18 +104,27 @@ public class Encoder {
             setRightMotorPower(1);
         }
 
-        while(Math.abs(aligment()) > bound){
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+        while(Math.abs(aligment()) > bound)
+            unsafeWait(10);
+
         setBothMotorPower(0);
     }
 
-    private double aligment(){
+    public double aligment(){
         return robot.left_distance.getDistance(DistanceUnit.INCH) - robot.right_distance.getDistance(DistanceUnit.INCH);
     }
+
+    /**
+     * Will call Thread.sleep(ms), but will catch any exceptions thrown due to thread interruptions
+     * @param ms how long to sleep
+     */
+    public void unsafeWait(long ms){
+        try {
+            Thread.sleep(ms);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }
