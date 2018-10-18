@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.core;
 
+import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
@@ -18,10 +19,13 @@ public class Robot {
     //do servos later
     public final Servo lb_servo;// Left Bar Servo
     public final Servo rb_servo;// Right Bar Servo
+
     public final ColorSensor left_sensey;
     public final ColorSensor right_sensey;
     public final DistanceSensor left_distance;
     public final DistanceSensor right_distance;
+
+    public final AnalogInput ana;
 
     
     public Robot(HardwareMap map) {
@@ -35,6 +39,7 @@ public class Robot {
         right_sensey = map.colorSensor.get("Right Color Sensor");
         left_distance = (DistanceSensor) map.opticalDistanceSensor.get("Left Distance Sensor");
         right_distance = (DistanceSensor) map.opticalDistanceSensor.get("Right Distance Sensor");
+        ana = map.analogInput.get("ana");
     }
 
     public static final double     counts_per_inch;
