@@ -95,22 +95,22 @@ public class Encoder {
 
     public void align(DcMotor leftMotor, DcMotor rightMotor, DistanceSensor leftSensy,DistanceSensor rightSensy) {
         int bound = 1;
-        if(Math.abs(aligment(leftSensy,rightSensy)) < bound){
+        if(Math.abs(alignment(leftSensy,rightSensy)) < bound){
             return;
         }
-        if(aligment(leftSensy,rightSensy) > 0){
+        if(alignment(leftSensy,rightSensy) > 0){
             setLeftMotorPower(leftMotor,1);
         }else{
             setRightMotorPower(rightMotor,1);
         }
 
-        while(Math.abs(aligment(leftSensy,rightSensy)) > bound)
+        while(Math.abs(alignment(leftSensy,rightSensy)) > bound)
             unsafeWait(10);
 
         setBothMotorPower(rightMotor,leftMotor,0);
     }
 
-    public double aligment(DistanceSensor leftSensy,DistanceSensor rightSensy){
+    public double alignment(DistanceSensor leftSensy,DistanceSensor rightSensy){
         return leftSensy.getDistance(DistanceUnit.INCH) - rightSensy.getDistance(DistanceUnit.INCH);
     }
 
