@@ -1,71 +1,71 @@
 package org.firstinspires.ftc.teamcode.core;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Func;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 public class Encoder {
-    private Robot robot;
     private LinearOpMode op;
 
-    public Encoder(Robot robot,LinearOpMode op){
-        this.robot = robot;
+    public Encoder(LinearOpMode op){
         this.op = op;
     }
 
 
-    public void setLeftMotorPower(double speed){
-        robot.l_motor.setPower(speed);
+    public void setLeftMotorPower(DcMotor motor,double speed){
+        motor.setPower(speed);
     }
 
-    public void setRightMotorPower(double speed){
-        robot.r_motor.setPower(speed);
+    public void setRightMotorPower(DcMotor motor,double speed){
+        motor.setPower(speed);
     }
 
-    public void setBothMotorPower(double speed){
-        setLeftMotorPower(speed);
-        setRightMotorPower(speed);
+    public void setBothMotorPower(DcMotor a,DcMotor b,double speed){
+        setLeftMotorPower(a,speed);
+        setRightMotorPower(b,speed);
     }
 
-    public void encoderDrive(double speed, double left, double right, int time, Func<Boolean> func){
+    public void encoderDrive(DcMotor leftMotor, DcMotor rightMotor,double speed, double left, double right, int time, Func<Boolean> func){
         if(!op.opModeIsActive()){
             return;
         }
-        int newLeftTarget = robot.l_motor.getCurrentPosition() + (int)(left * Robot.counts_per_inch);
-        int newRightTarget = robot.r_motor.getCurrentPosition() + (int)(right * Robot.counts_per_inch);
+        int newLeftTarget = leftMotor.getCurrentPosition() + (int)(left * Robot.counts_per_inch);
+        int newRightTarget = rightMotor.getCurrentPosition() + (int)(right * Robot.counts_per_inch);
 
 
-        robot.l_motor.setTargetPosition(newLeftTarget);
-        robot.r_motor.setTargetPosition(newRightTarget);
+        leftMotor.setTargetPosition(newLeftTarget);
+        rightMotor.setTargetPosition(newRightTarget);
 
-        robot.l_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.r_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         ElapsedTime timer = new ElapsedTime();
 
-        robot.l_motor.setPower(Math.abs(speed));
-        robot.l_motor.setPower(Math.abs(speed));
+        leftMotor.setPower(Math.abs(speed));
+        rightMotor.setPower(Math.abs(speed));
 
 
         while (op.opModeIsActive() &&
                 (timer.seconds() < time) &&
-                (robot.l_motor.isBusy() && robot.r_motor.isBusy()) &&
+                (leftMotor.isBusy() && rightMotor.isBusy()) &&
                 func.value()) {
             unsafeWait(100);
         }
 
-        robot.l_motor.setPower(0);
-        robot.r_motor.setPower(0);
+        leftMotor.setPower(0);
+        rightMotor.setPower(0);
 
-        robot.l_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.r_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    public void encoderDrive(double speed, double left,double right, int time){
-        encoderDrive(speed,left,right,time,new Func<Boolean>(){
+    public void encoderDrive(DcMotor leftMotor, DcMotor rightMotor,double speed, double left,double right, int time){
+        encoderDrive(leftMotor,rightMotor,speed,left,right,time,new Func<Boolean>(){
             @Override
             public Boolean value() {
                 return true;
@@ -73,12 +73,12 @@ public class Encoder {
         });
     }
 
-    public void encoderDrive(double speed, double left, double right){
-        encoderDrive(speed,left,right,Integer.MAX_VALUE/2);
+    public void encoderDrive(DcMotor leftMotor, DcMotor rightMotor,double speed, double left, double right){
+        encoderDrive(leftMotor,rightMotor,speed,left,right,Integer.MAX_VALUE/2);
     }
 
-    public void encoderDrive(double speed, double distance){
-        encoderDrive(speed,distance,distance);
+    public void encoderDrive(DcMotor leftMotor, DcMotor rightMotor,double speed, double distance){
+        encoderDrive(leftMotor,rightMotor,speed,distance,distance);
     }
 
     public void claim() {
@@ -86,40 +86,40 @@ public class Encoder {
     }
 
     private static final double bound = 3;
-    public boolean leftInBounds(){
-        return Math.abs(robot.left_sensey.red() - /*red value*/1) < bound;
+    public boolean leftInBounds(ColorSensor sensor){
+        return Math.abs(sensor.red() - /*red value*/1) < bound;
     }
-    public boolean rightInBounds(){
-        return Math.abs(robot.right_sensey.red() - /*red value*/1)<bound;
+    public boolean rightInBounds(ColorSensor sensor){
+        return Math.abs(sensor.red() - /*red value*/1)<bound;
     }
 
-    public void align() {
+    public void align(DcMotor leftMotor, DcMotor rightMotor, DistanceSensor leftSensy,DistanceSensor rightSensy) {
         int bound = 1;
-        if(Math.abs(aligment()) < bound){
+        if(Math.abs(aligment(leftSensy,rightSensy)) < bound){
             return;
         }
-        if(aligment() > 0){
-            setLeftMotorPower(1);
+        if(aligment(leftSensy,rightSensy) > 0){
+            setLeftMotorPower(leftMotor,1);
         }else{
-            setRightMotorPower(1);
+            setRightMotorPower(rightMotor,1);
         }
 
-        while(Math.abs(aligment()) > bound)
+        while(Math.abs(aligment(leftSensy,rightSensy)) > bound)
             unsafeWait(10);
 
-        setBothMotorPower(0);
+        setBothMotorPower(rightMotor,leftMotor,0);
     }
 
-    public double aligment(){
-        return robot.left_distance.getDistance(DistanceUnit.INCH) - robot.right_distance.getDistance(DistanceUnit.INCH);
+    public double aligment(DistanceSensor leftSensy,DistanceSensor rightSensy){
+        return leftSensy.getDistance(DistanceUnit.INCH) - rightSensy.getDistance(DistanceUnit.INCH);
     }
 
-    public void lower(float speed){
+    public void lower(DcMotor climb,float speed){
         ElapsedTime eTime = new ElapsedTime();
         while (eTime.time() <= 3) {
-            robot.climb.setPower(-speed);
+            climb.setPower(-speed);
         }
-        robot.climb.setPower(0);
+        climb.setPower(0);
     }
 
     /**
