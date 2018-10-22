@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.core.Robot;
 import java.util.Arrays;
 
 public class MineralReader {
-    public static boolean[] read(Robot r){
+    public static boolean[] read(){
         boolean[] arr = new boolean[3];
         Arrays.fill(arr,false);
         arr[(int) (Math.random()*3)] = true;
