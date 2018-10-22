@@ -30,7 +30,7 @@ public class Encoder {
         setRightMotorPower(b,speed);
     }
 
-    public void encoderDrive(DcMotor leftMotor, DcMotor rightMotor,double speed, double left, double right, int time, Func<Boolean> func){
+    public void encoderDrive(DcMotor leftMotor, DcMotor rightMotor, double speed, double left, double right, int time, Func<Boolean> func){
         if(!op.opModeIsActive()){
             return;
         }
