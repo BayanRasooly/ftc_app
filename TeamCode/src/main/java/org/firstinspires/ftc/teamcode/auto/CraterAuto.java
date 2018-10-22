@@ -92,7 +92,7 @@ public class CraterAuto extends LinearOpMode {
         en.encoderDrive(l_motor, r_motor, SPEED,5);//drive to wall
         en.encoderDrive(l_motor, r_motor, SPEED,-5,5);//turn to claim
         en.align(l_motor, r_motor, left_distance, right_distance);//may be needed, may waste time
-        en.encoderDrive(l_motor, r_motor, SPEED,144); {
+        en.encoderDrive(l_motor, r_motor, SPEED,144); new Func<Boolean>(){
             @Override
             public Boolean value() {
                 return en.rightInBounds(right_sensey) || en.leftInBounds(left_sensey);
