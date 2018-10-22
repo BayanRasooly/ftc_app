@@ -68,7 +68,8 @@ public class TeleOpTest2 extends LinearOpMode{
 
     public boolean pause(){
         try {
-            en.setBothMotorPower(0);
+            r_motor.setPower(0);
+            l_motor.setPower(0);
         }catch (RuntimeException e){
             e.printStackTrace();
             return false;
