@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.auto;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
@@ -10,9 +10,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.core.Encoder;
 
-@Autonomous(name="Claim Zone Auto", group="Robot")
+@Autonomous(name="Claim Zone Auto SAFE", group="Robot")
 
-public class ClaimZoneAuto extends LinearOpMode{
+public class ClaimZoneAutoSAFE extends LinearOpMode{
 
 
 
@@ -81,16 +81,16 @@ public class ClaimZoneAuto extends LinearOpMode{
         lb_servo.setPosition(0);
         rb_servo.setPosition(0);
 
-        if (!minerals[1]) {
-            en.encoderDrive(l_motor, r_motor, SPEED, minerals[0] ? -5 : 5, minerals[2] ? -5 : 5);
-            en.encoderDrive(l_motor, r_motor, SPEED, 5);
+        if (!minerals[1]) {//if side mineral
+            en.encoderDrive(l_motor, r_motor, SPEED, minerals[0] ? -5 : 5, minerals[2] ? -5 : 5);//turn to mineral
+            en.encoderDrive(l_motor, r_motor, SPEED, 5);//drive forward
             en.align(l_motor,r_motor,left_distance,right_distance);
             //drive forward
             en.encoderDrive(l_motor, r_motor, SPEED,5);
 
             //turn
-            int mult = minerals[0]?-SPEED:SPEED;//HARD
-            en.encoderDrive(l_motor, r_motor, SPEED,mult*-5,mult*5);//HARD
+            int mult = minerals[0]?-SPEED:SPEED;
+            en.encoderDrive(l_motor, r_motor, SPEED,mult*-5,mult*5);
 
             //drive to claim zone
             en.setBothMotorPower(r_motor,l_motor,SPEED);
@@ -99,6 +99,8 @@ public class ClaimZoneAuto extends LinearOpMode{
             }
             en.setBothMotorPower(r_motor,l_motor,0);
             en.claim();
+            if(minerals[2])//SAFE CODE
+                en.encoderDrive(l_motor,r_motor,SPEED,5,-5);//SAFE CODE turn to drive backwards the other way
             en.align(l_motor,r_motor,left_distance,right_distance);
         } else {
             en.encoderDrive(l_motor, r_motor, SPEED, 5);
