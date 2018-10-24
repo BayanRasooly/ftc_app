@@ -13,7 +13,6 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class TeleOp_Actual extends LinearOpMode{
 
-    Robot robot;
     public DcMotor r_motor;
     public DcMotor l_motor;
 
