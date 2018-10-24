@@ -14,10 +14,11 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class TeleOp_Actual extends LinearOpMode{
 
     Robot robot;
+    public DcMotor r_motor;
+    public DcMotor l_motor;
 
     @Override
     public void runOpMode() throws InterruptedException{
-        robot = new Robot(hardwareMap);
         telemetry.addData("Status", "Ready to run");
         telemetry.update();
         waitForStart();
@@ -27,26 +28,26 @@ public class TeleOp_Actual extends LinearOpMode{
 
             if(gamepad1.right_trigger != 0)
             {
-                robot.l_motor.setPower(speed);
-                robot.r_motor.setPower(-speed);
+                l_motor.setPower(speed);
+                r_motor.setPower(-speed);
             }
             else if(gamepad1.left_trigger != 0)
             {
-                robot.l_motor.setPower(-speed);
-                robot.r_motor.setPower(speed);
+                l_motor.setPower(-speed);
+                r_motor.setPower(speed);
             }
             else if(gamepad1.dpad_up)
             {
-                robot.l_motor.setPower(speed);
-                robot.r_motor.setPower(speed);
+                l_motor.setPower(speed);
+                r_motor.setPower(speed);
             }
             else if(gamepad1.dpad_down)
             {
-                robot.l_motor.setPower(-speed);
-                robot.r_motor.setPower(-speed);
+                l_motor.setPower(-speed);
+                r_motor.setPower(-speed);
             } else {
-                robot.l_motor.setPower(0.0);
-                robot.r_motor.setPower(0.0);
+                l_motor.setPower(0.0);
+                r_motor.setPower(0.0);
             }
             idle();
         }
