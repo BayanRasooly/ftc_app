@@ -12,7 +12,6 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Func;
 import org.firstinspires.ftc.teamcode.core.Encoder;
-import org.firstinspires.ftc.teamcode.core.Robot;
 
 @Autonomous(name="Crater Auto", group="Robot")
 public class CraterAuto extends LinearOpMode {
@@ -80,7 +79,7 @@ public class CraterAuto extends LinearOpMode {
             en.setRightMotorPower(r_motor, SPEED);
         }//COPIED
 
-        boolean[] minerals = MineralReader.read();
+        boolean[] minerals = MineralReader.random();
         if(!minerals[1]){
             int mult = minerals[0]?1:-1;
             en.encoderDrive(l_motor, r_motor, SPEED, mult * -5, mult * 5);

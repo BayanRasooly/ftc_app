@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
@@ -10,7 +9,6 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.core.Encoder;
-import org.firstinspires.ftc.teamcode.core.Robot;
 
 @Autonomous(name="Claim Zone Auto", group="Robot")
 
@@ -75,7 +73,7 @@ public class ClaimZoneAuto extends LinearOpMode{
             en.setRightMotorPower(r_motor,0);
         }
 
-        boolean[] minerals = MineralReader.read();
+        boolean[] minerals = MineralReader.random();
 
         lb_servo.setPosition(0);
         rb_servo.setPosition(0);

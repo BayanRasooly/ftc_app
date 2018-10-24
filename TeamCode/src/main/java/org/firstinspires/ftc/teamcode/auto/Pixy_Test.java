@@ -17,11 +17,12 @@ public class Pixy_Test extends LinearOpMode {
 
     HardwareMap hwMap = null;
     private AnalogInputController controller = null;
-    AnalogInput controller1 = new AnalogInput(controller,0);
+    AnalogInput controller1;// = new AnalogInput(controller,0);
 
     public void init(HardwareMap ahwMap) {
         hwMap = ahwMap;
         controller1 = hwMap.analogInput.get("ana");
+
 
     }
             /*
@@ -49,6 +50,8 @@ public class Pixy_Test extends LinearOpMode {
                 return index++ + "";
             }
         });
+
+
 
         while(opModeIsActive()) {
             //push telemetry to phone
