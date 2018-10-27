@@ -25,22 +25,19 @@ public class TeleOp_AutoTest extends LinearOpMode{
         }
     }
     public float lefty(){
-        if ((-gamepad1.left_stick_y - gamepad1.left_stick_x) >= 1){
-            return 1;
-        }else if((-gamepad1.left_stick_y - gamepad1.left_stick_x) <= -1){
-            return -1;
-        }else{
-            return (-gamepad1.left_stick_y - gamepad1.left_stick_x);
-        }
+        return floor(-gamepad1.left_stick_y - gamepad1.left_stick_x);
     }
+
     public float righty(){
-        if ((-gamepad1.left_stick_y + gamepad1.left_stick_x) >= 1){
+        return floor(-gamepad1.left_stick_y + gamepad1.left_stick_x);
+    }
+
+    private float floor(float in){
+        if(in >= 1)
             return 1;
-        }else if((-gamepad1.left_stick_y + gamepad1.left_stick_x) <= -1){
+        if(in <= -1)
             return -1;
-        }else{
-            return (-gamepad1.left_stick_y + gamepad1.left_stick_x);
-        }
+        return in;
     }
 }
 
