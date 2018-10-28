@@ -13,21 +13,23 @@ import com.qualcomm.robotcore.hardware.Servo;
 @TeleOp(name="tele_actual", group="Pushbot")
 
 public class TeleOp_Actual extends LinearOpMode{
+    HardwareMap hwMap = null;
 
     public DcMotor r_motor;
     public DcMotor l_motor;
 
-    public DcMotor climb;
+    public DcMotor lift;
 
-    public Servo lb_servo;// Left Bar Servo
-    public Servo rb_servo;// Right Bar Servo
+    public Servo lbar_servo;// Left Bar Servo
+    public Servo rbar_servo;// Right Bar Servo
 
-    private void initMap(){
-        r_motor = hardwareMap.dcMotor.get("Right Back Motor");
-        l_motor = hardwareMap.dcMotor.get("Left Motor");
-        climb = hardwareMap.dcMotor.get("Climbing Motor");
-        lb_servo = hardwareMap.servo.get("Left Bar Motor");
-        rb_servo = hardwareMap.servo.get("Right Bar Motor");
+    public void init(HardwareMap ahwMap) {
+        hwMap = ahwMap;
+        r_motor = hardwareMap.dcMotor.get("R_Drive");
+        l_motor = hardwareMap.dcMotor.get("L_Drive");
+        lift = hardwareMap.dcMotor.get("Climbing Motor");
+        lbar_servo = hardwareMap.servo.get("Left Bar Motor");
+        rbar_servo = hardwareMap.servo.get("Right Bar Motor");
     }
     @Override
     public void runOpMode() throws InterruptedException{
@@ -35,35 +37,45 @@ public class TeleOp_Actual extends LinearOpMode{
         telemetry.update();
         waitForStart();
         while(opModeIsActive()) {
-            float left_speed = 0;
-            float right_speed = 0;
-            double speed = 0.5;
+            //left motor
+            float left_speed = lefty();
+            l_motor.setPower(left_speed);
+            telemetry.addData("Left Track", left_speed);
+            telemetry.update();
+            //right motor
+            float right_speed =  righty();
+            r_motor.setPower(right_speed);
+            telemetry.addData("Right Track", right_speed);
+            telemetry.update();
+            //Lift Motor
+            elevator();
 
-            /*if(gamepad1.right_trigger != 0)
-            {
-                l_motor.setPower(speed);
-                r_motor.setPower(-speed);
-            }
-            else if(gamepad1.left_trigger != 0)
-            {
-                l_motor.setPower(-speed);
-                r_motor.setPower(speed);
-            }
-            else if(gamepad1.dpad_up)
-            {
-                l_motor.setPower(speed);
-                r_motor.setPower(speed);
-            }
-            else if(gamepad1.dpad_down)
-            {
-                l_motor.setPower(-speed);
-                r_motor.setPower(-speed);
-            } else {
-                l_motor.setPower(0.0);
-                r_motor.setPower(0.0);
-            }
-            idle();
-            */
+        }
+    }
+
+    public void elevator() {
+        if (gamepad2.left_trigger > 0) {
+            lift.setPower(-gamepad2.left_trigger);
+        }else{
+            lift.setPower(gamepad2.right_trigger);
+        }
+    }
+    public float lefty(){
+        if ((-gamepad1.left_stick_y + gamepad1.left_stick_x) >= 1){
+            return 1;
+        }else if((-gamepad1.left_stick_y + gamepad1.left_stick_x) <= -1){
+            return -1;
+        }else{
+            return (-gamepad1.left_stick_y + gamepad1.left_stick_x);
+        }
+    }
+    public float righty(){
+        if ((-gamepad1.left_stick_y - gamepad1.left_stick_x) >= 1){
+            return 1;
+        }else if((-gamepad1.left_stick_y - gamepad1.left_stick_x) <= -1){
+            return -1;
+        }else{
+            return (-gamepad1.left_stick_y - gamepad1.left_stick_x);
         }
     }
 }
