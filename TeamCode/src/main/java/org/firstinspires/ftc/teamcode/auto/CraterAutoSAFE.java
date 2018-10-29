@@ -109,6 +109,6 @@ public class CraterAutoSAFE extends LinearOpMode {
             }
         };
         en.claim();
-        en.encoderDrive(l_motor, r_motor, SPEED,144);g
+        en.encoderDrive(l_motor, r_motor, SPEED,144);
     }
 }
