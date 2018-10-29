@@ -17,19 +17,25 @@ public class TeleOp_Actual extends LinearOpMode{
 
     public DcMotor r_motor;
     public DcMotor l_motor;
-
+    public boolean bar = false;
+    public boolean dumper = false;
     public DcMotor lift;
+    public DcMotor l_intake;
+    public DcMotor r_intake;
 
-    public Servo lbar_servo;// Left Bar Servo
-    public Servo rbar_servo;// Right Bar Servo
+    public Servo l_bar;// Left Bar Servo
+    public Servo r_bar;// Right Bar Servo
+
+    public Servo l_dump;//Left Dumper Servo
+    public Servo r_dump;//Right Dumper Servo
 
     public void init(HardwareMap ahwMap) {
         hwMap = ahwMap;
         r_motor = hardwareMap.dcMotor.get("R_Drive");
         l_motor = hardwareMap.dcMotor.get("L_Drive");
         lift = hardwareMap.dcMotor.get("Climbing Motor");
-        lbar_servo = hardwareMap.servo.get("Left Bar Motor");
-        rbar_servo = hardwareMap.servo.get("Right Bar Motor");
+        l_bar = hardwareMap.servo.get("L_Bar");
+        r_bar = hardwareMap.servo.get("R_Bar");
     }
     @Override
     public void runOpMode() throws InterruptedException{
@@ -49,10 +55,40 @@ public class TeleOp_Actual extends LinearOpMode{
             telemetry.update();
             //Lift Motor
             elevator();
+            bar();
+            dumper();
+            intake();
 
         }
     }
-
+    public void intake(){
+        if(gamepad2.y){
+            l_intake.setPower(1);
+            r_intake.setPower(1);
+        }
+    }
+    public void dumper(){
+        if(gamepad2.left_bumper && !dumper){
+            dumper = true;
+            l_dump.setPosition(1);
+            r_dump.setPosition(1);
+        }else if(gamepad2.left_bumper && dumper){
+            dumper = false;
+            l_dump.setPosition(0);
+            r_dump.setPosition(0);
+        }
+    }
+    public void bar(){
+        if(gamepad2.right_bumper && !bar){
+            bar = true;
+            l_bar.setPosition(1);
+            r_bar.setPosition(1);
+        }else if(gamepad2.right_bumper && bar){
+            bar = false;
+            l_bar.setPosition(.5);
+            r_bar.setPosition(.5);
+        }
+    }
     public void elevator() {
         if (gamepad2.left_trigger > 0) {
             lift.setPower(-gamepad2.left_trigger);
