@@ -20,6 +20,7 @@ public class TeleOp_Actual extends LinearOpMode{
     public boolean bar = false;
     public boolean dumper = false;
     public DcMotor lift;
+    public DcMotor climb;
     public DcMotor l_intake;
     public DcMotor r_intake;
 
@@ -61,8 +62,13 @@ public class TeleOp_Actual extends LinearOpMode{
 
         }
     }
-    public void intake(){
+    public void climb(){
         if(gamepad2.y){
+            climb.setPower(1);
+        }
+    }
+    public void intake(){
+        if(gamepad2.x){
             l_intake.setPower(1);
             r_intake.setPower(1);
         }
