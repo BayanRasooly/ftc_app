@@ -58,7 +58,7 @@ public class TeleOp_Actual extends LinearOpMode{
             bar();
             dumper();
             intake();
-
+ 
         }
     }
     public void intake(){
