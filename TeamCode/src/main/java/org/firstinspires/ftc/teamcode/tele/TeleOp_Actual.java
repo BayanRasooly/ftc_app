@@ -40,6 +40,7 @@ public class TeleOp_Actual extends LinearOpMode{
     }
     @Override
     public void runOpMode() throws InterruptedException{
+        init(hardwareMap);
         telemetry.addData("Status", "Ready to run");
         telemetry.update();
         waitForStart();
