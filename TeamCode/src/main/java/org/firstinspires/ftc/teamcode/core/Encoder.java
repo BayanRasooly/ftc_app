@@ -85,12 +85,12 @@ public class Encoder {
         throw new AssertionError("what are you doing, write this method before calling");
     }
 
-    private static final double bound = 3;
+    private static final double bound = 7;
     public boolean leftInBounds(ColorSensor sensor){
-        return Math.abs(sensor.red() - /*red value*/1) < bound;
+        return sensor.red() > bound || sensor.blue() > bound;
     }
     public boolean rightInBounds(ColorSensor sensor){
-        return Math.abs(sensor.red() - /*red value*/1)<bound;
+        return sensor.red() > bound || sensor.blue() > bound;
     }
 
     public void align(DcMotor leftMotor, DcMotor rightMotor, DistanceSensor leftSensy,DistanceSensor rightSensy) {
