@@ -49,7 +49,6 @@ public class TeleOp_Actual extends LinearOpMode{
             float left_speed = lefty();
             l_motor.setPower(left_speed);
             telemetry.addData("Left Track", left_speed);
-            telemetry.update();
             //right motor
             float right_speed =  righty();
             r_motor.setPower(right_speed);

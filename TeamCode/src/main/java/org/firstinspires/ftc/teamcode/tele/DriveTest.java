@@ -28,17 +28,17 @@ public class DriveTest extends LinearOpMode{
         waitForStart();
         while(opModeIsActive()) {
             //left motor
-            double left_speed = -lefty();
-            //l_motor.setPower(left_speed);
-            telemetry.addData("Left Track", -left_speed);
+            float left_speed = -lefty();
+            l_motor.setPower(left_speed);
+            telemetry.addData("Left Track", left_speed);
             //right motor
-            double right_speed =  righty();
+            float right_speed = righty();
             r_motor.setPower(right_speed);
             telemetry.addData("Right Track", right_speed);
             telemetry.update();
         }
     }
-    public double lefty(){
+    public float lefty(){
         if ((-gamepad1.left_stick_y + gamepad1.left_stick_x) >= 1){
             return 1;
         }else if((-gamepad1.left_stick_y + gamepad1.left_stick_x) <= -1){
@@ -47,7 +47,7 @@ public class DriveTest extends LinearOpMode{
             return (-gamepad1.left_stick_y + gamepad1.left_stick_x);
         }
     }
-    public double righty(){
+    public float righty(){
         if ((-gamepad1.left_stick_y - gamepad1.left_stick_x) >= 1){
             return 1;
         }else if((-gamepad1.left_stick_y - gamepad1.left_stick_x) <= -1){

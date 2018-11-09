@@ -18,7 +18,7 @@ public class Encoder {
 
 
     public void setLeftMotorPower(DcMotor motor,double speed){
-        motor.setPower(speed);
+        motor.setPower(-speed);
     }
 
     public void setRightMotorPower(DcMotor motor,double speed){
@@ -46,7 +46,7 @@ public class Encoder {
 
         ElapsedTime timer = new ElapsedTime();
 
-        leftMotor.setPower(Math.abs(speed));
+        leftMotor.setPower(-Math.abs(speed));
         rightMotor.setPower(Math.abs(speed));
 
 
