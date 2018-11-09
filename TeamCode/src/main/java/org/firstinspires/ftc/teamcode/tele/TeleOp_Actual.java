@@ -17,26 +17,29 @@ public class TeleOp_Actual extends LinearOpMode{
 
     public DcMotor r_motor;
     public DcMotor l_motor;
+    public DcMotor lift;
+    public DcMotor intake;
+
     public boolean bar = false;
     public boolean dumper = false;
-    public DcMotor lift;
-    public DcMotor climb;
-    public DcMotor l_intake;
-    public DcMotor r_intake;
 
     public Servo l_bar;// Left Bar Servo
     public Servo r_bar;// Right Bar Servo
-
     public Servo l_dump;//Left Dumper Servo
     public Servo r_dump;//Right Dumper Servo
+    public Servo claim;//Claimer Servo
 
     public void init(HardwareMap ahwMap) {
         hwMap = ahwMap;
         r_motor = hardwareMap.dcMotor.get("R_Drive");
         l_motor = hardwareMap.dcMotor.get("L_Drive");
-        lift = hardwareMap.dcMotor.get("Climbing Motor");
+        intake = hardwareMap.dcMotor.get("lifting Motor");
+        lift = hardwareMap.dcMotor.get("lifting Motor");
         l_bar = hardwareMap.servo.get("L_Bar");
         r_bar = hardwareMap.servo.get("R_Bar");
+        l_dump = hardwareMap.servo.get("L_Dump");
+        r_dump = hardwareMap.servo.get("R_Dump");
+        claim = hardwareMap.servo.get("Claim");
     }
     @Override
     public void runOpMode() throws InterruptedException{
@@ -55,22 +58,21 @@ public class TeleOp_Actual extends LinearOpMode{
             telemetry.addData("Right Track", right_speed);
             telemetry.update();
             //Lift Motor
-            elevator();
             bar();
             dumper();
             intake();
-            climb();
+            lift();
+            claim();
         }
     }
-    public void climb(){
-        if(gamepad2.y){
-            climb.setPower(1);
+    public void claim(){
+        if (gamepad2.x){
+            claim.setPosition(1);
         }
     }
     public void intake(){
-        if(gamepad2.x){
-            l_intake.setPower(1);
-            r_intake.setPower(1);
+        if(gamepad2.a){
+            intake.setPower(1);
         }
     }
     public void dumper(){
@@ -95,7 +97,7 @@ public class TeleOp_Actual extends LinearOpMode{
             r_bar.setPosition(.5);
         }
     }
-    public void elevator() {
+    public void lift() {
         if (gamepad2.left_trigger > 0) {
             lift.setPower(-gamepad2.left_trigger);
         }else{
