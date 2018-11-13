@@ -79,7 +79,8 @@ public class CraterAutoSAFE extends LinearOpMode {
             en.setRightMotorPower(r_motor, SPEED);
         }//COPIED
 
-        boolean[] minerals = MineralReader.random();
+        boolean[] minerals = new MineralReader(hardwareMap).read();
+
         if(!minerals[1]){
             int mult = minerals[0]?1:-1;
             en.encoderDrive(l_motor, r_motor, SPEED, mult * -5, mult * 5);

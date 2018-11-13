@@ -76,7 +76,7 @@ public class ClaimZoneAuto extends LinearOpMode{
             en.setRightMotorPower(r_motor,0);
         }
 
-        boolean[] minerals = MineralReader.random();
+        boolean[] minerals = new MineralReader(hardwareMap).read();
 
         lb_servo.setPosition(0);
         rb_servo.setPosition(0);
