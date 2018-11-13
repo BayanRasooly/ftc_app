@@ -66,12 +66,14 @@ public class TeleOp_Actual extends LinearOpMode{
         }
     }
     public void claim(){
-        if (gamepad2.x){
+        if (gamepad2.y){
             claim.setPosition(1);
         }
     }
     public void intake(){
-        if(gamepad2.a){
+        if(gamepad2.b){
+            intake.setPower(-1);
+        }else if(gamepad2.a){
             intake.setPower(1);
         }
     }
@@ -98,10 +100,12 @@ public class TeleOp_Actual extends LinearOpMode{
         }
     }
     public void lift() {
-        if (gamepad2.left_trigger > 0) {
+        if (gamepad2.left_trigger > 0.1) {
             lift.setPower(-gamepad2.left_trigger);
-        }else{
+        }else if (gamepad2.right_trigger > 0.1){
             lift.setPower(gamepad2.right_trigger);
+        }else{
+            lift.setPower(0);
         }
     }
     public float lefty(){
@@ -123,9 +127,3 @@ public class TeleOp_Actual extends LinearOpMode{
         }
     }
 }
-
-
-
-
-
-

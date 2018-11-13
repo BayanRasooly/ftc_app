@@ -35,7 +35,7 @@ public class EncoderTest extends LinearOpMode{
         telemetry.addData("Status", "Ready to run");
         telemetry.update();
         waitForStart();
-        en.encoderDrive(l_motor, r_motor, SPEED,120);
+        en.encoderDrive(l_motor, r_motor, SPEED,12);
     }
 
 
