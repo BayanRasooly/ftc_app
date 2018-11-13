@@ -39,21 +39,21 @@ public class DriveTest extends LinearOpMode{
         }
     }
     public float lefty(){
-        if ((-gamepad1.left_stick_y + gamepad1.left_stick_x) >= 1){
-            return 1;
-        }else if((-gamepad1.left_stick_y + gamepad1.left_stick_x) <= -1){
-            return -1;
-        }else{
-            return (-gamepad1.left_stick_y + gamepad1.left_stick_x);
-        }
-    }
-    public float righty(){
         if ((-gamepad1.left_stick_y - gamepad1.left_stick_x) >= 1){
             return 1;
         }else if((-gamepad1.left_stick_y - gamepad1.left_stick_x) <= -1){
             return -1;
         }else{
             return (-gamepad1.left_stick_y - gamepad1.left_stick_x);
+        }
+    }
+    public float righty(){
+        if ((-gamepad1.left_stick_y + gamepad1.left_stick_x) >= 1){
+            return 1;
+        }else if((-gamepad1.left_stick_y + gamepad1.left_stick_x) <= -1){
+            return -1;
+        }else{
+            return (-gamepad1.left_stick_y + gamepad1.left_stick_x);
         }
     }
 }

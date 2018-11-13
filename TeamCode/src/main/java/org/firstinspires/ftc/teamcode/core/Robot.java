@@ -44,9 +44,9 @@ public class Robot {
 
     public static final double     counts_per_inch;
     static{
-        double     counts_per_motor_rev    = 100/6 ;    // eg: TETRIX Motor Encoder 560 1120
-        double     drive_gear_reduction    = 1 ;     // This is < 1.0 if geared UP 20
-        double     wheel_diameter_inches   = 4 ;     // For figuring circumference 3.75
+        double     counts_per_motor_rev    = 1120 ;    // eg: TETRIX Motor Encoder 560 1120
+        double     drive_gear_reduction     = 1 ;     // This is < 1.0 if geared UP 20
+        double     wheel_diameter_inches   = 3 ;     // For figuring circumference 3.75
         counts_per_inch         = (counts_per_motor_rev * drive_gear_reduction) / (wheel_diameter_inches * 3.1415); //circumference 12.57 tpr 1120
     }
 
