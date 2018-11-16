@@ -98,14 +98,16 @@ public class Encoder {
         if(Math.abs(alignment(leftSensy,rightSensy)) < bound){
             return;
         }
-        if(alignment(leftSensy,rightSensy) > 0){
-            setLeftMotorPower(leftMotor,1);
-        }else{
-            setRightMotorPower(rightMotor,1);
-        }
 
-        while(Math.abs(alignment(leftSensy,rightSensy)) > bound)
-            unsafeWait(10);
+        while(Math.abs(alignment(leftSensy,rightSensy)) > bound) {
+            if (alignment(leftSensy, rightSensy) > 0) {
+                setLeftMotorPower(leftMotor, -0.25);
+            } else {
+                setRightMotorPower(rightMotor, 0.25);
+            }
+            unsafeWait(30);
+            setBothMotorPower(rightMotor,leftMotor,0);
+        }
 
         setBothMotorPower(rightMotor,leftMotor,0);
     }

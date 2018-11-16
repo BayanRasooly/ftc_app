@@ -61,6 +61,7 @@ public class ClaimZoneAuto extends LinearOpMode{
         en.lower(climb,SPEED);
         left_sensey.enableLed(true);
         right_sensey.enableLed(true);
+        //en.align(l_motor, r_motor, left_distance, right_distance);
         if(!en.leftInBounds(left_sensey) || !en.rightInBounds(right_sensey)){
             if(!en.leftInBounds(left_sensey)){
                 en.setLeftMotorPower(l_motor,SPEED);
@@ -84,6 +85,7 @@ public class ClaimZoneAuto extends LinearOpMode{
         if (!minerals[1]) {
             en.encoderDrive(l_motor, r_motor, SPEED, minerals[0] ? -5 : 5, minerals[2] ? -5 : 5);
             en.encoderDrive(l_motor, r_motor, SPEED, 5);
+            //en.encoderDrive(l_motor, r_motor, SPEED, minerals[0] ? 5 : -5, minerals[2] ? 5 : -5);
             en.align(l_motor,r_motor,left_distance,right_distance);
             //drive forward
             en.encoderDrive(l_motor, r_motor, SPEED,5);
