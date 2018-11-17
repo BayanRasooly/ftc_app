@@ -49,7 +49,13 @@ public class Pixy_Test extends LinearOpMode {
             }
         });
 
-
+        telemetry.addData("Guess", new Func<String>(){
+            @Override
+            public String value() {
+                boolean[] arr = new MineralReader(controller1).read();
+                return "[" + arr[0] + "," + arr[1] + "," + arr[2] + "]";
+            }
+        });
 
         while(opModeIsActive()) {
             //push telemetry to phone

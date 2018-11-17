@@ -14,6 +14,10 @@ public class MineralReader {
         pixy = map.analogInput.get("ana");
     }
 
+    public MineralReader(AnalogInput pixy) {
+        this.pixy = pixy;
+    }
+
     private static final double firstBound = 1.2;
     private static final double secondBound = 2.4;
     public boolean[] read(){
