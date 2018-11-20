@@ -23,8 +23,6 @@ public class TeleOp_Actual extends LinearOpMode{
     public boolean bar = false;
     public boolean dumper = false;
 
-    public Servo l_bar;// Left Bar Servo
-    public Servo r_bar;// Right Bar Servo
     public Servo l_dump;//Left Dumper Servo
     public Servo r_dump;//Right Dumper Servo
 
@@ -34,8 +32,6 @@ public class TeleOp_Actual extends LinearOpMode{
         l_motor = hardwareMap.dcMotor.get("Left Drive Motor");
         intake = hardwareMap.dcMotor.get("Intake Motor");
         lift = hardwareMap.dcMotor.get("Lifting Motor");
-        l_bar = hardwareMap.servo.get("L_Bar");
-        r_bar = hardwareMap.servo.get("R_Bar");
         l_dump = hardwareMap.servo.get("L_Dump");
         r_dump = hardwareMap.servo.get("R_Dump");
         lift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -58,17 +54,20 @@ public class TeleOp_Actual extends LinearOpMode{
             telemetry.addData("Right Track", right_speed);
             telemetry.update();
             //Lift Motor
-            bar();
-            dumper();
+//            bar();
+//          dumper();
             intake();
-            lift();
+//            lift();
         }
     }
+
     public void intake(){
-        if(gamepad2.b){
+        if(gamepad2.b) {
             intake.setPower(-1);
         }else if(gamepad2.a){
             intake.setPower(1);
+        }else{
+            intake.setPower(0);
         }
     }
     public void dumper(){
@@ -82,17 +81,17 @@ public class TeleOp_Actual extends LinearOpMode{
             r_dump.setPosition(0);
         }
     }
-    public void bar(){
-        if(gamepad2.right_bumper && !bar){
-            bar = true;
-            l_bar.setPosition(1);
-            r_bar.setPosition(1);
-        }else if(gamepad2.right_bumper && bar){
-            bar = false;
-            l_bar.setPosition(.5);
-            r_bar.setPosition(.5);
-        }
-    }
+//    public void bar(){
+//        if(gamepad2.right_bumper && !bar){
+//            bar = true;
+//            l_bar.setPosition(1);
+//            r_bar.setPosition(1);
+//        }else if(gamepad2.right_bumper && bar){
+//            bar = false;
+//            l_bar.setPosition(.5);
+//            r_bar.setPosition(.5);
+//        }
+//    }
     public void lift() {
         if (gamepad2.left_trigger > 0.1) {
             lift.setPower(-gamepad2.left_trigger);
@@ -102,22 +101,20 @@ public class TeleOp_Actual extends LinearOpMode{
             lift.setPower(0);
         }
     }
-    public float lefty(){
-        if ((-gamepad1.left_stick_y - gamepad1.left_stick_x) >= 1){
+
+    public float cap(float f){
+        if(f >= 1)
             return 1;
-        }else if((-gamepad1.left_stick_y - gamepad1.left_stick_x) <= -1){
+        else if(f <= -1)
             return -1;
-        }else{
-            return (-gamepad1.left_stick_y - gamepad1.left_stick_x);
-        }
+        else
+            return f;
+    }
+
+    public float lefty(){
+        return cap(-gamepad1.left_stick_y + gamepad1.left_stick_x);
     }
     public float righty(){
-        if ((-gamepad1.left_stick_y + gamepad1.left_stick_x) >= 1){
-            return 1;
-        }else if((-gamepad1.left_stick_y + gamepad1.left_stick_x) <= -1){
-            return -1;
-        }else{
-            return (-gamepad1.left_stick_y + gamepad1.left_stick_x);
-        }
+        return cap(-gamepad1.left_stick_y - gamepad1.left_stick_x);
     }
 }

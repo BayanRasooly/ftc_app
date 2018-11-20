@@ -7,21 +7,20 @@ import com.qualcomm.robotcore.hardware.I2cDeviceSynch;
 import com.qualcomm.robotcore.hardware.I2cDeviceSynchImpl;
 
 public class DistanceSensor {
-    I2cDevice range;
-    I2cDeviceSynch rangeReader;
-    byte[] rangeCache;
+    private I2cDeviceSynch rangeReader;
+    private byte[] rangeCache;
 
     private DistanceSensor(int eightBit, String name, HardwareMap map){
-        this.range = map.i2cDevice.get(name);
+        I2cDevice range = map.i2cDevice.get(name);
         this.rangeReader = new I2cDeviceSynchImpl(range, I2cAddr.create8bit(eightBit), false);
         rangeReader.engage();
     }
 
-    public static DistanceSensor getLeft(HardwareMap map){
+    static DistanceSensor getLeft(HardwareMap map){
         return new DistanceSensor(0x28,"L_Range",map);
     }
 
-    public static DistanceSensor getRight(HardwareMap map){
+    static DistanceSensor getRight(HardwareMap map){
         return new DistanceSensor(0x2a,"L_Range",map);
     }
 
