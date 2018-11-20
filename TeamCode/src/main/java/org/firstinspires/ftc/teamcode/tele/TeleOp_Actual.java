@@ -27,7 +27,6 @@ public class TeleOp_Actual extends LinearOpMode{
     public Servo r_bar;// Right Bar Servo
     public Servo l_dump;//Left Dumper Servo
     public Servo r_dump;//Right Dumper Servo
-    public Servo claim;//Claimer Servo
 
     public void init(HardwareMap ahwMap) {
         hwMap = ahwMap;
@@ -39,7 +38,8 @@ public class TeleOp_Actual extends LinearOpMode{
         r_bar = hardwareMap.servo.get("R_Bar");
         l_dump = hardwareMap.servo.get("L_Dump");
         r_dump = hardwareMap.servo.get("R_Dump");
-        claim = hardwareMap.servo.get("Claim");
+        lift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        intake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
     @Override
     public void runOpMode() throws InterruptedException{
@@ -62,12 +62,6 @@ public class TeleOp_Actual extends LinearOpMode{
             dumper();
             intake();
             lift();
-            claim();
-        }
-    }
-    public void claim(){
-        if (gamepad2.y){
-            claim.setPosition(1);
         }
     }
     public void intake(){

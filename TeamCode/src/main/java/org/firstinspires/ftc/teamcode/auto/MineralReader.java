@@ -11,7 +11,7 @@ import java.util.Arrays;
 public class MineralReader {
     private final AnalogInput pixy;
     public MineralReader(HardwareMap map){
-        pixy = map.analogInput.get("pixy");
+        pixy = map.analogInput.get("Pixy");
     }
 
     public MineralReader(AnalogInput pixy) {

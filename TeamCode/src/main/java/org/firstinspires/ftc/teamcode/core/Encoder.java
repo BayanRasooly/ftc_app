@@ -117,6 +117,7 @@ public class Encoder {
     }
 
     public void lower(DcMotor climb,float speed){
+        climb.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         ElapsedTime eTime = new ElapsedTime();
         while (eTime.time() <= 3) {
             climb.setPower(-speed);
