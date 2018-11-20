@@ -3,11 +3,11 @@ package org.firstinspires.ftc.teamcode.core;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Func;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.teamcode.auto.DistanceSensor;
 
 public class Encoder {
     private LinearOpMode op;
@@ -93,7 +93,7 @@ public class Encoder {
         return sensor.red() > bound || sensor.blue() > bound;
     }
 
-    public void align(DcMotor leftMotor, DcMotor rightMotor, DistanceSensor leftSensy,DistanceSensor rightSensy) {
+    public void align(DcMotor leftMotor, DcMotor rightMotor, DistanceSensor leftSensy, DistanceSensor rightSensy) {
         int bound = 1;
         if(Math.abs(alignment(leftSensy,rightSensy)) < bound){
             return;
@@ -113,7 +113,7 @@ public class Encoder {
     }
 
     public double alignment(DistanceSensor leftSensy,DistanceSensor rightSensy){
-        return leftSensy.getDistance(DistanceUnit.INCH) - rightSensy.getDistance(DistanceUnit.INCH);
+        return leftSensy.getUltrasonic() - rightSensy.getUltrasonic();
     }
 
     public void lower(DcMotor climb,float speed){

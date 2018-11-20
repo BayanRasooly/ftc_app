@@ -4,7 +4,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -41,15 +40,15 @@ public class ClaimZoneAutoSAFE extends LinearOpMode{
 
     
     private void initMap(){
-        r_motor = hardwareMap.dcMotor.get("Right Back Motor");
-        l_motor = hardwareMap.dcMotor.get("Left Motor");
-        climb = hardwareMap.dcMotor.get("Climbing Motor");
+        r_motor = hardwareMap.dcMotor.get("Right Drive Motor");
+        l_motor = hardwareMap.dcMotor.get("Left Drive Motor");
+        climb = hardwareMap.dcMotor.get("Lifting Motor");
         lb_servo = hardwareMap.servo.get("Left Bar Motor");
         rb_servo = hardwareMap.servo.get("Right Bar Motor");
         left_sensey = hardwareMap.colorSensor.get("Left Color Sensor");
         right_sensey = hardwareMap.colorSensor.get("Right Color Sensor");
-        left_distance = (DistanceSensor) hardwareMap.opticalDistanceSensor.get("Left Distance Sensor");
-        right_distance = (DistanceSensor) hardwareMap.opticalDistanceSensor.get("Right Distance Sensor");
+        left_distance = DistanceSensor.getLeft(hardwareMap);
+        right_distance = DistanceSensor.getRight(hardwareMap);
     }
 
     public void runOpMode() throws InterruptedException {

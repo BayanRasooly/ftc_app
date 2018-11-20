@@ -30,10 +30,10 @@ public class TeleOp_Actual extends LinearOpMode{
 
     public void init(HardwareMap ahwMap) {
         hwMap = ahwMap;
-        r_motor = hardwareMap.dcMotor.get("R_Drive");
-        l_motor = hardwareMap.dcMotor.get("L_Drive");
-        intake = hardwareMap.dcMotor.get("lifting Motor");
-        lift = hardwareMap.dcMotor.get("lifting Motor");
+        r_motor = hardwareMap.dcMotor.get("Right Drive Motor");
+        l_motor = hardwareMap.dcMotor.get("Left Drive Motor");
+        intake = hardwareMap.dcMotor.get("Intake Motor");
+        lift = hardwareMap.dcMotor.get("Lifting Motor");
         l_bar = hardwareMap.servo.get("L_Bar");
         r_bar = hardwareMap.servo.get("R_Bar");
         l_dump = hardwareMap.servo.get("L_Dump");

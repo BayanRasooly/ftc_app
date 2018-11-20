@@ -5,7 +5,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -35,23 +34,21 @@ public class CraterAutoSAFE extends LinearOpMode {
     public DistanceSensor left_distance;
     public DistanceSensor right_distance;
 
-    public AnalogInput ana;
 
     Encoder en;
 
     public static final int SPEED = 1;
 
     private void initMap() {
-        r_motor = map.dcMotor.get("Right Back Motor");
-        l_motor = map.dcMotor.get("Left Motor");
-        climb = map.dcMotor.get("Climbing Motor");
+        r_motor = map.dcMotor.get("Right Drive Motor");
+        l_motor = map.dcMotor.get("Left Drive Motor");
+        climb = map.dcMotor.get("Lifting Motor");
         lb_servo = map.servo.get("Left Bar Motor");
         rb_servo = map.servo.get("Right Bar Motor");
         left_sensey = map.colorSensor.get("Left Color Sensor");
         right_sensey = map.colorSensor.get("Right Color Sensor");
-        left_distance = (DistanceSensor) map.opticalDistanceSensor.get("Left Distance Sensor");
-        right_distance = (DistanceSensor) map.opticalDistanceSensor.get("Right Distance Sensor");
-        ana = map.analogInput.get("ana");
+        left_distance = DistanceSensor.getLeft(hardwareMap);
+        right_distance = DistanceSensor.getRight(hardwareMap);
     }
 
     @Override
