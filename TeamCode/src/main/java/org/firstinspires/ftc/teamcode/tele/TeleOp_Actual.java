@@ -20,8 +20,6 @@ public class TeleOp_Actual extends LinearOpMode{
     public DcMotor lift;
     public DcMotor intake;
 
-    public boolean bar = false;
-    public boolean dumper = false;
 
     public Servo l_dump;//Left Dumper Servo
     public Servo r_dump;//Right Dumper Servo
@@ -53,11 +51,10 @@ public class TeleOp_Actual extends LinearOpMode{
             r_motor.setPower(right_speed);
             telemetry.addData("Right Track", right_speed);
             telemetry.update();
-            //Lift Motor
-//            bar();
+//          bar();
 //          dumper();
             intake();
-//            lift();
+//          lift();
         }
     }
 
@@ -71,15 +68,22 @@ public class TeleOp_Actual extends LinearOpMode{
         }
     }
     public void dumper(){
-        if(gamepad2.left_bumper && !dumper){
-            dumper = true;
-            l_dump.setPosition(1);
-            r_dump.setPosition(1);
-        }else if(gamepad2.left_bumper && dumper){
-            dumper = false;
-            l_dump.setPosition(0);
-            r_dump.setPosition(0);
+        if(gamepad2.left_bumper)
+        {
+            l_dump.setPosition(fix(l_dump.getPosition()-0.1));
+            r_dump.setPosition(fix(r_dump.getPosition()+0.1));
         }
+        else if(gamepad2.right_bumper)
+        {
+            l_dump.setPosition(fix(l_dump.getPosition()+0.1));
+            r_dump.setPosition(fix(r_dump.getPosition()-0.1));
+        }
+    }
+    private double fix(double in)
+    {
+        if(in <= 0)return 0;
+        if(in >= 1)return 1;
+        return in;
     }
 //    public void bar(){
 //        if(gamepad2.right_bumper && !bar){

@@ -115,7 +115,9 @@ public class Encoder {
         return leftSensy.getUltrasonic() - rightSensy.getUltrasonic();
     }
 
+    private static boolean CLIMB = false;
     public void lower(DcMotor climb,float speed){
+        if(!CLIMB)return;
         climb.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         ElapsedTime eTime = new ElapsedTime();
         while (eTime.time() <= 3) {
