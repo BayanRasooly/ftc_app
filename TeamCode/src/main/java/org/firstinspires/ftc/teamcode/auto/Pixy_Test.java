@@ -21,7 +21,7 @@ public class Pixy_Test extends LinearOpMode {
 
     public void init(HardwareMap ahwMap) {
         hwMap = ahwMap;
-        controller1 = hwMap.analogInput.get("ana");
+        controller1 = hwMap.analogInput.get("Pixy");
     }
             /*
     //AnalogInputController ana;

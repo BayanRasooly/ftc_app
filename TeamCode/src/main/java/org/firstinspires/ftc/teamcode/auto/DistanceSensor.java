@@ -17,11 +17,11 @@ public class DistanceSensor {
     }
 
     static DistanceSensor getLeft(HardwareMap map){
-        return new DistanceSensor(0x28,"L_Range",map);
+        return new DistanceSensor(0x3a,"L_Range",map);
     }
 
     static DistanceSensor getRight(HardwareMap map){
-        return new DistanceSensor(0x2a,"L_Range",map);
+        return new DistanceSensor(0x2a,"R_Range",map);
     }
 
     public int getUltrasonic(){

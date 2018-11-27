@@ -32,6 +32,8 @@ public class TeleOp_Actual extends LinearOpMode{
         lift = hardwareMap.dcMotor.get("Lifting Motor");
         l_dump = hardwareMap.servo.get("L_Dump");
         r_dump = hardwareMap.servo.get("R_Dump");
+        l_dump.setPosition(.25);
+        r_dump.setPosition(.75);
         lift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         intake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
@@ -51,10 +53,10 @@ public class TeleOp_Actual extends LinearOpMode{
             r_motor.setPower(right_speed);
             telemetry.addData("Right Track", right_speed);
             telemetry.update();
-//          bar();
-//          dumper();
+            //bar();
+            dumper();
             intake();
-//          lift();
+            lift();
         }
     }
 
@@ -68,22 +70,21 @@ public class TeleOp_Actual extends LinearOpMode{
         }
     }
     public void dumper(){
-        if(gamepad2.left_bumper)
+        if(gamepad2.dpad_up)
         {
-            l_dump.setPosition(fix(l_dump.getPosition()-0.1));
-            r_dump.setPosition(fix(r_dump.getPosition()+0.1));
+            l_dump.setPosition(0);
+            r_dump.setPosition(1);
         }
-        else if(gamepad2.right_bumper)
+        else if(gamepad2.dpad_left || gamepad2.dpad_right)
         {
-            l_dump.setPosition(fix(l_dump.getPosition()+0.1));
-            r_dump.setPosition(fix(r_dump.getPosition()-0.1));
+            l_dump.setPosition(.25);
+            r_dump.setPosition(.75);
         }
-    }
-    private double fix(double in)
-    {
-        if(in <= 0)return 0;
-        if(in >= 1)return 1;
-        return in;
+        else if(gamepad2.dpad_down)
+        {
+            l_dump.setPosition(1);
+            r_dump.setPosition(0);
+        }
     }
 //    public void bar(){
 //        if(gamepad2.right_bumper && !bar){
@@ -97,10 +98,10 @@ public class TeleOp_Actual extends LinearOpMode{
 //        }
 //    }
     public void lift() {
-        if (gamepad2.left_trigger > 0.1) {
-            lift.setPower(-gamepad2.left_trigger);
-        }else if (gamepad2.right_trigger > 0.1){
-            lift.setPower(gamepad2.right_trigger);
+        if (gamepad2.right_trigger > 0.1) {
+            lift.setPower(-gamepad2.right_trigger);
+        }else if (gamepad2.left_trigger > 0.1){
+            lift.setPower(gamepad2.left_trigger);
         }else{
             lift.setPower(0);
         }
