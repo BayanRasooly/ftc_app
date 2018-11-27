@@ -33,7 +33,7 @@ public class Encoder {
         if(!op.opModeIsActive()){
             return;
         }
-        int newLeftTarget = leftMotor.getCurrentPosition() + (int)(left * Robot.counts_per_inch);
+        int newLeftTarget = leftMotor.getCurrentPosition() - (int)(left * Robot.counts_per_inch * 0.97);
         int newRightTarget = rightMotor.getCurrentPosition() + (int)(right * Robot.counts_per_inch);
 
 
@@ -45,7 +45,7 @@ public class Encoder {
 
         ElapsedTime timer = new ElapsedTime();
 
-        leftMotor.setPower(-Math.abs(speed));
+        leftMotor.setPower(Math.abs(speed));
         rightMotor.setPower(Math.abs(speed));
 
 

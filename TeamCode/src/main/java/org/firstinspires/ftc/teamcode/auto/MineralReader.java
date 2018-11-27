@@ -21,7 +21,7 @@ public class MineralReader {
     }
 
     private static final double firstBound = 0.8;
-    private static final double secondBound = 2.4;
+    private static final double secondBound = 2.2;
     public boolean[] read(){
         double voltage = pixy.getVoltage();
         boolean[] arr = new boolean[3];
