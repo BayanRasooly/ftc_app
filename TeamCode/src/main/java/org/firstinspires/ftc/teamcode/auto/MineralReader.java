@@ -9,6 +9,8 @@ import org.firstinspires.ftc.teamcode.core.Robot;
 import java.util.Arrays;
 
 public class MineralReader {
+
+
     private final AnalogInput pixy;
     public MineralReader(HardwareMap map){
         pixy = map.analogInput.get("Pixy");
@@ -18,7 +20,7 @@ public class MineralReader {
         this.pixy = pixy;
     }
 
-    private static final double firstBound = 1.2;
+    private static final double firstBound = 0.8;
     private static final double secondBound = 2.4;
     public boolean[] read(){
         double voltage = pixy.getVoltage();

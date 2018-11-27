@@ -34,8 +34,6 @@ public class CraterAuto extends LinearOpMode {
     public DistanceSensor left_distance;
     public DistanceSensor right_distance;
 
-    public AnalogInput ana;
-
     Encoder en;
 
     public static final int SPEED = 1;
@@ -50,12 +48,12 @@ public class CraterAuto extends LinearOpMode {
         right_sensey = map.colorSensor.get("Right Color Sensor");
         left_distance = DistanceSensor.getLeft(hardwareMap);
         right_distance = DistanceSensor.getRight(hardwareMap);
-        ana = map.analogInput.get("ana");
     }
 
     @Override
     public void runOpMode() throws InterruptedException {
         //en = new Encoder(robot,this);
+        initMap();
         telemetry.addData("Status", "Ready to run");
         telemetry.update();
         waitForStart();

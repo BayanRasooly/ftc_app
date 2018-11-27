@@ -93,19 +93,24 @@ public class Encoder {
     }
 
     public void align(DcMotor leftMotor, DcMotor rightMotor, DistanceSensor leftSensy, DistanceSensor rightSensy) {
-        int bound = 1;
+        int bound = 7;
+        int smallerBound = 2;
         if(Math.abs(alignment(leftSensy,rightSensy)) < bound){
             return;
         }
 
         while(Math.abs(alignment(leftSensy,rightSensy)) > bound) {
+            double speed = Math.abs(alignment(leftSensy,rightSensy)) < smallerBound ? 0.25 : 0.5;
             if (alignment(leftSensy, rightSensy) > 0) {
-                setLeftMotorPower(leftMotor, -0.25);
+                setLeftMotorPower(leftMotor, speed);
+                setRightMotorPower(rightMotor,-speed);
             } else {
-                setRightMotorPower(rightMotor, 0.25);
+                setLeftMotorPower(leftMotor,-speed);
+                setRightMotorPower(rightMotor, speed);
             }
-            unsafeWait(30);
-            setBothMotorPower(rightMotor,leftMotor,0);
+
+//            unsafeWait(30);
+//            setBothMotorPower(rightMotor,leftMotor,0);
         }
 
         setBothMotorPower(rightMotor,leftMotor,0);

@@ -54,8 +54,10 @@ public class CraterAutoSAFE extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         //en = new Encoder(robot,this);
+        initMap();
         telemetry.addData("Status", "Ready to run");
         telemetry.update();
+
         waitForStart();
         en.lower(climb, SPEED);
 
