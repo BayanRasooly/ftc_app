@@ -14,7 +14,6 @@ import org.firstinspires.ftc.teamcode.core.Encoder;
 
 @Autonomous(name="Crater Auto", group="Robot")
 public class CraterAuto extends LinearOpMode {
-;
 
     public DcMotor r_motor;
     public DcMotor l_motor;
@@ -41,28 +40,36 @@ public class CraterAuto extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         en = new Encoder(this);
         initMap();
-
         telemetry.addData("Status", "Ready to run");
         telemetry.update();
         waitForStart();
 //        en.lower(climb, SPEED);
 
-        boolean[] minerals = new MineralReader(hardwareMap).read();
 
-        if(!minerals[1]){
-            int left = minerals[0]?5:0;
-            int right = minerals[0]?0:5;
-            en.encoderDrive(l_motor, r_motor, SPEED, left, right );
+        //to test pixy
+
+
+        boolean[] minerals = new MineralReader(hardwareMap).read();
+        telemetry.addData("Guess", "[" + minerals[0] + "," + minerals[1] + "," + minerals[2] + "]");
+        telemetry.update();
+
+        if(minerals[0] || minerals[2]) {
+            en.encoderDrive(l_motor, r_motor, SPEED, minerals[0] ? -0.1 : 7, minerals[0] ? 7 : -0.1);
         }
-        int dist = minerals[1] ? 24 : 30;
+        int dist = minerals[1] ? 24 : 30;//move forward more if sideways
         en.encoderDrive(l_motor, r_motor, SPEED,dist);
         en.encoderDrive(l_motor, r_motor, SPEED,-(dist-2));
-        //TURN 45*TODO
+        int turn;
+        if(minerals[0]) turn = 2;
+        else if(minerals[1]) turn = 10;
+        else turn = 15;
+
+        en.encoderDrive(l_motor,r_motor,SPEED,-turn,turn);
         en.align(l_motor, r_motor, left_distance, right_distance);
-        en.encoderDrive(l_motor, r_motor, SPEED,5);//drive to wall
-        en.encoderDrive(l_motor, r_motor, SPEED,-5,5);//turn to claim
-        en.align(l_motor, r_motor, left_distance, right_distance);//may be needed, may waste time
-        en.encoderDrive(l_motor, r_motor, SPEED,144);
+        en.encoderDrive(l_motor, r_motor, SPEED,40);//drive to wall
+        en.encoderDrive(l_motor, r_motor, SPEED,-20,20);//turn to claim
+//        en.align(l_motor, r_motor, left_distance, right_distance);//may be needed, may waste time
+        en.encoderDrive(l_motor, r_motor, SPEED,70);
         en.claim();
         en.encoderDrive(l_motor, r_motor, SPEED,-144);
     }

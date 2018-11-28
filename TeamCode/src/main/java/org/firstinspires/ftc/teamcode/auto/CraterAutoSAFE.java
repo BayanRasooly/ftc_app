@@ -17,43 +17,30 @@ public class CraterAutoSAFE extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
 
-    private HardwareMap map;
-
     public DcMotor r_motor;
     public DcMotor l_motor;
 
 
 
     public DcMotor climb;
-    //do servos later
-    public Servo lb_servo;// Left Bar Servo
-    public Servo rb_servo;// Right Bar Servo
-
-    public ColorSensor left_sensey;
-    public ColorSensor right_sensey;
     public DistanceSensor left_distance;
     public DistanceSensor right_distance;
-
 
     Encoder en;
 
     public static final int SPEED = 1;
 
     private void initMap() {
-        r_motor = map.dcMotor.get("Right Drive Motor");
-        l_motor = map.dcMotor.get("Left Drive Motor");
-        climb = map.dcMotor.get("Lifting Motor");
-        lb_servo = map.servo.get("Left Bar Motor");
-        rb_servo = map.servo.get("Right Bar Motor");
-        left_sensey = map.colorSensor.get("Left Color Sensor");
-        right_sensey = map.colorSensor.get("Right Color Sensor");
+        r_motor = hardwareMap.dcMotor.get("Right Drive Motor");
+        l_motor = hardwareMap.dcMotor.get("Left Drive Motor");
+        climb = hardwareMap.dcMotor.get("Lifting Motor");
         left_distance = DistanceSensor.getLeft(hardwareMap);
         right_distance = DistanceSensor.getRight(hardwareMap);
     }
 
     @Override
     public void runOpMode() throws InterruptedException {
-        //en = new Encoder(robot,this);
+        en = new Encoder(this);
         initMap();
         telemetry.addData("Status", "Ready to run");
         telemetry.update();
@@ -61,6 +48,7 @@ public class CraterAutoSAFE extends LinearOpMode {
         waitForStart();
         en.lower(climb, SPEED);
 
+        /*
         left_sensey.enableLed(true);
         right_sensey.enableLed(true);
         if(!en.leftInBounds(left_sensey) || !en.rightInBounds(right_sensey)){
@@ -77,6 +65,7 @@ public class CraterAutoSAFE extends LinearOpMode {
             }
             en.setRightMotorPower(r_motor, SPEED);
         }//COPIED
+        */
 
         boolean[] minerals = new MineralReader(hardwareMap).read();
 
@@ -101,13 +90,14 @@ public class CraterAutoSAFE extends LinearOpMode {
         en.align(l_motor,r_motor,left_distance,right_distance);
         //END SAFE
 
-        //this drives forward till it hits a color
+        /*this drives forward till it hits a color
         en.encoderDrive(l_motor, r_motor, SPEED,144); new Func<Boolean>(){
             @Override
             public Boolean value() {
                 return en.rightInBounds(right_sensey) || en.leftInBounds(left_sensey);
             }
         };
+        */
         en.claim();
         en.encoderDrive(l_motor, r_motor, SPEED,144);
     }

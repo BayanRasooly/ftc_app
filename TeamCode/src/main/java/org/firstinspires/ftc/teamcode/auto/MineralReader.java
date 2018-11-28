@@ -33,5 +33,6 @@ public class MineralReader {
         else
             arr[1] = true;
         return arr;
+
     }
 }

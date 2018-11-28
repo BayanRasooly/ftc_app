@@ -18,14 +18,6 @@ public class Diagnostic extends LinearOpMode {
     public DcMotor l_motor;
 
 
-
-    public DcMotor climb;
-    //do servos later
-//    public Servo lb_servo;// Left Bar Servo
-//    public Servo rb_servo;// Right Bar Servo
-
-    public ColorSensor left_sensey;
-    public ColorSensor right_sensey;
     public DistanceSensor left_distance;
     public DistanceSensor right_distance;
 
@@ -35,9 +27,6 @@ public class Diagnostic extends LinearOpMode {
 
         r_motor = hardwareMap.dcMotor.get("Right Drive Motor");
         l_motor = hardwareMap.dcMotor.get("Left Drive Motor");
-        climb = hardwareMap.dcMotor.get("Lifting Motor");
-        left_sensey = hardwareMap.colorSensor.get("Left Color Sensor");
-        right_sensey = hardwareMap.colorSensor.get("Right Color Sensor");
         left_distance = DistanceSensor.getLeft(hardwareMap);
         right_distance = DistanceSensor.getRight(hardwareMap);
     }
@@ -54,8 +43,6 @@ public class Diagnostic extends LinearOpMode {
 //            telemetry.addData("Pixy", minerals);
             telemetry.addData("Left Range Sensor", left_distance.getUltrasonic());
             telemetry.addData("Right Range Sensor", right_distance.getUltrasonic());
-            telemetry.addData("Left Color Sensor", left_sensey.red());
-            telemetry.addData("Right Color Sensor", right_sensey.red());
             telemetry.update();
         }
     }
