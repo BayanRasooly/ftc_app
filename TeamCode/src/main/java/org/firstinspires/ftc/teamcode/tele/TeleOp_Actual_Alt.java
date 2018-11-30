@@ -10,9 +10,9 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
-@TeleOp(name="tele_actual", group="Pushbot")
+@TeleOp(name="tele_actual_altDrive", group="Pushbot")
 
-public class TeleOp_Actual extends LinearOpMode{
+public class TeleOp_Actual_Alt extends LinearOpMode{
     HardwareMap hwMap = null;
 
     public DcMotor r_motor;
@@ -48,11 +48,11 @@ public class TeleOp_Actual extends LinearOpMode{
         waitForStart();
         while(opModeIsActive()) {
             //left motor
-            float left_speed = -lefty();
+            double left_speed = -lefty();
             l_motor.setPower(left_speed);
             telemetry.addData("Left Track", left_speed);
             //right motor
-            float right_speed = righty();
+            double right_speed = righty();
             r_motor.setPower(right_speed);
             telemetry.addData("Right Track", right_speed);
             telemetry.update();
@@ -94,7 +94,7 @@ public class TeleOp_Actual extends LinearOpMode{
             r_dump.setPosition(0);
         }
     }
-//    public void bar(){
+    //    public void bar(){
 //        if(gamepad2.right_bumper && !bar){
 //            bar = true;
 //            l_bar.setPosition(1);
@@ -115,19 +115,10 @@ public class TeleOp_Actual extends LinearOpMode{
         }
     }
 
-    public float cap(float f){
-        if(f >= 1)
-            return 1;
-        else if(f <= -1)
-            return -1;
-        else
-            return f;
+    public double lefty(){
+        return -gamepad1.left_stick_y;
     }
-
-    public float lefty(){
-        return cap(-gamepad1.left_stick_y + gamepad1.left_stick_x);
-    }
-    public float righty(){
-        return cap(-gamepad1.left_stick_y - gamepad1.left_stick_x);
+    public double righty(){
+        return -gamepad1.right_stick_y;
     }
 }
