@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.auto;
 
+import android.util.Pair;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.ColorSensor;
@@ -41,18 +43,12 @@ public class ClaimZoneAuto extends LinearOpMode{
         telemetry.addData("Status", "Ready to run");
         telemetry.update();
         waitForStart();
-        en.lower(climb,SPEED);
 
-        boolean[] minerals = new MineralReader(hardwareMap).read();
+        Pair<Integer,boolean[]> pair = en.startAuto(this,l_motor,r_motor,climb);
+
+        boolean[] minerals = pair.second;
 
         if (!minerals[1]) {
-            en.encoderDrive(l_motor, r_motor, SPEED, minerals[0] ? 0 : 5, minerals[2] ? 0 : 5);
-            en.encoderDrive(l_motor, r_motor, SPEED, 5);
-            en.encoderDrive(l_motor, r_motor, SPEED, minerals[0] ? 5 : 0, minerals[2] ? 5 : 0);
-            en.align(l_motor,r_motor,left_distance,right_distance);
-            //drive forward
-            en.encoderDrive(l_motor, r_motor, SPEED,5);
-
             //turn
             int mult = minerals[0]?-SPEED:SPEED;//HARD
             en.encoderDrive(l_motor, r_motor, SPEED,mult*-5,mult*5);//HARD
@@ -64,9 +60,9 @@ public class ClaimZoneAuto extends LinearOpMode{
             en.claim();
             en.align(l_motor,r_motor,left_distance,right_distance);
         } else {
-            en.encoderDrive(l_motor, r_motor, SPEED, 5);
+            en.encoderDrive(l_motor, r_motor, SPEED, 27);
             en.claim();
-            en.encoderDrive(l_motor, r_motor, SPEED,1,-1);
+            en.encoderDrive(l_motor, r_motor, SPEED,10,-10);
             en.align(l_motor,r_motor,left_distance,right_distance);
         }
         en.encoderDrive(l_motor, r_motor, SPEED,-288);

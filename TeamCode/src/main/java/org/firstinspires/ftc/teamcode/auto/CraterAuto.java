@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.auto;
 
+import android.util.Pair;
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.AnalogInput;
@@ -48,17 +50,10 @@ public class CraterAuto extends LinearOpMode {
 
         //to test pixy
 
+        Pair<Integer,boolean[]> pair = en.startAuto(this,l_motor,r_motor,climb);
+        boolean[] minerals = pair.second;
+        en.encoderDrive(l_motor, r_motor, 1,-(pair.first-2));
 
-        boolean[] minerals = new MineralReader(hardwareMap).read();
-        telemetry.addData("Guess", "[" + minerals[0] + "," + minerals[1] + "," + minerals[2] + "]");
-        telemetry.update();
-
-        if(minerals[0] || minerals[2]) {
-            en.encoderDrive(l_motor, r_motor, SPEED, minerals[0] ? -0.1 : 7, minerals[0] ? 7 : -0.1);
-        }
-        int dist = minerals[1] ? 24 : 30;//move forward more if sideways
-        en.encoderDrive(l_motor, r_motor, SPEED,dist);
-        en.encoderDrive(l_motor, r_motor, SPEED,-(dist-2));
         int turn;
         if(minerals[0]) turn = 2;
         else if(minerals[1]) turn = 10;

@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.core;
 
+import android.util.Pair;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -7,6 +9,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Func;
 import org.firstinspires.ftc.teamcode.auto.DistanceSensor;
+import org.firstinspires.ftc.teamcode.auto.MineralReader;
 
 public class Encoder {
     private LinearOpMode op;
@@ -143,5 +146,24 @@ public class Encoder {
         }
     }
 
+
+
+    public Pair<Integer,boolean[]> startAuto(LinearOpMode op, DcMotor l_motor, DcMotor r_motor, DcMotor climb){
+        lower(climb,1);
+        boolean[] minerals = new MineralReader(op.hardwareMap).read();
+        op.telemetry.addData("Guess", "[" + minerals[0] + "," + minerals[1] + "," + minerals[2] + "]");
+        op.telemetry.update();
+        encoderDrive(l_motor,r_motor,1,0.1,2);
+        if(minerals[0] || minerals[2]) {
+            encoderDrive(l_motor, r_motor, 1, minerals[0] ? -0.1 : 7, minerals[0] ? 7 : -0.1);
+        }
+        int dist;//move forward more if sideways
+        if(minerals[0])dist = 30;
+        else if(minerals[1])dist = 27;
+        else dist = 27;
+
+        encoderDrive(l_motor, r_motor, 1,dist);
+        return new Pair<>(dist, minerals);
+    }
 
 }
