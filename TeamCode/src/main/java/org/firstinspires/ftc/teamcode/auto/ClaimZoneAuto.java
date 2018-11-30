@@ -12,7 +12,6 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.core.Encoder;
 
 @Autonomous(name="Claim Zone Auto", group="Robot")
-
 public class ClaimZoneAuto extends LinearOpMode{
 
     public DcMotor r_motor;
@@ -44,19 +43,20 @@ public class ClaimZoneAuto extends LinearOpMode{
         telemetry.update();
         waitForStart();
 
-        Pair<Integer,boolean[]> pair = en.startAuto(this,l_motor,r_motor,climb);
+        Pair<Integer,boolean[]> pair = en.startAuto(l_motor,r_motor,climb);
 
         boolean[] minerals = pair.second;
 
         if (!minerals[1]) {
             //turn
-            int mult = minerals[0]?-SPEED:SPEED;//HARD
-            en.encoderDrive(l_motor, r_motor, SPEED,mult*-5,mult*5);//HARD
+            int left = minerals[0] ? 5 : -5;
+            int right = minerals[0] ? -5 : 5;
+            telemetry.addData("motors",left + "," + right);
+            telemetry.update();
+            en.encoderDrive(l_motor, r_motor, SPEED,left,right);//HARD
 
             //drive to claim zone
-            en.setBothMotorPower(r_motor,l_motor,SPEED);
-
-            en.setBothMotorPower(r_motor,l_motor,0);
+            en.encoderDrive(l_motor,r_motor,SPEED,32);
             en.claim();
             en.align(l_motor,r_motor,left_distance,right_distance);
         } else {

@@ -34,7 +34,13 @@ public class Encoder {
 
     public void encoderDrive(DcMotor leftMotor, DcMotor rightMotor, double speed, double left, double right, int time, Func<Boolean> func){
         if(!op.opModeIsActive()){
-            return;
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            if(!op.opModeIsActive())
+                throw new RuntimeException("halp");
         }
         int newLeftTarget = leftMotor.getCurrentPosition() - (int)(left * Robot.counts_per_inch * 0.97);
         int newRightTarget = rightMotor.getCurrentPosition() + (int)(right * Robot.counts_per_inch);
@@ -148,21 +154,24 @@ public class Encoder {
 
 
 
-    public Pair<Integer,boolean[]> startAuto(LinearOpMode op, DcMotor l_motor, DcMotor r_motor, DcMotor climb){
+    public Pair<Integer,boolean[]> startAuto(DcMotor l_motor, DcMotor r_motor, DcMotor climb){
         lower(climb,1);
-        boolean[] minerals = new MineralReader(op.hardwareMap).read();
+        boolean[] minerals = new MineralReader(op.hardwareMap).read().clone();
         op.telemetry.addData("Guess", "[" + minerals[0] + "," + minerals[1] + "," + minerals[2] + "]");
-        op.telemetry.update();
         encoderDrive(l_motor,r_motor,1,0.1,2);
         if(minerals[0] || minerals[2]) {
-            encoderDrive(l_motor, r_motor, 1, minerals[0] ? -0.1 : 7, minerals[0] ? 7 : -0.1);
+            double left = minerals[0] ? -2 : 5;
+            double right = minerals[0] ? 6 : -2;
+            op.telemetry.addData("motors",left + "," + right);
+            encoderDrive(l_motor, r_motor, 1, left, right);
         }
         int dist;//move forward more if sideways
-        if(minerals[0])dist = 30;
-        else if(minerals[1])dist = 27;
+        if(minerals[0]) dist = 30;
+        else if(minerals[1]) dist = 27;
         else dist = 27;
-
-        encoderDrive(l_motor, r_motor, 1,dist);
+        op.telemetry.addData("dist",dist);
+        op.telemetry.update();
+        encoderDrive(l_motor, r_motor, 1, dist);
         return new Pair<>(dist, minerals);
     }
 

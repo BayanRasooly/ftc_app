@@ -14,8 +14,6 @@ public class SafeAuto extends LinearOpMode {
 
     public DcMotor climb;
 
-    public static final int SPEED = 1;
-
     private void initMap() {
         r_motor = hardwareMap.dcMotor.get("Right Drive Motor");
         l_motor = hardwareMap.dcMotor.get("Left Drive Motor");
@@ -26,9 +24,7 @@ public class SafeAuto extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         initMap();
         waitForStart();
-        new Encoder(this).startAuto(this,l_motor,r_motor,climb);
+        new Encoder(this).startAuto(l_motor,r_motor,climb);
     }
-
-
 
 }

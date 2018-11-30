@@ -50,7 +50,7 @@ public class CraterAuto extends LinearOpMode {
 
         //to test pixy
 
-        Pair<Integer,boolean[]> pair = en.startAuto(this,l_motor,r_motor,climb);
+        Pair<Integer,boolean[]> pair = en.startAuto(l_motor,r_motor,climb);
         boolean[] minerals = pair.second;
         en.encoderDrive(l_motor, r_motor, 1,-(pair.first-2));
 
