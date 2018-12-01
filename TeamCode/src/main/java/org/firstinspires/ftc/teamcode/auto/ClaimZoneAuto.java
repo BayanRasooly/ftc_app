@@ -17,6 +17,7 @@ public class ClaimZoneAuto extends LinearOpMode{
     public DcMotor r_motor;
     public DcMotor l_motor;
 
+    public DcMotor claim;
 
 
     public DcMotor climb;
@@ -31,6 +32,7 @@ public class ClaimZoneAuto extends LinearOpMode{
         r_motor = hardwareMap.dcMotor.get("Right Drive Motor");
         l_motor = hardwareMap.dcMotor.get("Left Drive Motor");
         climb = hardwareMap.dcMotor.get("Lifting Motor");
+        claim = hardwareMap.dcMotor.get("Intake Motor");
         left_distance = DistanceSensor.getLeft(hardwareMap);
         right_distance = DistanceSensor.getRight(hardwareMap);
     }
@@ -47,24 +49,26 @@ public class ClaimZoneAuto extends LinearOpMode{
 
         boolean[] minerals = pair.second;
 
-        if (!minerals[1]) {
+        if (minerals[0] || minerals[2]) {
             //turn
-            int left = minerals[0] ? 5 : -5;
-            int right = minerals[0] ? -5 : 5;
+            double  left = minerals[0] ? 4.5 : -4.5;
+            double right = minerals[0] ? -4.5 : 4.5;
             telemetry.addData("motors",left + "," + right);
             telemetry.update();
             en.encoderDrive(l_motor, r_motor, SPEED,left,right);//HARD
-
             //drive to claim zone
-            en.encoderDrive(l_motor,r_motor,SPEED,32);
-            en.claim();
-            en.align(l_motor,r_motor,left_distance,right_distance);
+            en.encoderDrive(l_motor,r_motor,SPEED,16);
+            en.encoderDrive(l_motor,r_motor,SPEED,left,right);
+            en.encoderDrive(l_motor,r_motor,SPEED,16);
+
+//            en.align(l_motor,r_motor,left_distance,right_distance);
         } else {
             en.encoderDrive(l_motor, r_motor, SPEED, 27);
-            en.claim();
-            en.encoderDrive(l_motor, r_motor, SPEED,10,-10);
-            en.align(l_motor,r_motor,left_distance,right_distance);
+//            en.encoderDrive(l_motor, r_motor, SPEED,10,-10);
+//            en.align(l_motor,r_motor,left_distance,right_distance);
         }
-        en.encoderDrive(l_motor, r_motor, SPEED,-288);
+        en.claim(claim);
+//        en.encoderDrive(l_motor,r_motor,SPEED,-25);
+//        en.encoderDrive(l_motor, r_motor, SPEED,-288);
     }
 }

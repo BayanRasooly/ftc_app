@@ -89,8 +89,14 @@ public class Encoder {
         encoderDrive(leftMotor,rightMotor,speed,distance,distance);
     }
 
-    public void claim() {
-        throw new AssertionError("what are you doing, write this method before calling");
+    public void claim(DcMotor claim) {
+        claim.setPower(-1);
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        claim.setPower(0);
     }
 
     private static final double bound = 7;
@@ -155,10 +161,10 @@ public class Encoder {
 
 
     public Pair<Integer,boolean[]> startAuto(DcMotor l_motor, DcMotor r_motor, DcMotor climb){
-        lower(climb,1);
+//        lower(climb,1);
         boolean[] minerals = new MineralReader(op.hardwareMap).read().clone();
         op.telemetry.addData("Guess", "[" + minerals[0] + "," + minerals[1] + "," + minerals[2] + "]");
-        encoderDrive(l_motor,r_motor,1,0.1,2);
+//        encoderDrive(l_motor,r_motor,1,0.1,2);
         if(minerals[0] || minerals[2]) {
             double left = minerals[0] ? -2 : 5;
             double right = minerals[0] ? 6 : -2;

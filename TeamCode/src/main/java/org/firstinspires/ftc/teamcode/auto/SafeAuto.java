@@ -13,18 +13,22 @@ public class SafeAuto extends LinearOpMode {
     public DcMotor l_motor;
 
     public DcMotor climb;
+    public DcMotor claim;
 
     private void initMap() {
         r_motor = hardwareMap.dcMotor.get("Right Drive Motor");
         l_motor = hardwareMap.dcMotor.get("Left Drive Motor");
         climb = hardwareMap.dcMotor.get("Lifting Motor");
+        claim = hardwareMap.dcMotor.get("Intake Motor");
     }
 
     @Override
     public void runOpMode() throws InterruptedException {
         initMap();
         waitForStart();
-        new Encoder(this).startAuto(l_motor,r_motor,climb);
+        Encoder en = new Encoder(this);
+        en.startAuto(l_motor,r_motor,climb);
+        en.claim(claim);
     }
 
 }

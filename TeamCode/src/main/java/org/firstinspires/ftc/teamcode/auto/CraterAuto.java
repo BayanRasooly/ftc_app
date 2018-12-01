@@ -20,6 +20,7 @@ public class CraterAuto extends LinearOpMode {
     public DcMotor r_motor;
     public DcMotor l_motor;
 
+    public DcMotor claim;
 
 
     public DcMotor climb;
@@ -34,6 +35,7 @@ public class CraterAuto extends LinearOpMode {
         r_motor = hardwareMap.dcMotor.get("Right Drive Motor");
         l_motor = hardwareMap.dcMotor.get("Left Drive Motor");
         climb = hardwareMap.dcMotor.get("Lifting Motor");
+        claim = hardwareMap.dcMotor.get("Intake Motor");
         left_distance = DistanceSensor.getLeft(hardwareMap);
         right_distance = DistanceSensor.getRight(hardwareMap);
     }
@@ -65,7 +67,7 @@ public class CraterAuto extends LinearOpMode {
         en.encoderDrive(l_motor, r_motor, SPEED,-20,20);//turn to claim
 //        en.align(l_motor, r_motor, left_distance, right_distance);//may be needed, may waste time
         en.encoderDrive(l_motor, r_motor, SPEED,70);
-        en.claim();
+        en.claim(claim);
         en.encoderDrive(l_motor, r_motor, SPEED,-144);
     }
 }
