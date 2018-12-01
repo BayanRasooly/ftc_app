@@ -59,7 +59,7 @@ public class TeleOp_Actual_Alt extends LinearOpMode{
             //bar();
             dumper();
             intake();
-            //servo();
+            servo();
             lift();
         }
     }
