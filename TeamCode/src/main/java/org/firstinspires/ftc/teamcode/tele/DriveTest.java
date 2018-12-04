@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 
-@TeleOp(name="DriveTest", group="Pushbot")
+//@TeleOp(name="DriveTest", group="Pushbot")
 
 public class DriveTest extends LinearOpMode{
 

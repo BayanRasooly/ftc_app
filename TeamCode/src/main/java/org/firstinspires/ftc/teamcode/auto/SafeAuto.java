@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.core.Encoder;
 
-@Autonomous(name="Auto SAFE", group="Robot")
+@Autonomous(name="Auto SAFE (if shit hits the fan)", group="Robot")
 public class SafeAuto extends LinearOpMode {
 
     public DcMotor r_motor;
@@ -26,9 +26,13 @@ public class SafeAuto extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         initMap();
         waitForStart();
-        Encoder en = new Encoder(this);
-        en.startAuto(l_motor,r_motor,climb);
-        en.claim(claim);
+        try {
+            Encoder en = new Encoder(this);
+            en.startAuto(l_motor, r_motor, climb);
+            en.claim(claim);
+        }catch(Throwable e){
+
+        }
     }
 
 }

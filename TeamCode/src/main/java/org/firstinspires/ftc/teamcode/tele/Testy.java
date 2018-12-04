@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 //import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-@Autonomous(name = "testy", group = "test")
+//@Autonomous(name = "testy", group = "test")
 //@TeleOp (name = "testy", group = "test")
 
 public class Testy extends LinearOpMode {

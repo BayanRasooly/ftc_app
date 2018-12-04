@@ -21,7 +21,7 @@ import com.qualcomm.robotcore.hardware.I2cDevice;
 import com.qualcomm.robotcore.hardware.I2cDeviceSynch;
 import com.qualcomm.robotcore.hardware.I2cDeviceSynchImpl;
 
-@TeleOp(name = "Range Sensors", group = "MRI")
+//@TeleOp(name = "Range Sensors", group = "MRI")
 //@Disabled
 public class MRI_Range_Sensors extends OpMode {
 

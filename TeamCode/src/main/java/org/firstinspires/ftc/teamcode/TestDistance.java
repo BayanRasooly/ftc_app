@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 import com.qualcomm.robotcore.hardware.UltrasonicSensor;
 
-@Autonomous(name="Distance", group="Auto")
+//@Autonomous(name="Distance", group="Auto")
 public class TestDistance extends LinearOpMode {
     HardwareMap hwMap = null;
 

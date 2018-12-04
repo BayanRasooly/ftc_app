@@ -26,7 +26,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-@TeleOp(name = "Range", group = "MRI")
+//@TeleOp(name = "Range", group = "MRI")
 public class MRI_Range extends OpMode {
 
     byte[] range1Cache; //The read will return an array of bytes. They are stored in this variable

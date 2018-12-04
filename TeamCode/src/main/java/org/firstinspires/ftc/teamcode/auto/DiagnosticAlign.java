@@ -12,7 +12,7 @@ import org.firstinspires.ftc.robotcore.external.Func;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.core.Encoder;
 
-@Autonomous(name="Align", group="Robot")
+//@Autonomous(name="Align", group="Robot")
 public class DiagnosticAlign extends LinearOpMode {
 
     public DcMotor r_motor;

@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
-@TeleOp(name="tele_check", group="Pushbot")
+//@TeleOp(name="tele_check", group="Pushbot")
 
 public class Tele_Check extends LinearOpMode{
 

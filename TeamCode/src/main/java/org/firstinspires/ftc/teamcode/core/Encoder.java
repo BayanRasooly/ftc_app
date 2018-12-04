@@ -90,9 +90,9 @@ public class Encoder {
     }
 
     public void claim(DcMotor claim) {
-        claim.setPower(-1);
+        claim.setPower(-.8);
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

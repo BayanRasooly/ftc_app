@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.core.Encoder;
 
-@Autonomous(name="Claim Zone Auto", group="Robot")
+@Autonomous(name="Claim Zone Auto **FINAL**", group="Robot")
 public class ClaimZoneAuto extends LinearOpMode{
 
     public DcMotor r_motor;
@@ -38,37 +38,43 @@ public class ClaimZoneAuto extends LinearOpMode{
     }
 
     @Override
-    public void runOpMode() throws InterruptedException {
-        en = new Encoder(this);
-        initMap();
-        telemetry.addData("Status", "Ready to run");
-        telemetry.update();
-        waitForStart();
-
-        Pair<Integer,boolean[]> pair = en.startAuto(l_motor,r_motor,climb);
-
-        boolean[] minerals = pair.second;
-
-        if (minerals[0] || minerals[2]) {
-            //turn
-            double  left = minerals[0] ? 4.5 : -4.5;
-            double right = minerals[0] ? -4.5 : 4.5;
-            telemetry.addData("motors",left + "," + right);
+    public void runOpMode() {
+        try {
+            en = new Encoder(this);
+            initMap();
+            telemetry.addData("Status", "Ready to run");
             telemetry.update();
-            en.encoderDrive(l_motor, r_motor, SPEED,left,right);//HARD
-            //drive to claim zone
-            en.encoderDrive(l_motor,r_motor,SPEED,16);
-            en.encoderDrive(l_motor,r_motor,SPEED,left,right);
-            en.encoderDrive(l_motor,r_motor,SPEED,16);
+            waitForStart();
+
+            Pair<Integer, boolean[]> pair = en.startAuto(l_motor, r_motor, climb);
+
+            boolean[] minerals = pair.second;
+
+            if (minerals[0] || minerals[2]) {
+                //turn
+                double left = minerals[0] ? 4.5 : -4.5;
+                double right = minerals[0] ? -4.5 : 4.5;
+                telemetry.addData("motors", left + "," + right);
+                telemetry.update();
+                en.encoderDrive(l_motor, r_motor, SPEED, left, right);//HARD
+                //drive to claim zone
+                en.encoderDrive(l_motor, r_motor, SPEED, 16);
+                en.encoderDrive(l_motor, r_motor, SPEED, left, right);
+                en.encoderDrive(l_motor, r_motor, SPEED, 16);
 
 //            en.align(l_motor,r_motor,left_distance,right_distance);
-        } else {
-            en.encoderDrive(l_motor, r_motor, SPEED, 27);
+            } else {
+                en.encoderDrive(l_motor, r_motor, SPEED, 27);
 //            en.encoderDrive(l_motor, r_motor, SPEED,10,-10);
 //            en.align(l_motor,r_motor,left_distance,right_distance);
-        }
-        en.claim(claim);
+            }
+            en.claim(claim);
 //        en.encoderDrive(l_motor,r_motor,SPEED,-25);
 //        en.encoderDrive(l_motor, r_motor, SPEED,-288);
+        }catch(Throwable a) {
+
+        }
     }
-}
+
+
+    }

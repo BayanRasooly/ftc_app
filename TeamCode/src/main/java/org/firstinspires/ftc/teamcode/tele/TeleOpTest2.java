@@ -18,7 +18,7 @@ import static android.R.attr.right;
 import static android.R.transition.move;
 
 //make sure to change!
-@TeleOp(name="tele2", group="test")
+//@TeleOp(name="tele2", group="test")
 //@Disabled
 public class TeleOpTest2 extends LinearOpMode{
     public DcMotor r_motor;

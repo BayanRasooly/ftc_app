@@ -47,20 +47,41 @@ public class TeleOp_Actual extends LinearOpMode{
         telemetry.update();
         waitForStart();
         while(opModeIsActive()) {
-            //left motor
-            float left_speed = -lefty();
-            l_motor.setPower(left_speed);
-            telemetry.addData("Left Track", left_speed);
-            //right motor
-            float right_speed = righty();
-            r_motor.setPower(right_speed);
-            telemetry.addData("Right Track", right_speed);
-            telemetry.update();
+            try{
+                //left motor
+                float left_speed = -lefty();
+                if(!opModeIsActive()) return;
+                l_motor.setPower(left_speed);
+                telemetry.addData("Left Track", left_speed);
+                //right motor
+                float right_speed = righty();
+                if(!opModeIsActive()) return;
+                r_motor.setPower(right_speed);
+                telemetry.addData("Right Track", right_speed);
+                telemetry.update();
+            }catch (Throwable e){
+            }
             //bar();
-            dumper();
-            intake();
-            servo();
-            lift();
+            try{
+                if(!opModeIsActive()) return;
+                dumper();
+            } catch (Throwable e) {
+            }
+            try {
+                if(!opModeIsActive()) return;
+                intake();
+            } catch (Throwable e) {
+            }
+            try {
+                if(!opModeIsActive()) return;
+                servo();
+            } catch (Throwable e) {
+            }
+            try {
+                if(!opModeIsActive()) return;
+                lift();
+            } catch (Throwable e) {
+            }
         }
     }
 
@@ -87,24 +108,13 @@ public class TeleOp_Actual extends LinearOpMode{
             l_dump.setPosition(0);
             r_dump.setPosition(1);
         } else if(gamepad2.dpad_left || gamepad2.dpad_right) {
-            l_dump.setPosition(.25);
-            r_dump.setPosition(.75);
+            l_dump.setPosition(.4);
+            r_dump.setPosition(.6);
         } else if(gamepad2.dpad_down) {
             l_dump.setPosition(1);
             r_dump.setPosition(0);
         }
     }
-//    public void bar(){
-//        if(gamepad2.right_bumper && !bar){
-//            bar = true;
-//            l_bar.setPosition(1);
-//            r_bar.setPosition(1);
-//        }else if(gamepad2.right_bumper && bar){
-//            bar = false;
-//            l_bar.setPosition(.5);
-//            r_bar.setPosition(.5);
-//        }
-//    }
     public void lift() {
         if (gamepad2.right_trigger > 0.1) {
             lift.setPower(-gamepad2.right_trigger);
@@ -125,9 +135,9 @@ public class TeleOp_Actual extends LinearOpMode{
     }
 
     public float lefty(){
-        return cap(-gamepad1.left_stick_y + gamepad1.left_stick_x);
+        return cap((-gamepad1.left_stick_y + gamepad1.left_stick_x) + -gamepad2.left_stick_y + gamepad2.left_stick_x);
     }
     public float righty(){
-        return cap(-gamepad1.left_stick_y - gamepad1.left_stick_x);
+        return cap((-gamepad1.left_stick_y - gamepad1.left_stick_x) + -gamepad1.left_stick_y - gamepad2.left_stick_x);
     }
 }

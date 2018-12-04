@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 
 import org.firstinspires.ftc.robotcore.external.Func;
 
-@Autonomous(name="ColorTest", group="Test")
+//@Autonomous(name="ColorTest", group="Test")
 public class ColorTest extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
