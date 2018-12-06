@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
-@TeleOp(name="tele_actual_altDrive", group="Pushbot")
+//@TeleOp(name="tele_actual_altDrive", group="Pushbot")
 
 public class TeleOp_Actual_Alt extends LinearOpMode{
     HardwareMap hwMap = null;

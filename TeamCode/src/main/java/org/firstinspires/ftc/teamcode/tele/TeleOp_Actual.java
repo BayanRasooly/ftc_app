@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.tele;
 
+import android.util.Pair;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.core.Robot;
@@ -14,6 +16,9 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class TeleOp_Actual extends LinearOpMode{
     HardwareMap hwMap = null;
+
+    private static boolean overrideDrive;
+    private static boolean overrideLift;
 
     public DcMotor r_motor;
     public DcMotor l_motor;
@@ -82,6 +87,11 @@ public class TeleOp_Actual extends LinearOpMode{
                 lift();
             } catch (Throwable e) {
             }
+            try {
+                if(!opModeIsActive()) return;
+                override();
+            } catch (Throwable e) {
+            }
         }
     }
 
@@ -92,6 +102,23 @@ public class TeleOp_Actual extends LinearOpMode{
             intake.setPower(1);
         }else{
             intake.setPower(0);
+        }
+    }
+
+    private boolean flag1 = true;
+    private boolean flag2 = true;
+    public void override(){
+        if(gamepad2.right_bumper && gamepad2.left_bumper && flag2){
+            overrideDrive = !overrideDrive;
+            flag2 = false;
+        }else{
+            flag2 = true;
+        }
+        if(gamepad1.right_bumper && gamepad1.left_bumper && flag1){
+            overrideLift = !overrideLift;
+            flag1 = false;
+        }else{
+            flag1 = true;
         }
     }
 
@@ -116,10 +143,19 @@ public class TeleOp_Actual extends LinearOpMode{
         }
     }
     public void lift() {
-        if (gamepad2.right_trigger > 0.1) {
-            lift.setPower(-gamepad2.right_trigger);
-        }else if (gamepad2.left_trigger > 0.1){
-            lift.setPower(gamepad2.left_trigger);
+        double trigR = 0;
+        double trigL = 0;
+        if(overrideLift){
+            trigR = gamepad1.right_trigger;
+            trigL = gamepad1.left_trigger;
+        }else{
+            trigR = gamepad2.right_trigger;
+            trigL = gamepad2.left_trigger;
+        }
+        if (trigR > 0.1) {
+            lift.setPower(-trigR);
+        }else if (trigL > 0.1){
+            lift.setPower(trigL);
         }else{
             lift.setPower(0);
         }
@@ -135,9 +171,24 @@ public class TeleOp_Actual extends LinearOpMode{
     }
 
     public float lefty(){
-        return cap((-gamepad1.left_stick_y + gamepad1.left_stick_x) + -gamepad2.left_stick_y + gamepad2.left_stick_x);
+        Pair<Float,Float> pair = generateDrivers();
+        return cap(-pair.second + pair.first);
+    }
+
+    private Pair<Float,Float> generateDrivers(){
+        float driveX;
+        float driveY;
+        if(overrideDrive){
+            driveX = gamepad2.left_stick_x;
+            driveY = gamepad2.left_stick_y;
+        }else{
+            driveX = gamepad1.left_stick_x;
+            driveY = gamepad1.left_stick_y;
+        }
+        return new Pair<>(driveX,driveY);
     }
     public float righty(){
-        return cap((-gamepad1.left_stick_y - gamepad1.left_stick_x) + -gamepad1.left_stick_y - gamepad2.left_stick_x);
+        Pair<Float,Float> pair = generateDrivers();
+        return cap(-pair.second - pair.first);
     }
 }
