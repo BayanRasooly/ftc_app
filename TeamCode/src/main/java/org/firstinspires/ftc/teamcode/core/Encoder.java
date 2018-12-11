@@ -31,7 +31,6 @@ public class Encoder {
         setLeftMotorPower(a,speed);
         setRightMotorPower(b,speed);
     }
-
     public void encoderDrive(DcMotor leftMotor, DcMotor rightMotor, double speed, double left, double right, int time, Func<Boolean> func){
         if(!op.opModeIsActive()){
             try {
@@ -71,6 +70,7 @@ public class Encoder {
         leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
+
 
     public void encoderDrive(DcMotor leftMotor, DcMotor rightMotor,double speed, double left,double right, int time){
         encoderDrive(leftMotor,rightMotor,speed,left,right,time,new Func<Boolean>(){
@@ -166,15 +166,15 @@ public class Encoder {
         op.telemetry.addData("Guess", "[" + minerals[0] + "," + minerals[1] + "," + minerals[2] + "]");
 //        encoderDrive(l_motor,r_motor,1,0.1,2);
         if(minerals[0] || minerals[2]) {
-            double left = minerals[0] ? -2 : 5;
-            double right = minerals[0] ? 6 : -2;
+            double left = minerals[0] ? -3 : 5 ;
+            double right = minerals[0] ? 3 : -5;
             op.telemetry.addData("motors",left + "," + right);
             encoderDrive(l_motor, r_motor, 1, left, right);
         }
         int dist;//move forward more if sideways
-        if(minerals[0]) dist = 30;
-        else if(minerals[1]) dist = 27;
-        else dist = 27;
+        if(minerals[0]) dist = 24;
+        else if(minerals[1]) dist = 20;
+        else dist = 24;
         op.telemetry.addData("dist",dist);
         op.telemetry.update();
         encoderDrive(l_motor, r_motor, 1, dist);

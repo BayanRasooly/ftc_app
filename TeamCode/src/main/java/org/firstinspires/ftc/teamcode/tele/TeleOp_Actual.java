@@ -52,46 +52,28 @@ public class TeleOp_Actual extends LinearOpMode{
         telemetry.update();
         waitForStart();
         while(opModeIsActive()) {
-            try{
-                //left motor
-                float left_speed = -lefty();
-                if(!opModeIsActive()) return;
-                l_motor.setPower(left_speed);
-                telemetry.addData("Left Track", left_speed);
-                //right motor
-                float right_speed = righty();
-                if(!opModeIsActive()) return;
-                r_motor.setPower(right_speed);
-                telemetry.addData("Right Track", right_speed);
-                telemetry.update();
-            }catch (Throwable e){
-            }
-            //bar();
-            try{
-                if(!opModeIsActive()) return;
-                dumper();
-            } catch (Throwable e) {
-            }
-            try {
-                if(!opModeIsActive()) return;
-                intake();
-            } catch (Throwable e) {
-            }
-            try {
-                if(!opModeIsActive()) return;
-                servo();
-            } catch (Throwable e) {
-            }
-            try {
-                if(!opModeIsActive()) return;
-                lift();
-            } catch (Throwable e) {
-            }
-            try {
-                if(!opModeIsActive()) return;
-                override();
-            } catch (Throwable e) {
-            }
+            //left motor
+            float left_speed = -lefty();
+            if(!opModeIsActive()) return;
+            l_motor.setPower(left_speed);
+            telemetry.addData("Left Track", left_speed);
+            //right motor
+            float right_speed = righty();
+            if(!opModeIsActive()) return;
+            r_motor.setPower(right_speed);
+            telemetry.addData("Right Track", right_speed);
+            telemetry.update();
+        //bar();
+            if(!opModeIsActive()) return;
+            dumper();
+            if(!opModeIsActive()) return;
+            intake();
+            if(!opModeIsActive()) return;
+            servo();
+            if(!opModeIsActive()) return;
+            lift();
+            if(!opModeIsActive()) return;
+            override();
         }
     }
 

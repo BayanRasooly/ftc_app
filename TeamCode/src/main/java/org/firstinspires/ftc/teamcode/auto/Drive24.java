@@ -12,8 +12,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.Func;
 import org.firstinspires.ftc.teamcode.core.Encoder;
 
-//@Autonomous(name="Drive24", group="Robot")
-public class Drive12 extends LinearOpMode {
+@Autonomous(name="Drive24", group="Robot")
+public class Drive24 extends LinearOpMode {
 
     public DcMotor r_motor;
     public DcMotor l_motor;

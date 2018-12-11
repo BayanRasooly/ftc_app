@@ -25,13 +25,15 @@ public class SafeAuto extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         initMap();
+        telemetry.addData("Status", "Ready to run");
+        telemetry.update();
         waitForStart();
         try {
             Encoder en = new Encoder(this);
             en.startAuto(l_motor, r_motor, climb);
-            en.claim(claim);
+//            en.claim(claim);
         }catch(Throwable e){
-
+            throw e;
         }
     }
 
