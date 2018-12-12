@@ -124,6 +124,7 @@ public class TeleOp_Actual_Alt extends LinearOpMode{
             r_dump.setPosition(0);
         }
     }
+
     public void lift() {
         double trigR = 0;
         double trigL = 0;
@@ -135,9 +136,9 @@ public class TeleOp_Actual_Alt extends LinearOpMode{
             trigL = gamepad2.left_trigger;
         }
         if (trigR > 0.1) {
-            lift.setPower(-trigR);
+            lift.setPower(trigR);
         }else if (trigL > 0.1){
-            lift.setPower(trigL);
+            lift.setPower(-trigL);
         }else{
             lift.setPower(0);
         }

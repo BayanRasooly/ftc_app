@@ -36,26 +36,24 @@ public class CraterAutoSAFE extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        try {
-            en = new Encoder(this);
-            initMap();
-            telemetry.addData("Status", "Ready to run");
-            telemetry.update();
-            waitForStart();
+
+        en = new Encoder(this);
+        initMap();
+        telemetry.addData("Status", "Ready to run");
+        telemetry.update();
+        waitForStart();
 //        en.lower(climb, SPEED);
 
 
-            //to test pixy
+        //to test pixy
 
-            Pair<Integer, boolean[]> pair = en.startAuto(l_motor, r_motor, climb);
-            en.encoderDrive(l_motor, r_motor, SPEED, 0);
-//        boolean[] minerals = pair.second;
-//        en.encoderDrive(l_motor, r_motor, 1,-(pair.first-2));
-//
-//        int turn;
-//        if(minerals[0]) turn = 2;
-//        else if(minerals[1]) turn = 10;
-//        else turn = 15;
+        Pair<Integer, boolean[]> pair = en.startAuto(l_motor, r_motor, climb);
+        boolean[] minerals = pair.second;
+        int amount;
+        if(minerals[0]) amount = 10;
+        else if(minerals[1]) amount = 10;
+        else amount = 7;
+        en.encoderDrive(l_motor, r_motor, SPEED, amount);
 //
 //        en.encoderDrive(l_motor,r_motor,SPEED,-turn,turn);
 //        en.align(l_motor, r_motor, left_distance, right_distance);
@@ -65,7 +63,6 @@ public class CraterAutoSAFE extends LinearOpMode {
 //        en.encoderDrive(l_motor, r_motor, SPEED,70);
 //        en.claim(claim);
 //        en.encoderDrive(l_motor, r_motor, SPEED,-144);
-        }catch(Throwable a){
-        }
+
     }
 }

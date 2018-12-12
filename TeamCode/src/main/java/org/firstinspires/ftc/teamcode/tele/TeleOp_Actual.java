@@ -135,9 +135,9 @@ public class TeleOp_Actual extends LinearOpMode{
             trigL = gamepad2.left_trigger;
         }
         if (trigR > 0.1) {
-            lift.setPower(-trigR);
+            lift.setPower(trigR);
         }else if (trigL > 0.1){
-            lift.setPower(trigL);
+            lift.setPower(-trigL);
         }else{
             lift.setPower(0);
         }

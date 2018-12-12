@@ -90,12 +90,8 @@ public class Encoder {
     }
 
     public void claim(DcMotor claim) {
-        claim.setPower(-.8);
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        claim.setPower(-1);
+        unsafeWait(1000);
         claim.setPower(0);
     }
 
@@ -166,15 +162,15 @@ public class Encoder {
         op.telemetry.addData("Guess", "[" + minerals[0] + "," + minerals[1] + "," + minerals[2] + "]");
 //        encoderDrive(l_motor,r_motor,1,0.1,2);
         if(minerals[0] || minerals[2]) {
-            double left = minerals[0] ? -3 : 5 ;
-            double right = minerals[0] ? 3 : -5;
+            double left = minerals[0] ? -4 : 4 ;
+            double right = minerals[0] ? 4 : -4;
             op.telemetry.addData("motors",left + "," + right);
             encoderDrive(l_motor, r_motor, 1, left, right);
         }
         int dist;//move forward more if sideways
-        if(minerals[0]) dist = 24;
-        else if(minerals[1]) dist = 20;
-        else dist = 24;
+        if(minerals[0]) dist = 30;
+        else if(minerals[1]) dist = 27;
+        else dist = 30;
         op.telemetry.addData("dist",dist);
         op.telemetry.update();
         encoderDrive(l_motor, r_motor, 1, dist);
