@@ -12,13 +12,13 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
-//@TeleOp(name="tele_actual_altDrive", group="Pushbot")
+@TeleOp(name="tele_actual_altDrive", group="Pushbot")
 
 public class TeleOp_Actual_Alt extends LinearOpMode{
     HardwareMap hwMap = null;
 
-    private static boolean overrideDrive;
-    private static boolean overrideLift;
+    private static boolean overrideDrive = false;
+    private static boolean overrideLift = false;
 
     public DcMotor r_motor;
     public DcMotor l_motor;
@@ -28,7 +28,6 @@ public class TeleOp_Actual_Alt extends LinearOpMode{
 
     public Servo l_dump;//Left Dumper Servo
     public Servo r_dump;//Right Dumper Servo
-    public Servo lock;
 
     public void init(HardwareMap ahwMap) {
         hwMap = ahwMap;
@@ -38,10 +37,8 @@ public class TeleOp_Actual_Alt extends LinearOpMode{
         lift = hardwareMap.dcMotor.get("Lifting Motor");
         l_dump = hardwareMap.servo.get("L_Dump");
         r_dump = hardwareMap.servo.get("R_Dump");
-        lock = hardwareMap.servo.get("Lock");
-        lock.setPosition(0.5);
-        l_dump.setPosition(.25);
-        r_dump.setPosition(.75);
+        l_dump.setPosition(.29);
+        r_dump.setPosition(.71);
         lift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         intake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
@@ -68,7 +65,7 @@ public class TeleOp_Actual_Alt extends LinearOpMode{
             if(!opModeIsActive()) return;
             intake();
             if(!opModeIsActive()) return;
-            servo();
+            //servo();
             if(!opModeIsActive()) return;
             lift();
             if(!opModeIsActive()) return;
@@ -90,25 +87,17 @@ public class TeleOp_Actual_Alt extends LinearOpMode{
     private boolean flag1 = true;
     private boolean flag2 = true;
     public void override(){
-        if(gamepad2.right_bumper && gamepad2.left_bumper && flag2){
+        if(gamepad2.x && flag2){
             overrideDrive = !overrideDrive;
             flag2 = false;
         }else{
             flag2 = true;
         }
-        if(gamepad1.right_bumper && gamepad1.left_bumper && flag1){
+        if(gamepad1.x && flag1){
             overrideLift = !overrideLift;
             flag1 = false;
         }else{
             flag1 = true;
-        }
-    }
-
-    public void servo(){
-        if(gamepad1.x ){
-            lock.setPosition(1);
-        }else if(gamepad1.y){
-            lock.setPosition(0);
         }
     }
 
@@ -117,11 +106,11 @@ public class TeleOp_Actual_Alt extends LinearOpMode{
             l_dump.setPosition(0);
             r_dump.setPosition(1);
         } else if(gamepad2.dpad_left || gamepad2.dpad_right) {
-            l_dump.setPosition(.4);
-            r_dump.setPosition(.6);
+            l_dump.setPosition(.29);
+            r_dump.setPosition(.71);
         } else if(gamepad2.dpad_down) {
-            l_dump.setPosition(1);
-            r_dump.setPosition(0);
+            l_dump.setPosition(0.9);
+            r_dump.setPosition(0.1);
         }
     }
 
