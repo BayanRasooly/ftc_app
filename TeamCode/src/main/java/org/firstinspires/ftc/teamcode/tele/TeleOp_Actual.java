@@ -55,10 +55,10 @@ public class TeleOp_Actual extends LinearOpMode{
             //right motor
             float right_speed = righty();
             if(!opModeIsActive()) return;
+            telemetry.addData("Right Track", right_speed);
 
             l_motor.setPower(left_speed);
             r_motor.setPower(right_speed);
-            telemetry.addData("Right Track", right_speed);
             telemetry.update();
         //bar();
             if(!opModeIsActive()) return;
