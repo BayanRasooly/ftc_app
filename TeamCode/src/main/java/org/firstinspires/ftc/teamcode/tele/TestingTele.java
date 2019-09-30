@@ -1,4 +1,6 @@
 package org.firstinspires.ftc.teamcode.tele;
 
-public class TestingTele {
+public class TestingTele extends LinearOpMode
+{
+
 }
