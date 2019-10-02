@@ -55,11 +55,20 @@ public class BasicOpMode_Iterative extends OpMode
         motorRearLeft = hardwareMap.dcMotor.get("motorRearLeft");
         motorRearRight = hardwareMap.dcMotor.get("motorRearRight");
 
+        motorLeft setChannelMode(DcMotorController.RunMode.)
+        motorRight =
+        motorRearLeft =
+        motorRearRight =
+
+        motorLeft.setMotorDirection(DcMotor.Direction.REVERSE);
+        motorRearLeft.setMotorDirection(DcMotor.Direction.REVERSE);
+
         waitForStart();
-        leftDrive.setPower(1)
-        rightDrive.setPower(1)
-        rightRearDrive.setPower(1)
-        leftRearDrive.setPower(1)
+        leftDrive.setPower(1);
+        rightDrive.setPower(1);
+        rightRearDrive.setPower(1);
+        leftRearDrive.setPower(1);
+
     }
 
 }
