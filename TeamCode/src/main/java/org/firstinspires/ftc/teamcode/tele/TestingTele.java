@@ -5,6 +5,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 public class TestingTele extends LinearOpMode
 {
     public void runOpMode(){
-        
+
     }
 }
