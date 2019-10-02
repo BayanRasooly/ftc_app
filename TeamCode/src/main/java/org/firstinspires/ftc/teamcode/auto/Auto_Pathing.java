@@ -55,20 +55,163 @@ public class BasicOpMode_Iterative extends OpMode
         motorRearLeft = hardwareMap.dcMotor.get("motorRearLeft");
         motorRearRight = hardwareMap.dcMotor.get("motorRearRight");
 
-        motorLeft setChannelMode(DcMotorController.RunMode.)
-        motorRight =
-        motorRearLeft =
-        motorRearRight =
+        motorLeft.setChannelMode(DcMotorController.RunMode.Run_To_Position)
+        motorRight.setChannelMode(DcMotorController.RunMode.Run_To_Position)
+        motorRearLeft.setChannelMode(DcMotorController.RunMode.Run_To_Position)
+        motorRearRight.setChannelMode(DcMotorController.RunMode.Run_To_Position)
+
+        motorLeft.setChannelMode(DcMotorController.RunMode.Run_To_Position)
+        motorRight.setChannelMode(DcMotorController.RunMode.Run_To_Position)
+        motorRearLeft.setChannelMode(DcMotorController.RunMode.Run_To_Position)
+        motorRearRight.setChannelMode(DcMotorController.RunMode.Run_To_Position)
 
         motorLeft.setMotorDirection(DcMotor.Direction.REVERSE);
         motorRearLeft.setMotorDirection(DcMotor.Direction.REVERSE);
 
         waitForStart();
-        leftDrive.setPower(1);
-        rightDrive.setPower(1);
-        rightRearDrive.setPower(1);
-        leftRearDrive.setPower(1);
-
+        AllForwardDistance(1, 500);
     }
+
+    public void AllForward (power) {
+
+        leftDrive.setPower(power);
+        rightDrive.setPower(power);
+        rightRearDrive.setPower(power);
+        leftRearDrive.setPower(power);
+    }
+
+    public void RightTurn (power) {
+
+        leftDrive.setPower(power);
+        rightDrive.setPower(-power);
+        rightRearDrive.setPower(-power);
+        leftRearDrive.setPower(power);
+    }
+
+    public void LeftTurn (power) {
+
+        leftDrive.setPower(-power);
+        rightDrive.setPower(power);
+        rightRearDrive.setPower(power);
+        leftRearDrive.setPower(-power);
+    }
+
+    public void Reverse (power) {
+
+        leftDrive.setPower(-power);
+        rightDrive.setPower(-power);
+        rightRearDrive.setPower(-power);
+        leftRearDrive.setPower(-power);
+    }
+    }
+
+    public void AllForwardDistance (double power, int distance){
+
+        motorLeft.setChannelMode(DcMotorController.RunMode.Reset_Encoders);
+        motorRight.setChannelMode(DcMotorController.RunMode.Reset_Encoders);
+        motorRearLeft.setChannelMode(DcMotorController.RunMode.Reset_Encoders);
+        motorRearRight.setChannelMode(DcMotorController.RunMode.Reset_Encoders);
+
+        motorRight.setTargetPosition(distance);
+        motorLeft.setTargetPosition(distance);
+        motorRearRight.setTargetPosition(distance);
+        motorRearLeft.setTargetPosition(distance);
+
+        AllForward(power)
+
+        while (motorRearRight.isBusy() && (motorRight.isBusy() && (motorLeft.isBusy() && (motorRearLeft.isBusy(){
+
+        }
+
+        stopDriving();
+        motorLeft.setChannelMode(DcMotorController.RunMode.Run_Using_Encoders);
+        motorRight.setChannelMode(DcMotorController.RunMode.Run_Using_Encoders);
+        motorRearLeft.setChannelMode(DcMotorController.RunMode.Run_Using_Encoders);
+        motorRearRight.setChannelMode(DcMotorController.RunMode.Run_Using_Encoders);
+    }
+
+    public void RightTurnDistance (double power, int distance){
+
+        motorLeft.setChannelMode(DcMotorController.RunMode.Reset_Encoders);
+        motorRight.setChannelMode(DcMotorController.RunMode.Reset_Encoders);
+        motorRearLeft.setChannelMode(DcMotorController.RunMode.Reset_Encoders);
+        motorRearRight.setChannelMode(DcMotorController.RunMode.Reset_Encoders);
+
+        motorRight.setTargetPosition(distance);
+        motorLeft.setTargetPosition(distance);
+        motorRearRight.setTargetPosition(distance);
+        motorRearLeft.setTargetPosition(distance);
+
+        RightTurn(power);
+
+        while (motorRearRight.isBusy() && (motorRight.isBusy() && (motorLeft.isBusy() && (motorRearLeft.isBusy(){
+
+        }
+
+        stopDriving();
+        motorLeft.setChannelMode(DcMotorController.RunMode.Run_Using_Encoders);
+        motorRight.setChannelMode(DcMotorController.RunMode.Run_Using_Encoders);
+        motorRearLeft.setChannelMode(DcMotorController.RunMode.Run_Using_Encoders);
+        motorRearRight.setChannelMode(DcMotorController.RunMode.Run_Using_Encoders);
+    }
+
+    public void LeftTurnDistance (double power, int distance){
+
+        motorLeft.setChannelMode(DcMotorController.RunMode.Reset_Encoders);
+        motorRight.setChannelMode(DcMotorController.RunMode.Reset_Encoders);
+        motorRearLeft.setChannelMode(DcMotorController.RunMode.Reset_Encoders);
+        motorRearRight.setChannelMode(DcMotorController.RunMode.Reset_Encoders);
+
+        motorRight.setTargetPosition(distance);
+        motorLeft.setTargetPosition(distance);
+        motorRearRight.setTargetPosition(distance);
+        motorRearLeft.setTargetPosition(distance);
+
+        LeftTurn(power);
+
+        while (motorRearRight.isBusy() && (motorRight.isBusy() && (motorLeft.isBusy() && (motorRearLeft.isBusy(){
+
+        }
+
+        stopDriving();
+        motorLeft.setChannelMode(DcMotorController.RunMode.Run_Using_Encoders);
+        motorRight.setChannelMode(DcMotorController.RunMode.Run_Using_Encoders);
+        motorRearLeft.setChannelMode(DcMotorController.RunMode.Run_Using_Encoders);
+        motorRearRight.setChannelMode(DcMotorController.RunMode.Run_Using_Encoders);
+    }
+
+    public void ReverseDistance (double power, int distance){
+
+        motorLeft.setChannelMode(DcMotorController.RunMode.Reset_Encoders);
+        motorRight.setChannelMode(DcMotorController.RunMode.Reset_Encoders);
+        motorRearLeft.setChannelMode(DcMotorController.RunMode.Reset_Encoders);
+        motorRearRight.setChannelMode(DcMotorController.RunMode.Reset_Encoders);
+
+        motorRight.setTargetPosition(distance);
+        motorLeft.setTargetPosition(distance);
+        motorRearRight.setTargetPosition(distance);
+        motorRearLeft.setTargetPosition(distance);
+
+        Reverse(power);
+
+        while (motorRearRight.isBusy() && (motorRight.isBusy() && (motorLeft.isBusy() && (motorRearLeft.isBusy(){
+
+        }
+
+        stopDriving();
+        motorLeft.setChannelMode(DcMotorController.RunMode.Run_Using_Encoders);
+        motorRight.setChannelMode(DcMotorController.RunMode.Run_Using_Encoders);
+        motorRearLeft.setChannelMode(DcMotorController.RunMode.Run_Using_Encoders);
+        motorRearRight.setChannelMode(DcMotorController.RunMode.Run_Using_Encoders);
+    }
+
+    public void stopDriving
+            AllForward(0);
+
+
+
+
+
+
 
 }
