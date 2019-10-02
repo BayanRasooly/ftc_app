@@ -55,15 +55,15 @@ public class BasicOpMode_Iterative extends OpMode
         motorRearLeft = hardwareMap.dcMotor.get("motorRearLeft");
         motorRearRight = hardwareMap.dcMotor.get("motorRearRight");
 
-        motorLeft.setChannelMode(DcMotorController.RunMode.Run_To_Position)
-        motorRight.setChannelMode(DcMotorController.RunMode.Run_To_Position)
-        motorRearLeft.setChannelMode(DcMotorController.RunMode.Run_To_Position)
-        motorRearRight.setChannelMode(DcMotorController.RunMode.Run_To_Position)
+        motorLeft.setChannelMode(DcMotorController.RunMode.Run_To_Position);
+        motorRight.setChannelMode(DcMotorController.RunMode.Run_To_Position);
+        motorRearLeft.setChannelMode(DcMotorController.RunMode.Run_To_Position);
+        motorRearRight.setChannelMode(DcMotorController.RunMode.Run_To_Position);
 
-        motorLeft.setChannelMode(DcMotorController.RunMode.Run_To_Position)
-        motorRight.setChannelMode(DcMotorController.RunMode.Run_To_Position)
-        motorRearLeft.setChannelMode(DcMotorController.RunMode.Run_To_Position)
-        motorRearRight.setChannelMode(DcMotorController.RunMode.Run_To_Position)
+        motorLeft.setChannelMode(DcMotorController.RunMode.Run_To_Position);
+        motorRight.setChannelMode(DcMotorController.RunMode.Run_To_Position);
+        motorRearLeft.setChannelMode(DcMotorController.RunMode.Run_To_Position);
+        motorRearRight.setChannelMode(DcMotorController.RunMode.Run_To_Position);
 
         motorLeft.setMotorDirection(DcMotor.Direction.REVERSE);
         motorRearLeft.setMotorDirection(DcMotor.Direction.REVERSE);
