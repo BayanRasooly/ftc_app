@@ -27,27 +27,27 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.robotcontroller.external.samples;
+package org.firstinspires.ftc.teamcode.auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 
-@Autonomous(name="Auto", group="Tests")
 //@Disabled
-public class BasicOpMode_Iterative extends OpMode
+public class Auto_Pathing extends LinearOpMode
 {
     private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor leftDrive = null;
-    private DcMotor rightDrive = null;
-    private DcMotor leftRearDrive = null;
-    private DcMotor rightRearDrive = null;
+    private DcMotor motorLeft = null;
+    private DcMotor motorRight = null;
+    private DcMotor motorRearLeft = null;
+    private DcMotor motorRearRight = null;
 
-    @Override
     public void runOpMode() {
 
         motorLeft = hardwareMap.dcMotor.get("motorLeft");
@@ -55,7 +55,7 @@ public class BasicOpMode_Iterative extends OpMode
         motorRearLeft = hardwareMap.dcMotor.get("motorRearLeft");
         motorRearRight = hardwareMap.dcMotor.get("motorRearRight");
 
-        motorLeft.setChannelMode(DcMotorController.RunMode.Run_To_Position)
+        /*motorLeft.setChannelMode(DcMotorController.RunMode.Run_To_Position)
         motorRight.setChannelMode(DcMotorController.RunMode.Run_To_Position)
         motorRearLeft.setChannelMode(DcMotorController.RunMode.Run_To_Position)
         motorRearRight.setChannelMode(DcMotorController.RunMode.Run_To_Position)
@@ -66,76 +66,78 @@ public class BasicOpMode_Iterative extends OpMode
         motorRearRight.setChannelMode(DcMotorController.RunMode.Run_To_Position)
 
         motorLeft.setMotorDirection(DcMotor.Direction.REVERSE);
-        motorRearLeft.setMotorDirection(DcMotor.Direction.REVERSE);
+        motorRearLeft.setMotorDirection(DcMotor.Direction.REVERSE);*/
 
         waitForStart();
         AllForwardDistance(1, 500);
     }
 
-    public void AllForward (power) {
+    public void AllForward (double power) {
 
-        leftDrive.setPower(power);
-        rightDrive.setPower(power);
-        rightRearDrive.setPower(power);
-        leftRearDrive.setPower(power);
+        motorLeft.setPower(power);
+        motorRight.setPower(power);
+        motorRearLeft.setPower(power);
+        motorRearRight.setPower(power);
+        
     }
 
-    public void RightTurn (power) {
+    public void RightTurn (double power) {
 
-        leftDrive.setPower(power);
-        rightDrive.setPower(-power);
-        rightRearDrive.setPower(-power);
-        leftRearDrive.setPower(power);
+        motorLeft.setPower(power);
+        motorRight.setPower(-power);
+        motorRearLeft.setPower(power);
+        motorRearRight.setPower(-power);
+        
     }
 
-    public void LeftTurn (power) {
+    public void LeftTurn (double power) {
 
-        leftDrive.setPower(-power);
-        rightDrive.setPower(power);
-        rightRearDrive.setPower(power);
-        leftRearDrive.setPower(-power);
+        motorLeft.setPower(-power);
+        motorRight.setPower(power);
+        motorRearLeft.setPower(-power);
+        motorRearRight.setPower(power);
+        
     }
 
-    public void Reverse (power) {
+    public void Reverse (double power) {
 
-        leftDrive.setPower(-power);
-        rightDrive.setPower(-power);
-        rightRearDrive.setPower(-power);
-        leftRearDrive.setPower(-power);
-    }
+        motorLeft.setPower(-power);
+        motorRight.setPower(-power);
+        motorRearLeft.setPower(-power);
+        motorRearRight.setPower(-power);
     }
 
     public void AllForwardDistance (double power, int distance){
 
-        motorLeft.setChannelMode(DcMotorController.RunMode.Reset_Encoders);
+        /*motorLeft.setChannelMode(DcMotorController.RunMode.Reset_Encoders);
         motorRight.setChannelMode(DcMotorController.RunMode.Reset_Encoders);
         motorRearLeft.setChannelMode(DcMotorController.RunMode.Reset_Encoders);
-        motorRearRight.setChannelMode(DcMotorController.RunMode.Reset_Encoders);
+        motorRearRight.setChannelMode(DcMotorController.RunMode.Reset_Encoders);*/
 
         motorRight.setTargetPosition(distance);
         motorLeft.setTargetPosition(distance);
         motorRearRight.setTargetPosition(distance);
         motorRearLeft.setTargetPosition(distance);
 
-        AllForward(power)
+        AllForward(power);
 
-        while (motorRearRight.isBusy() && (motorRight.isBusy() && (motorLeft.isBusy() && (motorRearLeft.isBusy(){
+        while (motorRearRight.isBusy() && (motorRight.isBusy() && (motorLeft.isBusy() && (motorRearLeft.isBusy())))){
 
         }
 
-        stopDriving();
+        /*stopDriving();
         motorLeft.setChannelMode(DcMotorController.RunMode.Run_Using_Encoders);
         motorRight.setChannelMode(DcMotorController.RunMode.Run_Using_Encoders);
         motorRearLeft.setChannelMode(DcMotorController.RunMode.Run_Using_Encoders);
-        motorRearRight.setChannelMode(DcMotorController.RunMode.Run_Using_Encoders);
+        motorRearRight.setChannelMode(DcMotorController.RunMode.Run_Using_Encoders);*/
     }
 
     public void RightTurnDistance (double power, int distance){
 
-        motorLeft.setChannelMode(DcMotorController.RunMode.Reset_Encoders);
+        /*motorLeft.setChannelMode(DcMotorController.RunMode.Reset_Encoders);
         motorRight.setChannelMode(DcMotorController.RunMode.Reset_Encoders);
         motorRearLeft.setChannelMode(DcMotorController.RunMode.Reset_Encoders);
-        motorRearRight.setChannelMode(DcMotorController.RunMode.Reset_Encoders);
+        motorRearRight.setChannelMode(DcMotorController.RunMode.Reset_Encoders);*/
 
         motorRight.setTargetPosition(distance);
         motorLeft.setTargetPosition(distance);
@@ -144,23 +146,23 @@ public class BasicOpMode_Iterative extends OpMode
 
         RightTurn(power);
 
-        while (motorRearRight.isBusy() && (motorRight.isBusy() && (motorLeft.isBusy() && (motorRearLeft.isBusy(){
+        while (motorRearRight.isBusy() && (motorRight.isBusy() && (motorLeft.isBusy() && (motorRearLeft.isBusy())))){
 
         }
 
-        stopDriving();
+        /*stopDriving();
         motorLeft.setChannelMode(DcMotorController.RunMode.Run_Using_Encoders);
         motorRight.setChannelMode(DcMotorController.RunMode.Run_Using_Encoders);
         motorRearLeft.setChannelMode(DcMotorController.RunMode.Run_Using_Encoders);
-        motorRearRight.setChannelMode(DcMotorController.RunMode.Run_Using_Encoders);
+        motorRearRight.setChannelMode(DcMotorController.RunMode.Run_Using_Encoders);*/
     }
 
     public void LeftTurnDistance (double power, int distance){
 
-        motorLeft.setChannelMode(DcMotorController.RunMode.Reset_Encoders);
+        /*motorLeft.setChannelMode(DcMotorController.RunMode.Reset_Encoders);
         motorRight.setChannelMode(DcMotorController.RunMode.Reset_Encoders);
         motorRearLeft.setChannelMode(DcMotorController.RunMode.Reset_Encoders);
-        motorRearRight.setChannelMode(DcMotorController.RunMode.Reset_Encoders);
+        motorRearRight.setChannelMode(DcMotorController.RunMode.Reset_Encoders);*/
 
         motorRight.setTargetPosition(distance);
         motorLeft.setTargetPosition(distance);
@@ -169,23 +171,23 @@ public class BasicOpMode_Iterative extends OpMode
 
         LeftTurn(power);
 
-        while (motorRearRight.isBusy() && (motorRight.isBusy() && (motorLeft.isBusy() && (motorRearLeft.isBusy(){
+        while (motorRearRight.isBusy() && (motorRight.isBusy() && (motorLeft.isBusy() && (motorRearLeft.isBusy())))){
 
         }
 
-        stopDriving();
+        /*stopDriving();
         motorLeft.setChannelMode(DcMotorController.RunMode.Run_Using_Encoders);
         motorRight.setChannelMode(DcMotorController.RunMode.Run_Using_Encoders);
         motorRearLeft.setChannelMode(DcMotorController.RunMode.Run_Using_Encoders);
-        motorRearRight.setChannelMode(DcMotorController.RunMode.Run_Using_Encoders);
+        motorRearRight.setChannelMode(DcMotorController.RunMode.Run_Using_Encoders);*/
     }
 
     public void ReverseDistance (double power, int distance){
 
-        motorLeft.setChannelMode(DcMotorController.RunMode.Reset_Encoders);
+        /*motorLeft.setChannelMode(DcMotorController.RunMode.Reset_Encoders);
         motorRight.setChannelMode(DcMotorController.RunMode.Reset_Encoders);
         motorRearLeft.setChannelMode(DcMotorController.RunMode.Reset_Encoders);
-        motorRearRight.setChannelMode(DcMotorController.RunMode.Reset_Encoders);
+        motorRearRight.setChannelMode(DcMotorController.RunMode.Reset_Encoders);*/
 
         motorRight.setTargetPosition(distance);
         motorLeft.setTargetPosition(distance);
@@ -194,23 +196,16 @@ public class BasicOpMode_Iterative extends OpMode
 
         Reverse(power);
 
-        while (motorRearRight.isBusy() && (motorRight.isBusy() && (motorLeft.isBusy() && (motorRearLeft.isBusy(){
+        while (motorRearRight.isBusy() && (motorRight.isBusy() && (motorLeft.isBusy() && motorRearLeft.isBusy()))){
 
         }
 
-        stopDriving();
+        /*stopDriving();
         motorLeft.setChannelMode(DcMotorController.RunMode.Run_Using_Encoders);
         motorRight.setChannelMode(DcMotorController.RunMode.Run_Using_Encoders);
         motorRearLeft.setChannelMode(DcMotorController.RunMode.Run_Using_Encoders);
-        motorRearRight.setChannelMode(DcMotorController.RunMode.Run_Using_Encoders);
+        motorRearRight.setChannelMode(DcMotorController.RunMode.Run_Using_Encoders);*/
     }
-
-    public void stopDriving
-            AllForward(0);
-
-
-
-
 
 
 
