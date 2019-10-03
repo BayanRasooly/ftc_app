@@ -65,6 +65,16 @@ public class Auto_Pathing extends LinearOpMode
         motorRearLeft.setChannelMode(DcMotorController.RunMode.Run_To_Position)
         motorRearRight.setChannelMode(DcMotorController.RunMode.Run_To_Position)
 
+        motorLeft.setChannelMode(DcMotorController.RunMode.Run_To_Position);
+        motorRight.setChannelMode(DcMotorController.RunMode.Run_To_Position);
+        motorRearLeft.setChannelMode(DcMotorController.RunMode.Run_To_Position);
+        motorRearRight.setChannelMode(DcMotorController.RunMode.Run_To_Position);
+
+        motorLeft.setChannelMode(DcMotorController.RunMode.Run_To_Position);
+        motorRight.setChannelMode(DcMotorController.RunMode.Run_To_Position);
+        motorRearLeft.setChannelMode(DcMotorController.RunMode.Run_To_Position);
+        motorRearRight.setChannelMode(DcMotorController.RunMode.Run_To_Position);
+
         motorLeft.setMotorDirection(DcMotor.Direction.REVERSE);
         motorRearLeft.setMotorDirection(DcMotor.Direction.REVERSE);*/
 
