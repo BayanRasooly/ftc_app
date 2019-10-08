@@ -6,11 +6,10 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-    @Autonomous(name="Pushbot: Auto Drive By Encoder", group="Pushbot")
-    @Disabled
+    @Autonomous(name="MotorTest", group="Testing")
+    //@Disabled
     public class MotorTest extends LinearOpMode {
 
-        // Declare OpMode members.
         private ElapsedTime runtime = new ElapsedTime();
         private DcMotor leftDrive = null;
         private DcMotor rightDrive = null;
@@ -44,4 +43,4 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 
         }
-    }  
+    }
