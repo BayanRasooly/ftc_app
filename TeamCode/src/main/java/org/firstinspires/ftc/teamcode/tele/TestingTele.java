@@ -1,8 +1,9 @@
 package org.firstinspires.ftc.teamcode.tele;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
-@TeleOp(name = "Testing", group = "Tests")
+//@TeleOp(name = "Testing", group = "Tests")
 public class TestingTele extends LinearOpMode
 {
 <<<<<<< HEAD
