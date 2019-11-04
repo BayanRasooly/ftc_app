@@ -6,6 +6,10 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 //@TeleOp(name = "Testing", group = "Tests")
 public class TestingTele extends LinearOpMode
 {
+<<<<<<< HEAD
+    public void runOpMode(){
+
+=======
     private DcMotor motorLeft;
     private DcMotor motorRight;
     private DcMotor motorRearLeft;
