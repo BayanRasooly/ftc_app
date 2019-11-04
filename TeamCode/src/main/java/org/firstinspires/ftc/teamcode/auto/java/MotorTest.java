@@ -37,7 +37,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
                 leftDrive.setPower(0);
                 rightDrive.setPower(0);
-                
+
+                break;
             }
         }
     }
