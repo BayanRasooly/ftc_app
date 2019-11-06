@@ -7,7 +7,6 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-
 @TeleOp(name="TeleOp2019", group="Linear Opmode")
 
 public class TeleOp2019 extends LinearOpMode {
