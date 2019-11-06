@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.tele;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -17,7 +18,9 @@ public class TeleOp2019 extends LinearOpMode {
     private DcMotor rearLeftDrive = null;
     private DcMotor rearRightDrive = null;
     private DcMotor armMotor = null;
-    /*private DcMotor sliderMotor = null;*/
+    private Servo grab1 = null;
+    private Servo grab2 = null;
+    private DcMotor sliderMotor = null;
 
     //@Override
     public void runOpMode() {
@@ -32,6 +35,9 @@ public class TeleOp2019 extends LinearOpMode {
         armMotor = hardwareMap.get(DcMotor.class, "armMotor");
         /*sliderMotor = hardwareMap.get(DcMotor.class, "sliderMotor");*/
 
+        grab1 = hardwareMap.get(Servo.class, "grab1");
+        grab2 = hardwareMap.get(Servo.class, "grab2");
+
         leftDrive.setDirection(DcMotor.Direction.FORWARD);
         rightDrive.setDirection(DcMotor.Direction.REVERSE);
         rearLeftDrive.setDirection(DcMotor.Direction.FORWARD);
@@ -40,23 +46,31 @@ public class TeleOp2019 extends LinearOpMode {
         armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        //sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        //sliderMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        sliderMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         waitForStart();
         runtime.reset();
         int clawStage = 0;
 
-
         while (opModeIsActive()) {
 
-            /*if (gamepad2.left_stick_y>0.05 && sliderMotor.getCurrentPosition()>=0){
+            if (gamepad2.left_stick_y>0.05 && sliderMotor.getCurrentPosition()>=0){
                 sliderMotor.setPower(gamepad2.left_stick_y);
             }else if(gamepad2.left_stick_y<-0.05 && sliderMotor.getCurrentPosition()<=2000){
                 sliderMotor.setPower(-gamepad2.left_stick_y);
             }else{
                 sliderMotor.setPower(0);
-            }*/
+            }
+
+            if(gamepad1.a) {
+                grab1.setPosition(0.5);
+                grab2.setPosition(-0.5);
+            }
+            if(gamepad1.b) {
+                grab1.setPosition(0);
+                grab2.setPosition(0);
+            }
 
             if (gamepad2.dpad_up && !armMotor.isBusy() && clawStage<7){
                 clawStage++;
