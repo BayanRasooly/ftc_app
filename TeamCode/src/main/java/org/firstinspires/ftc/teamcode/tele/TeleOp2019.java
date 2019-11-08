@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 @TeleOp(name="TeleOp2019", group="Linear Opmode")
 
 public class TeleOp2019 extends LinearOpMode {
+    //@Override
 
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor leftDrive = null;
@@ -18,22 +19,28 @@ public class TeleOp2019 extends LinearOpMode {
     private DcMotor armMotor = null;
     private DcMotor sliderMotor = null;
 
-    private Servo grab1 = null;
-    private Servo grab2 = null;
-    @Override
+    private Servo leftDropServo = null;
+    private Servo rightDropServo = null;
+
+    private Servo wristServo = null;
+    private Servo grabServo = null;
+
     public void runOpMode() {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
-        leftDrive  = hardwareMap.get(DcMotor.class, "left_drive");
-        rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
-        rearLeftDrive  = hardwareMap.get(DcMotor.class, "rear_left_drive");
-        rearRightDrive = hardwareMap.get(DcMotor.class, "rear_right_drive");
+        leftDrive  = hardwareMap.get(DcMotor.class, "leftDrive");
+        rightDrive = hardwareMap.get(DcMotor.class, "rightDrive");
+        rearLeftDrive  = hardwareMap.get(DcMotor.class, "rearLeftDrive");
+        rearRightDrive = hardwareMap.get(DcMotor.class, "rearRightDrive");
         armMotor = hardwareMap.get(DcMotor.class, "armMotor");
         sliderMotor = hardwareMap.get(DcMotor.class, "sliderMotor");
 
-        grab1 = hardwareMap.get(Servo.class, "grab1");
-        grab2 = hardwareMap.get(Servo.class, "grab2");
+        leftDropServo = hardwareMap.get(Servo.class, "leftDropServo");
+        rightDropServo = hardwareMap.get(Servo.class, "rightDropServo");
+
+        wristServo = hardwareMap.get(Servo.class, "wristServo");
+        grabServo = hardwareMap.get(Servo.class, "grabServo");
 
         leftDrive.setDirection(DcMotor.Direction.FORWARD);
         rightDrive.setDirection(DcMotor.Direction.REVERSE);
@@ -46,11 +53,22 @@ public class TeleOp2019 extends LinearOpMode {
         sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         sliderMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
+        init();
+        grabServo.setPosition(0);
+        wristServo.setPosition(0);
+        leftDropServo.setPosition(0);
+        rightDropServo.setPosition(0);
+
         waitForStart();
         runtime.reset();
         int clawStage = 0;
 
         while (opModeIsActive()) {
+
+            if (gamepad2.dpad_left) {
+                wristServo.setPosition(-1);
+                wristServo.setPosition(1);
+            }
 
             if (gamepad2.left_stick_y>0.05 && sliderMotor.getCurrentPosition()>=0){
                 sliderMotor.setPower(gamepad2.left_stick_y);
@@ -61,12 +79,20 @@ public class TeleOp2019 extends LinearOpMode {
             }
 
             if(gamepad1.a) {
-                grab1.setPosition(0.5);
-                grab2.setPosition(-0.5);
+                leftDropServo.setPosition(0.5);
+                rightDropServo.setPosition(-0.5);
             }
             if(gamepad1.b) {
-                grab1.setPosition(0);
-                grab2.setPosition(0);
+                leftDropServo.setPosition(0);
+                rightDropServo.setPosition(0);
+            }
+
+            if (gamepad2.a) {
+                grabServo.setPosition(1);
+            }
+
+            if (gamepad2.b) {
+                grabServo.setPosition(0);
             }
 
             if (gamepad2.dpad_up && !armMotor.isBusy() && clawStage<7){
