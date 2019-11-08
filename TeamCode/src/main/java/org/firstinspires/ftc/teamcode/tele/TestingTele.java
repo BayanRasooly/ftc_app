@@ -1,15 +1,13 @@
 package org.firstinspires.ftc.teamcode.tele;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-//@TeleOp(name = "Testing", group = "Tests")
+@TeleOp(name = "Testing", group = "Tests")
 public class TestingTele extends LinearOpMode
 {
-<<<<<<< HEAD
-    public void runOpMode(){
 
-=======
     private DcMotor motorLeft;
     private DcMotor motorRight;
     private DcMotor motorRearLeft;
@@ -25,11 +23,12 @@ public class TestingTele extends LinearOpMode
 
         waitForStart();
 
-        while (opModeIsActive())
+        while (opModeIsActive()) {
 
             motorLeft.setPower(1);
             motorRight.setPower(1);
             motorRearLeft.setPower(1);
             motorRearRight.setPower(1);
+        }
     }
 }
