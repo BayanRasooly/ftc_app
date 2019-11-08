@@ -17,10 +17,10 @@ public class TeleOp2019 extends LinearOpMode {
     private DcMotor rearRightDrive = null;
     private DcMotor armMotor = null;
     private DcMotor sliderMotor = null;
-    private Servo leftFunnelServo = null;
-    private Servo rightFunnelServo = null;
 
-    //@Override
+    private Servo grab1 = null;
+    private Servo grab2 = null;
+    @Override
     public void runOpMode() {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -31,8 +31,9 @@ public class TeleOp2019 extends LinearOpMode {
         rearRightDrive = hardwareMap.get(DcMotor.class, "rear_right_drive");
         armMotor = hardwareMap.get(DcMotor.class, "armMotor");
         sliderMotor = hardwareMap.get(DcMotor.class, "sliderMotor");
-        leftFunnelServo = hardwareMap.get(Servo.class, "leftFunnelServo");
-        rightFunnelServo = hardwareMap.get(Servo.class, "leftFunnelServo");
+
+        grab1 = hardwareMap.get(Servo.class, "grab1");
+        grab2 = hardwareMap.get(Servo.class, "grab2");
 
         leftDrive.setDirection(DcMotor.Direction.FORWARD);
         rightDrive.setDirection(DcMotor.Direction.REVERSE);
@@ -49,7 +50,6 @@ public class TeleOp2019 extends LinearOpMode {
         runtime.reset();
         int clawStage = 0;
 
-
         while (opModeIsActive()) {
 
             if (gamepad2.left_stick_y>0.05 && sliderMotor.getCurrentPosition()>=0){
@@ -58,6 +58,15 @@ public class TeleOp2019 extends LinearOpMode {
                 sliderMotor.setPower(-gamepad2.left_stick_y);
             }else{
                 sliderMotor.setPower(0);
+            }
+
+            if(gamepad1.a) {
+                grab1.setPosition(0.5);
+                grab2.setPosition(-0.5);
+            }
+            if(gamepad1.b) {
+                grab1.setPosition(0);
+                grab2.setPosition(0);
             }
 
             if (gamepad2.dpad_up && !armMotor.isBusy() && clawStage<7){
