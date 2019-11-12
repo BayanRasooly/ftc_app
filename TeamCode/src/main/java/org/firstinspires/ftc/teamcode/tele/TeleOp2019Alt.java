@@ -6,9 +6,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name="TeleOp2019", group="Linear Opmode")
+@TeleOp(name="TeleOp2019Alt", group="Linear Opmode")
 
-public class TeleOp2019 extends LinearOpMode {
+public class TeleOp2019Alt extends LinearOpMode {
     //@Override
 
     private ElapsedTime runtime = new ElapsedTime();
@@ -61,21 +61,13 @@ public class TeleOp2019 extends LinearOpMode {
 
         waitForStart();
         runtime.reset();
-        int clawStage = 0;
+        //int clawStage = 0;
 
         while (opModeIsActive()) {
 
-            if (gamepad2.dpad_left) {
+            /*if (gamepad2.dpad_left) {
                 wristServo.setPosition(-1);
                 wristServo.setPosition(1);
-            }
-
-            if (gamepad2.left_stick_y>0.05 && sliderMotor.getCurrentPosition()>=0){
-                sliderMotor.setPower(gamepad2.left_stick_y/4);
-            }else if(gamepad2.left_stick_y<-0.05 && sliderMotor.getCurrentPosition()<=2000){
-                sliderMotor.setPower(-gamepad2.left_stick_y/4);
-            }else{
-                sliderMotor.setPower(0);
             }
 
             if(gamepad1.a) {
@@ -103,7 +95,7 @@ public class TeleOp2019 extends LinearOpMode {
                 clawStage++;
                 int stagePosition = clawStage*60;
                 armMotor.setTargetPosition(stagePosition);
-                armMotor.setPower(.8);
+                armMotor.setPower(.6);
                 armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             }
 
@@ -126,44 +118,35 @@ public class TeleOp2019 extends LinearOpMode {
                     strafeRight();
                 }
 
-            }
+            }*/
+            double magnitude = Math.hypot(gamepad1.left_stick_x, gamepad1.left_stick_y);
+            double robotAngle = Math.atan2(gamepad1.left_stick_y, gamepad1.left_stick_x) - Math.PI / 4;
+            double rightX = gamepad1.right_stick_x;
+            final double fld = magnitude * Math.cos(robotAngle) + rightX;
+            final double frd = magnitude * Math.sin(robotAngle) - rightX;
+            final double bld = magnitude * Math.sin(robotAngle) + rightX;
+            final double brd = magnitude * Math.cos(robotAngle) - rightX;
+            leftDrive.setPower(fld);
+            rightDrive.setPower(frd);
+            rearLeftDrive.setPower(bld);
+            rearRightDrive.setPower(brd);
         }
     }
 
-    public void drive(double turn, double drive){
-        if(Math.abs(turn)>0.05||Math.abs(drive)>0.05) {
-            double left = drive + turn;
-            double right = drive - turn;
 
-            double max = Math.max(Math.abs(left), Math.abs(right));
-            if (max > 1.0) {
-                left /= max;
-                right /= max;
-            }
-
-            leftDrive.setPower(left);
-            rightDrive.setPower(right);
-            rearLeftDrive.setPower(left);
-            rearRightDrive.setPower(right);
-        }else{
-            leftDrive.setPower(0);
-            rightDrive.setPower(0);
-            rearLeftDrive.setPower(0);
-            rearRightDrive.setPower(0);
-        }
     }
 
-    public void strafeLeft(){
+    /*public void strafeLeft(){
         leftDrive.setPower(-1);
         rightDrive.setPower(1);
-        rearLeftDrive.setPower(1);
-        rearRightDrive.setPower(-1);
+        rearLeftDrive.setPower(-1);
+        rearRightDrive.setPower(1);
     }
 
     public void strafeRight(){
         leftDrive.setPower(1);
         rightDrive.setPower(-1);
-        rearLeftDrive.setPower(-1);
-        rearRightDrive.setPower(1);
-    }
-   }
+        rearLeftDrive.setPower(1);
+        rearRightDrive.setPower(-1);
+    }*/
+//.j}

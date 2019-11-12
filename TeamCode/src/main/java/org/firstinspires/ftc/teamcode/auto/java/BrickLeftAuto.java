@@ -33,28 +33,28 @@ public class BrickLeftAuto extends LinearOpMode {
             waitForStart();
             runtime.reset();
 
-            while (opModeIsActive()) {
-                int bricks = 0;
-               forwardDrive(1,1120/2);
-               leftTankTurn(1,(int)(1120*1.25));
-               while(/*filler*/true) {
-                   forwardDrive(1, 1000);/*one block*/
-                   bricks++;
-                   if(/*test test*/true){
-                       break;
-                   }
-
-               }
-               rightTankTurn(1,(int)(1120*1.25));
-               forwardDrive(1,50);
-               /*grab*/
-                rearDrive(1,100);
-                rightTankTurn(1,(int)(1120*1.25));
-                forwardDrive(1, 15000 - (1000 * bricks));
-                rearDrive(1,3000);
-
+            //while (opModeIsActive()) {
+            int bricks = 0;
+            forwardDrive(1,1120/2);
+            leftTankTurn(1,(int)(1120*1.25));
+            while(/*filler*/true) {
+                forwardDrive(1, 1000);/*one block*/
+                bricks++;
+                if(/*test test*/true){
+                    break;
+                }
 
             }
+            rightTankTurn(1,(int)(1120*1.25));
+            forwardDrive(1,50);
+            /*grab*/
+            rearDrive(1,100);
+            rightTankTurn(1,(int)(1120*1.25));
+            forwardDrive(1, 15000 - (1000 * bricks));
+            rearDrive(1,3000);
+
+
+            //}
         }
 
         public void forwardDrive(double power, int distance){
