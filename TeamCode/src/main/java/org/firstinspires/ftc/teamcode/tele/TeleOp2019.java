@@ -66,8 +66,11 @@ public class TeleOp2019 extends LinearOpMode {
         while (opModeIsActive()) {
 
             if (gamepad2.dpad_left) {
-                wristServo.setPosition(-1);
                 wristServo.setPosition(1);
+                wristServo.setPosition(1);
+            }else if(gamepad2.dpad_right){
+                wristServo.setPosition(0);
+                wristServo.setPosition(0);
             }
 
             if (gamepad2.left_stick_y>0.05 && sliderMotor.getCurrentPosition()>=0){
@@ -80,7 +83,7 @@ public class TeleOp2019 extends LinearOpMode {
 
             if(gamepad1.a) {
                 leftDropServo.setPosition(0.5);
-                rightDropServo.setPosition(-0.5);
+                rightDropServo.setPosition(0.5);
             }
             if(gamepad1.b) {
                 leftDropServo.setPosition(0);
