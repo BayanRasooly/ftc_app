@@ -1,12 +1,13 @@
 package org.firstinspires.ftc.teamcode.tele;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @TeleOp(name="AirAndScare", group="Linear Opmode")
-
+@Disabled
 public class AirAndScare extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
@@ -14,8 +15,7 @@ public class AirAndScare extends LinearOpMode {
     private DcMotor rightDrive = null;
     private DcMotor rearLeftDrive = null;
     private DcMotor rearRightDrive = null;
-
-    //@Override
+    @Override
     public void runOpMode() {
         telemetry.addData("Status", "Initialized");
         telemetry.update();

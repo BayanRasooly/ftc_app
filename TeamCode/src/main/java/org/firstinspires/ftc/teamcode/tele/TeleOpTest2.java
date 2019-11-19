@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.tele;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
@@ -19,7 +20,7 @@ import static android.R.transition.move;
 
 //make sure to change!
 //@TeleOp(name="tele2", group="test")
-//@Disabled
+@Disabled
 public class TeleOpTest2 extends LinearOpMode{
     public DcMotor r_motor;
     public DcMotor l_motor;

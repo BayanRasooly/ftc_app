@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.tele;
 
 import android.util.Pair;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.core.Robot;
@@ -13,7 +14,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 
 @TeleOp(name="tele_actual_altDrive", group="Pushbot")
-
+@Disabled
 public class TeleOp_Actual_Alt extends LinearOpMode{
     HardwareMap hwMap = null;
 

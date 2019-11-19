@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.tele;
 
 import android.util.Pair;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -11,7 +12,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 
 @TeleOp(name="tele_actual", group="Pushbot")
-
+@Disabled
 public class TeleOp_Actual extends LinearOpMode{
     HardwareMap hwMap = null;
 

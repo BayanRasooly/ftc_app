@@ -13,6 +13,7 @@ To change range sensor I2C Addresses, go to http://modernroboticsedu.com/mod/les
 Support is available by emailing support@modernroboticsinc.com.
 */
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -21,8 +22,8 @@ import com.qualcomm.robotcore.hardware.I2cDevice;
 import com.qualcomm.robotcore.hardware.I2cDeviceSynch;
 import com.qualcomm.robotcore.hardware.I2cDeviceSynchImpl;
 
-//@TeleOp(name = "Range Sensors", group = "MRI")
-//@Disabled
+@TeleOp(name = "Range Sensors", group = "MRI")
+@Disabled
 public class MRI_Range_Sensors extends OpMode {
 
     byte[] rangeAcache;

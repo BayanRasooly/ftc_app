@@ -34,7 +34,7 @@ public class TeleOp2019Alt extends LinearOpMode {
         rearLeftDrive  = hardwareMap.get(DcMotor.class, "rear_left_drive");
         rearRightDrive = hardwareMap.get(DcMotor.class, "rear_right_drive");
         armMotor = hardwareMap.get(DcMotor.class, "armMotor");
-        sliderMotor = hardwareMap.get(DcMotor.class, "sliderMotor");
+        //sliderMotor = hardwareMap.get(DcMotor.class, "sliderMotor");
 
         leftDropServo = hardwareMap.get(Servo.class, "leftDropServo");
         rightDropServo = hardwareMap.get(Servo.class, "rightDropServo");
@@ -50,8 +50,8 @@ public class TeleOp2019Alt extends LinearOpMode {
         armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        sliderMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //sliderMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         init();
         grabServo.setPosition(0);
