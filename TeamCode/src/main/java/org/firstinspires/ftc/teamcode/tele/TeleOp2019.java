@@ -127,11 +127,13 @@ public class TeleOp2019 extends LinearOpMode {
             if (gamepad2.a) {
                 grabServo.setPosition(1);
                 armPower = 0.7;
+                telemetry.addData("Grab", "Deployed");
             } else if (gamepad2.b) {
                 grabServo.setPosition(0.5);
                 armPower = 0.4;
+                telemetry.addData("Grab", "Retracted");
             }
-
+            telemetry.update();
 
             /*if (gamepad2.dpad_up && !armMotor.isBusy() && clawStage < 7) {
                 clawStage++;
