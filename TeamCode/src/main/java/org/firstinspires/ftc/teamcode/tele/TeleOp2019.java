@@ -17,8 +17,7 @@ public class TeleOp2019 extends LinearOpMode {
     private DcMotor rearLeftDrive = null;
     private DcMotor rearRightDrive = null;
     private DcMotor armMotor = null;
-    private DcMotor armMotor2 = null;
-    //private DcMotor sliderMotor = null;
+    private DcMotor sliderMotor = null;
 
     private Servo leftDropServo = null;
     private Servo rightDropServo = null;
@@ -40,8 +39,7 @@ public class TeleOp2019 extends LinearOpMode {
         rearLeftDrive = hardwareMap.get(DcMotor.class, "rear_left_drive");
         rearRightDrive = hardwareMap.get(DcMotor.class, "rear_right_drive");
         armMotor = hardwareMap.get(DcMotor.class, "armMotor");
-        armMotor2 = hardwareMap.get(DcMotor.class, "armMotor2");
-        //sliderMotor = hardwareMap.get(DcMotor.class, "sliderMotor");
+        sliderMotor = hardwareMap.get(DcMotor.class, "sliderMotor");
 
         leftDropServo = hardwareMap.get(Servo.class, "leftDropServo");
         rightDropServo = hardwareMap.get(Servo.class, "rightDropServo");
@@ -54,15 +52,13 @@ public class TeleOp2019 extends LinearOpMode {
         rearLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         rearRightDrive.setDirection(DcMotor.Direction.REVERSE);
 
+        armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
         armMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        armMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         //armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         //armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        //armMotor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        //armMotor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         //armMotor.setDirection(DcMotor.Direction.REVERSE);
-        //armMotor2.setDirection(DcMotor.Direction.REVERSE);
         //somewhat working maybe possibly
 
         //sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -85,6 +81,7 @@ public class TeleOp2019 extends LinearOpMode {
         waitForStart();
         //runtime.reset();
         int clawStage = 0;
+        double armPower = 0.4;
         telemetry.addData("Whales", "Clouds");
         telemetry.update();
 
@@ -97,22 +94,27 @@ public class TeleOp2019 extends LinearOpMode {
                 wristServo.setPosition(0);
                 wristServo.setPosition(0);
             }
-
-            /*if (gamepad2.left_stick_y > -0.05 && sliderMotor.getCurrentPosition() >= 0) {
-                sliderMotor.setPower(gamepad2.left_stick_y / 2);
-            } else if (gamepad2.left_stick_y < 0.05 && sliderMotor.getCurrentPosition() <= 2000) {
-                sliderMotor.setPower(gamepad2.left_stick_y / 2);
+            telemetry.addData("If Statement", "Reached");
+            telemetry.update();
+            if (gamepad2.right_stick_y < -0.05 /*&& sliderMotor.getCurrentPosition() >= 0*/) {
+                telemetry.addData("If Statement", "Functioning");
+                telemetry.update();
+                sliderMotor.setPower(0.3);
+                telemetry.addData("Slider", "Forward");
+            } else if (gamepad2.right_stick_y > 0.05 /*&& sliderMotor.getCurrentPosition() <= 374*/) {
+                telemetry.addData("Slider", "Back");
+                sliderMotor.setPower(-0.3);
             } else {
                 sliderMotor.setPower(0);
-            }*///slide
-
+            }
+            telemetry.update();
+//hi chris, Ishaan was messing with your code just to spite you. HEHEHEHEHEHEHEHE
             /*if (Math.abs(-gamepad2.left_stick_x) > 0.05) {
-                sliderMotor.setPower(-gamepad2.left_stick_y / 2);
+                sliderMotor.setPower(-0.5);
             } else if (sliderMotor.getCurrentPosition() >= 1997 || sliderMotor.getCurrentPosition() <= 3) {
                 sliderMotor.setPower(0);
             }else {
-                sliderMotor.setPower(0);*///slide
-
+                sliderMotor.setPower(0);*/
 
             if (gamepad1.a) {
                 leftDropServo.setPosition(0.5);
@@ -124,63 +126,59 @@ public class TeleOp2019 extends LinearOpMode {
 
             if (gamepad2.a) {
                 grabServo.setPosition(1);
+                armPower = 0.7;
             } else if (gamepad2.b) {
                 grabServo.setPosition(0.5);
+                armPower = 0.4;
             }
 
 
-            /*if (gamepad2.dpad_up && !armMotor.isBusy() && !armMotor2.isBusy() && clawStage < 7) {
+            /*if (gamepad2.dpad_up && !armMotor.isBusy() && clawStage < 7) {
                 clawStage++;
                 telemetry.addData("Clawstage: ", clawStage);
                 int stagePosition = clawStage * 60;
                 armMotor.setTargetPosition(stagePosition);
-                armMotor2.setTargetPosition(stagePosition);
                 armMotor.setPower(1);
-                armMotor2.setPower(1);
                 armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                armMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 telemetry.update();
-                while (armMotor2.isBusy()) {
-                    telemetry.addData("Encoder Value: ", armMotor2.getCurrentPosition());
-                    telemetry.update();
-                }
-                telemetry.addData("Encoder Value: ", armMotor2.getCurrentPosition());
-                telemetry.update();
+
 
             }
 
-            if (gamepad2.dpad_down && !armMotor.isBusy() && !armMotor2.isBusy() && clawStage > 0) {
+            if (gamepad2.dpad_down && !armMotor.isBusy() && clawStage > 0) {
                 clawStage--;
                 telemetry.addData("Clawstage: ", clawStage);
                 int stagePosition = clawStage * 60;
                 armMotor.setTargetPosition(stagePosition);
-                armMotor2.setTargetPosition(stagePosition);
                 armMotor.setPower(-0.3);
-                armMotor2.setPower(-0.3);
                 armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                armMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 telemetry.update();
-                while (armMotor2.isBusy()) {
-                    telemetry.addData("Encoder Value: ", armMotor2.getCurrentPosition());
-                    telemetry.update();
-                }
-                telemetry.addData("Encoder Value: ", armMotor2.getCurrentPosition());
-                telemetry.update();
-            }
+
             *///"OG" Claw code
 
+
+            /*if (gamepad2.left_stick_y < -0.05 && armMotor.getCurrentPosition() <= 170) {
+                armMotor.setTargetPosition(170);
+                armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                armMotor.setPower(0.6);
+            } else if (gamepad2.left_stick_y > 0.05 && armMotor.getCurrentPosition() >= 0) {
+                armMotor.setTargetPosition(0);
+                armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                armMotor.setPower(0.3);
+            } else {
+                armMotor.setPower(0);
+            }*/
+
+
             telemetry.addData("Left Joystick: ", gamepad2.left_stick_y);
-            if (gamepad2.left_stick_y < -0.05 && armMotor.getCurrentPosition() <= 170) {
-                armMotor.setPower(0.4);
-                armMotor2.setPower(0.4);
+            if (gamepad2.left_stick_y < -0.05 /*&& armMotor.getCurrentPosition() <= 170*/) {
+                armMotor.setPower(armPower);
                 telemetry.addData("Moving", "Up");
-            } else if (gamepad2.left_stick_y >0.05 && armMotor.getCurrentPosition() >= 0){
+            } else if (gamepad2.left_stick_y > 0.05 /*&& armMotor.getCurrentPosition() >= 0*/) {
                 armMotor.setPower(-0.1);
-                armMotor2.setPower(-0.1);
                 telemetry.addData("Moving", "Down");
             } else {
                 armMotor.setPower(0.01);
-                armMotor2.setPower(0.01);
                 telemetry.addData("Moving", "Static");
             }
             telemetry.update();
@@ -198,6 +196,7 @@ public class TeleOp2019 extends LinearOpMode {
             }
         }
     }
+
 
     public void drive(double turn, double drive){
         if(Math.abs(turn)>0.05||Math.abs(drive)>0.05) {
