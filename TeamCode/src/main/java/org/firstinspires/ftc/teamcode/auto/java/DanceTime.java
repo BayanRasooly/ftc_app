@@ -13,6 +13,8 @@ private DcMotor leftDrive = null;
 private DcMotor rightDrive = null;
 private DcMotor rearLeftDrive = null;
 private DcMotor rearRightDrive = null;
+private DcMotor sliderMotor = null;
+private DcMotor armMotor = null;
 
 //@Override
 public void runOpMode() {
@@ -23,8 +25,11 @@ public void runOpMode() {
         rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
         rearLeftDrive  = hardwareMap.get(DcMotor.class, "rear_left_drive");
         rearRightDrive = hardwareMap.get(DcMotor.class, "rear_right_drive");
+        armMotor = hardwareMap.get(DcMotor.class, "armMotor");
+        sliderMotor = hardwareMap.get(DcMotor.class, "sliderMotor");
 
-        leftDrive.setDirection(DcMotor.Direction.FORWARD);
+
+    leftDrive.setDirection(DcMotor.Direction.FORWARD);
         rightDrive.setDirection(DcMotor.Direction.REVERSE);
         rearLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         rearRightDrive.setDirection(DcMotor.Direction.REVERSE);
@@ -32,9 +37,13 @@ public void runOpMode() {
         waitForStart();
         runtime.reset();
 
-        leShake(1, 10, 10);
-        
-        }
+        leShake(1, 100, 10);
+        leArmOcillations(.8,100);
+        leftTwirl(1, 2240);
+        leShake(1, 100, 10);
+        rightTwirl(1, 2240);
+        leShake(0.5, 500, 4);
+}
 
 public void forwardDrive(double power, int distance){
         driveEncoder(distance,"f");
@@ -91,6 +100,8 @@ public void rearDrive(double power, int distance){
 
     public void strafeLeft(double power, int distance){
     driveEncoder(distance, "sl");
+    resetEncoders();
+    runToPosition();
     leftDrive.setPower(power);
     rightDrive.setPower(power);
     rearLeftDrive.setPower(power);
@@ -102,6 +113,8 @@ public void rearDrive(double power, int distance){
 
     public void strafeRight(double power, int distance){
     driveEncoder(distance, "sr");
+    resetEncoders();
+    runToPosition();
     leftDrive.setPower(power);
     rightDrive.setPower(power);
     rearLeftDrive.setPower(power);
@@ -166,7 +179,12 @@ public void leShake(double power, int delay, int shakeCount){
     shakeCount--;
 }
 
-
+public void leArmOcillations(double armPower, int armDelay){
+    armMotor.setPower(armPower);
+    sleep(armDelay);
+    armMotor.setPower(-armPower/4);
+    sleep(armDelay);
+}
 
 }
 

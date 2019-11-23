@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode.auto.java;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name="BrickRightAuto", group="Linear Opmode")
+@Disabled
 public class BrickRightAuto extends LinearOpMode {
 
         private ElapsedTime runtime = new ElapsedTime();

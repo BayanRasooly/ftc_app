@@ -18,6 +18,8 @@ public class TeleOp2019 extends LinearOpMode {
     private DcMotor rearRightDrive = null;
     private DcMotor armMotor = null;
     private DcMotor sliderMotor = null;
+    private Servo grab1 = null;
+    private Servo grab2 = null;
 
     private Servo leftDropServo = null;
     private Servo rightDropServo = null;
@@ -40,6 +42,8 @@ public class TeleOp2019 extends LinearOpMode {
         rearRightDrive = hardwareMap.get(DcMotor.class, "rear_right_drive");
         armMotor = hardwareMap.get(DcMotor.class, "armMotor");
         sliderMotor = hardwareMap.get(DcMotor.class, "sliderMotor");
+        grab1 = hardwareMap.get(Servo.class, "grab1");
+        grab2 = hardwareMap.get(Servo.class, "grab2");
 
         leftDropServo = hardwareMap.get(Servo.class, "leftDropServo");
         rightDropServo = hardwareMap.get(Servo.class, "rightDropServo");
@@ -63,7 +67,7 @@ public class TeleOp2019 extends LinearOpMode {
 
         //sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         //sliderMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
+//hi
         /*init();
         grabServo.setPosition(0.5);
         wristServo.setPosition(0.5);
@@ -80,7 +84,7 @@ public class TeleOp2019 extends LinearOpMode {
 
         waitForStart();
         //runtime.reset();
-        int clawStage = 0;
+        //int clawStage = 0;
         double armPower = 0.4;
         telemetry.addData("Whales", "Clouds");
         telemetry.update();
@@ -88,11 +92,9 @@ public class TeleOp2019 extends LinearOpMode {
         while (opModeIsActive()) {
 
             if (gamepad2.dpad_left) {
-                wristServo.setPosition(0.5);
-                wristServo.setPosition(0.5);
+                wristServo.setPosition(0.8);
             } else if (gamepad2.dpad_right) {
-                wristServo.setPosition(0);
-                wristServo.setPosition(0);
+                wristServo.setPosition(0.2);
             }
             telemetry.addData("If Statement", "Reached");
             telemetry.update();
@@ -108,29 +110,22 @@ public class TeleOp2019 extends LinearOpMode {
                 sliderMotor.setPower(0);
             }
             telemetry.update();
-//hi chris, Ishaan was messing with your code just to spite you. HEHEHEHEHEHEHEHE
-            /*if (Math.abs(-gamepad2.left_stick_x) > 0.05) {
-                sliderMotor.setPower(-0.5);
-            } else if (sliderMotor.getCurrentPosition() >= 1997 || sliderMotor.getCurrentPosition() <= 3) {
-                sliderMotor.setPower(0);
-            }else {
-                sliderMotor.setPower(0);*/
 
             if (gamepad1.a) {
-                leftDropServo.setPosition(0.5);
-                rightDropServo.setPosition(0.5);
-            } else if (gamepad1.b) {
-                leftDropServo.setPosition(1);
-                rightDropServo.setPosition(0);
+                grab1.setPosition(0.5);
+                grab2.setPosition(0.5);
+            }else if (gamepad1.b) {
+                grab1.setPosition(1);
+                grab2.setPosition(1);
             }
 
             if (gamepad2.a) {
                 grabServo.setPosition(1);
-                armPower = 0.7;
+                armPower = 0.3;
                 telemetry.addData("Grab", "Deployed");
             } else if (gamepad2.b) {
-                grabServo.setPosition(0.5);
-                armPower = 0.4;
+                grabServo.setPosition(0.1);
+                armPower = 0.1;
                 telemetry.addData("Grab", "Retracted");
             }
             telemetry.update();
@@ -173,14 +168,14 @@ public class TeleOp2019 extends LinearOpMode {
 
 
             telemetry.addData("Left Joystick: ", gamepad2.left_stick_y);
-            if (gamepad2.left_stick_y < -0.05 /*&& armMotor.getCurrentPosition() <= 170*/) {
-                armMotor.setPower(armPower);
+            if (gamepad2.left_stick_y < -0.05) {
+                armMotor.setPower(-gamepad2.left_stick_y/3 + armPower);
                 telemetry.addData("Moving", "Up");
-            } else if (gamepad2.left_stick_y > 0.05 /*&& armMotor.getCurrentPosition() >= 0*/) {
-                armMotor.setPower(-0.1);
+            } else if (gamepad2.left_stick_y > 0.05) {
+                armMotor.setPower(-gamepad2.left_stick_y/10);
                 telemetry.addData("Moving", "Down");
             } else {
-                armMotor.setPower(0.01);
+                armMotor.setPower(0.1);
                 telemetry.addData("Moving", "Static");
             }
             telemetry.update();
@@ -196,6 +191,12 @@ public class TeleOp2019 extends LinearOpMode {
                     strafeRight();
                 }
             }
+            if (gamepad1.left_trigger>0.1){
+                strafeLeftSlowly();
+            }else if (gamepad1.right_trigger>0.1){
+                strafeRightSlowly();
+            }
+
         }
     }
 
@@ -235,5 +236,19 @@ public class TeleOp2019 extends LinearOpMode {
         rightDrive.setPower(-1);
         rearLeftDrive.setPower(1);
         rearRightDrive.setPower(1);
+    }
+
+    public void strafeLeftSlowly(){
+        leftDrive.setPower(0.7);
+        rightDrive.setPower(0.7);
+        rearLeftDrive.setPower(-0.7);
+        rearRightDrive.setPower(-0.7);
+    }
+
+    public void strafeRightSlowly(){
+        leftDrive.setPower(-0.7);
+        rightDrive.setPower(-0.7);
+        rearLeftDrive.setPower(0.7);
+        rearRightDrive.setPower(0.7);
     }
 }

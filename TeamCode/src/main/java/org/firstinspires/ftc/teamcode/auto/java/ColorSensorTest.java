@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.auto.java;
 
 import android.graphics.Color;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -9,6 +10,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 
     @Autonomous(name = "ColorSensor")
+    @Disabled
     public class ColorSensorTest extends LinearOpMode {
 
 
