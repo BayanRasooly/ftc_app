@@ -23,6 +23,7 @@ public class autoFoundationSimpleRed extends LinearOpMode {
 
 
     public void strafeLeft(double power, int distance){
+        double startTime = runtime.seconds();
         driveEncoder(distance, "sl");
         resetEncoders();
         runToPosition();
@@ -32,10 +33,14 @@ public class autoFoundationSimpleRed extends LinearOpMode {
         rearRightDrive.setPower(power);
         while (leftDrive.isBusy() || rightDrive.isBusy()) {
             sleep(1);
+            if (startTime>10){
+                return;
+            }
         }
     }
 
     public void strafeRight(double power, int distance){
+        double startTime = runtime.seconds();
         driveEncoder(distance, "sr");
         resetEncoders();
         runToPosition();
@@ -45,9 +50,13 @@ public class autoFoundationSimpleRed extends LinearOpMode {
         rearRightDrive.setPower(power);
         while (leftDrive.isBusy() || rightDrive.isBusy()) {
             sleep(1);
+            if (startTime>10){
+                return;
+            }
         }
     }
     public void forwardDrive(double power, int distance){
+        double startTime = runtime.seconds();
         driveEncoder(distance,"f");
         resetEncoders();
         runToPosition();
@@ -55,12 +64,17 @@ public class autoFoundationSimpleRed extends LinearOpMode {
         rightDrive.setPower(power);
         rearLeftDrive.setPower(power);
         rearRightDrive.setPower(power);
-        while (leftDrive.isBusy() || rightDrive.isBusy())
+        while (leftDrive.isBusy() || rightDrive.isBusy()){
             sleep(1);
+            if (startTime>10) {
+                return;
+            }
+        }
     }
 
 
     public void rightTankTurn (double power, int distance){
+        double startTime = runtime.seconds();
         driveEncoder(distance,"r");
         resetEncoders();
         runToPosition();
@@ -70,10 +84,14 @@ public class autoFoundationSimpleRed extends LinearOpMode {
         rearRightDrive.setPower(-power);
         while (leftDrive.isBusy() || rightDrive.isBusy()){
             sleep(1);
+            if (startTime>10){
+                return;
+            }
         }
     }
 
     public void leftTankTurn(double power, int distance){
+        double startTime = runtime.seconds();
         driveEncoder(distance,"l");
         resetEncoders();
         runToPosition();
@@ -83,10 +101,14 @@ public class autoFoundationSimpleRed extends LinearOpMode {
         rearRightDrive.setPower(power);
         while (leftDrive.isBusy() || rightDrive.isBusy()){
             sleep(1);
+            if (startTime>10){
+                return;
+            }
         }
     }
 
     public void rearDrive(double power, int distance){
+        double startTime = runtime.seconds();
         driveEncoder(distance,"b");
         resetEncoders();
         runToPosition();
@@ -96,18 +118,26 @@ public class autoFoundationSimpleRed extends LinearOpMode {
         rearRightDrive.setPower(-power);
         while (leftDrive.isBusy() || rightDrive.isBusy()){
             sleep(1);
+            if (startTime>10){
+                return;
+            }
         }
     }
 
     public void armUp(double power, int distance){
+        double startTime = runtime.seconds();
         driveEncoder(distance,"a");
         armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         armMotor.setPower(power);
         while (leftDrive.isBusy() || rightDrive.isBusy()){
             sleep(1);
+            if (startTime>10){
+                return;
+            }
         }
     }
+
 
     public void driveEncoder(int distance, String direction){
         if(direction.equals("f")) {
@@ -192,14 +222,14 @@ public class autoFoundationSimpleRed extends LinearOpMode {
         waitForStart();
 
         runtime.reset();
-        armUp(0.5,-100);
         wristServo.setPosition(1);
         grab1.setPosition(1);
         grab2.setPosition(0);
         resetEncoders();
         rearDrive(1,(int)(10.0/3*920));
+        armUp(0.5,-100);
         sleep(100);
-        strafeLeft(1,1120);
+        strafeLeft(1,1190);
         sleep(100);
         rearDrive(1,350);
         grab1.setPosition(0.5);
@@ -207,11 +237,11 @@ public class autoFoundationSimpleRed extends LinearOpMode {
         sleep(150);
         forwardDrive(1,(int)(10.0/3*1000));
         sleep(100);
-        rightTankTurn(1, 500);
+        rightTankTurn(1, 900);
         sleep(100);
         grab1.setPosition(1);
         grab2.setPosition(0);
         strafeRight(1,3*1600);
-        leftTankTurn(1, 500);
+        leftTankTurn(1, 700);
     }
 }

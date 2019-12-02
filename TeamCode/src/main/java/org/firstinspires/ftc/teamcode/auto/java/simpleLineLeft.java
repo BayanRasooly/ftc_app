@@ -7,8 +7,8 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name="simpleLineAuto")
-public class simpleLineAuto extends LinearOpMode {
+@Autonomous(name="simpleLineLeft")
+public class simpleLineLeft extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor leftDrive = null;
     private DcMotor rightDrive = null;
@@ -23,6 +23,7 @@ public class simpleLineAuto extends LinearOpMode {
 
 
     public void strafeLeft(double power, int distance){
+        double startTime = runtime.seconds();
         driveEncoder(distance, "sl");
         resetEncoders();
         runToPosition();
@@ -32,10 +33,14 @@ public class simpleLineAuto extends LinearOpMode {
         rearRightDrive.setPower(power);
         while (leftDrive.isBusy() || rightDrive.isBusy()) {
             sleep(1);
+            if (startTime>10){
+                return;
+            }
         }
     }
 
     public void strafeRight(double power, int distance){
+        double startTime = runtime.seconds();
         driveEncoder(distance, "sr");
         resetEncoders();
         runToPosition();
@@ -45,9 +50,13 @@ public class simpleLineAuto extends LinearOpMode {
         rearRightDrive.setPower(power);
         while (leftDrive.isBusy() || rightDrive.isBusy()) {
             sleep(1);
+            if (startTime>10){
+                return;
+            }
         }
     }
     public void forwardDrive(double power, int distance){
+        double startTime = runtime.seconds();
         driveEncoder(distance,"f");
         resetEncoders();
         runToPosition();
@@ -55,12 +64,17 @@ public class simpleLineAuto extends LinearOpMode {
         rightDrive.setPower(power);
         rearLeftDrive.setPower(power);
         rearRightDrive.setPower(power);
-        while (leftDrive.isBusy() || rightDrive.isBusy())
+        while (leftDrive.isBusy() || rightDrive.isBusy()){
             sleep(1);
+            if (startTime>10) {
+                return;
+            }
+        }
     }
 
 
     public void rightTankTurn (double power, int distance){
+        double startTime = runtime.seconds();
         driveEncoder(distance,"r");
         resetEncoders();
         runToPosition();
@@ -70,10 +84,14 @@ public class simpleLineAuto extends LinearOpMode {
         rearRightDrive.setPower(-power);
         while (leftDrive.isBusy() || rightDrive.isBusy()){
             sleep(1);
+            if (startTime>10){
+                return;
+            }
         }
     }
 
     public void leftTankTurn(double power, int distance){
+        double startTime = runtime.seconds();
         driveEncoder(distance,"l");
         resetEncoders();
         runToPosition();
@@ -83,10 +101,14 @@ public class simpleLineAuto extends LinearOpMode {
         rearRightDrive.setPower(power);
         while (leftDrive.isBusy() || rightDrive.isBusy()){
             sleep(1);
+            if (startTime>10){
+                return;
+            }
         }
     }
 
     public void rearDrive(double power, int distance){
+        double startTime = runtime.seconds();
         driveEncoder(distance,"b");
         resetEncoders();
         runToPosition();
@@ -96,16 +118,23 @@ public class simpleLineAuto extends LinearOpMode {
         rearRightDrive.setPower(-power);
         while (leftDrive.isBusy() || rightDrive.isBusy()){
             sleep(1);
+            if (startTime>10){
+                return;
+            }
         }
     }
 
     public void armUp(double power, int distance){
+        double startTime = runtime.seconds();
         driveEncoder(distance,"a");
         armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         armMotor.setPower(power);
         while (leftDrive.isBusy() || rightDrive.isBusy()){
             sleep(1);
+            if (startTime>10){
+                return;
+            }
         }
     }
 
@@ -192,9 +221,7 @@ public class simpleLineAuto extends LinearOpMode {
         waitForStart();
 
         runtime.reset();
-        armUp(0.5, -100);
         strafeLeft(1,3*1350);
+        armUp(0.5, -100);
     }
 }
-
-//type type type type type type type type type type type type type type type type type type type type type type type type type type type type
